@@ -6,19 +6,35 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.6.2
+  sdk: 3.9.2
+  flutter: "3.35.5"
 
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
+  riverpod: ^3.0.1
+  hooks_riverpod: ^3.0.0
+  flutter_hooks: ^0.21.3+1
+  riverpod_annotation: ^3.0.0
+  flutter_map: ^8.2.2
+  auto_route: ^10.1.2
+  freezed: ^3.2.3
+  freezed_annotation: ^3.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^5.0.0
+  build_runner: ^2.7.1
+  custom_lint: ^0.8.0
+  riverpod_generator: ^3.0.0
+  riverpod_lint: ^3.0.0
+  auto_route_generator: ^10.2.4
+  solvro_config: ^1.1.0
 
 flutter:
   uses-material-design: true
+
+lint_staged:
+  "lib/**.dart": dart format && dart fix --apply
