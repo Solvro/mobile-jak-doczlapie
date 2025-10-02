@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:jak_doczlapie/common/widgets/app_bar.dart';
-import 'package:jak_doczlapie/features/home/data/stop.dart';
+import "package:flutter/material.dart";
+import "../../../common/widgets/app_bar.dart";
+import "../../home/data/stop.dart";
 
 class StopDetailsView extends StatelessWidget {
   const StopDetailsView({super.key, required this.stop});

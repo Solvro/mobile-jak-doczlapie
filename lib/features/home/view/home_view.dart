@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:jak_doczlapie/app/router.dart';
-import 'package:jak_doczlapie/common/widgets/app_bar.dart';
-import 'package:jak_doczlapie/features/home/data/stop.dart';
+import "package:flutter/material.dart";
+import "../../../app/router.dart";
+import "../../../common/widgets/app_bar.dart";
+import "../data/stop.dart";
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.stops});
@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(title: "Linie"),
+      appBar: const CommonAppBar(title: "Linie"),
       body: ListView.builder(
         itemCount: stops.length,
         itemBuilder: (context, index) => ListTile(

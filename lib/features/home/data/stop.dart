@@ -1,6 +1,6 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import "package:freezed_annotation/freezed_annotation.dart";
 
-part 'stop.freezed.dart';
+part "stop.freezed.dart";
 
 @freezed
 abstract class Stop with _$Stop {
