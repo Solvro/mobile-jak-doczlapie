@@ -11,7 +11,10 @@ class AppTheme implements AppThemeData {
   ThemeData get dark => ThemeData();
 
   @override
-  ThemeData get light => ThemeData();
+  ThemeData get light => ThemeData(inputDecorationTheme: _inputDecorationThemeData);
+
+  InputDecorationThemeData get _inputDecorationThemeData =>
+      const InputDecorationThemeData(border: OutlineInputBorder());
 }
 
 extension AppThemeX on BuildContext {

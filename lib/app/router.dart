@@ -1,6 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
+import "../features/report_schedule/report_schedule_page.dart";
 import "../features/stop_details/hooks/use_sorted_departures.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
@@ -18,5 +19,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: StopsRoute.page, initial: true),
     AutoRoute(page: StopDetailsRoute.page),
     AutoRoute(page: TripRoute.page),
+    AutoRoute(page: ReportScheduleRoute.page),
   ];
 }
