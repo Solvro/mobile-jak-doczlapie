@@ -1,8 +1,10 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
+import "../features/stop_details/hooks/use_sorted_departures.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
+import "../features/trip/trip_page.dart";
 
 part "router.gr.dart";
 
@@ -15,5 +17,6 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
     AutoRoute(page: StopsRoute.page, initial: true),
     AutoRoute(page: StopDetailsRoute.page),
+    AutoRoute(page: TripRoute.page),
   ];
 }

@@ -5,3 +5,4 @@ rules:
     - always
     - - deps
       - stops
+      - trip

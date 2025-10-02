@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
 
-import "../data/line.dart";
-
 class LineChip extends StatelessWidget {
-  const LineChip({super.key, required this.line});
+  const LineChip({super.key, required this.lineNumber});
 
-  final Line line;
+  final String lineNumber;
 
   @override
   Widget build(BuildContext context) {
-    return Chip(label: Text(line.number));
+    return Chip(label: Text(lineNumber));
   }
 }

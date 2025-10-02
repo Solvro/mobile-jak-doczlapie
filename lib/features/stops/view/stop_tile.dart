@@ -13,7 +13,7 @@ class StopTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(stop.name),
-      trailing: Wrap(children: stop.lines.map((line) => LineChip(line: line)).toList()),
+      trailing: Wrap(children: stop.lines.map((line) => LineChip(lineNumber: line.number)).toList()),
       onTap: () => context.router.push(StopDetailsRoute(id: stop.id)),
     );
   }
