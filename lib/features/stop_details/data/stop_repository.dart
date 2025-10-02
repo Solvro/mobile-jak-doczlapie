@@ -1,7 +1,7 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-import "../../home/data/stop.dart";
-import "../../home/data/stops_repository.dart";
+import "../../stops/data/stop.dart";
+import "../../stops/data/stops_repository.dart";
 
 part "stop_repository.g.dart";
 

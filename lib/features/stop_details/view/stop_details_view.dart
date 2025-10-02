@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "../../../common/widgets/app_bar.dart";
-import "../../home/data/stop.dart";
+import "../../stops/data/stop.dart";
 
 class StopDetailsView extends StatelessWidget {
   const StopDetailsView({super.key, required this.stop});

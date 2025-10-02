@@ -4,4 +4,4 @@ rules:
     - 2
     - always
     - - deps
-      - example-scope-2
+      - stops
