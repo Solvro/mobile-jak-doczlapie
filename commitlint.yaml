@@ -3,5 +3,5 @@ rules:
   scope-enum: # define your own scopes here
     - 2
     - always
-    - - example-scope-1
+    - - deps
       - example-scope-2
