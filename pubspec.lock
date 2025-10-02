@@ -908,10 +908,10 @@ packages:
     dependency: "direct dev"
     description:
       name: solvro_config
-      sha256: df55f27f56b124926e4629f7c6d9b6921224205318f4eed6be3aeeba8c5e8bdb
+      sha256: "74e290715779670598129e87adb187101884b09a7423c71b3d0806631ae016a7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   source_gen:
     dependency: transitive
     description:
