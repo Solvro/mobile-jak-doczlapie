@@ -19,7 +19,7 @@ WORKDIR /app
 COPY . .
 
 RUN dart run build_runner build -d 
-RUN flutter build web --release -t lib/main.web.dart --wasm
+RUN flutter build web --release -t lib/main.web.dart
 
 
 FROM nginx:alpine AS nginx
