@@ -1,3 +1,4 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
@@ -18,6 +19,11 @@ class ClippedBottomNavBar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
     final bottomNavController = ref.read(bottomNavControllerProvider.notifier);
+    final router = AutoTabsRouter.of(context);
+    void setCurrentIndex(int index) {
+      bottomNavController.setCurrentIndex(index);
+      router.setActiveIndex(index);
+    }
 
     return Hero(
       tag: "bottom_nav_bar",
@@ -46,7 +52,7 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                       ),
                       label: "Trasy",
                       isActive: currentIndex == 0,
-                      onTap: () => bottomNavController.setCurrentIndex(0),
+                      onTap: () => setCurrentIndex(0),
                     ),
                     BeanButton(
                       icon: SvgPicture.asset(
@@ -57,7 +63,7 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                       ),
                       label: "Przystanki",
                       isActive: currentIndex == 1,
-                      onTap: () => bottomNavController.setCurrentIndex(1),
+                      onTap: () => setCurrentIndex(1),
                     ),
                     const Spacer(),
                     SizedBox(width: 56, child: extraBeanButton ?? const SizedBox.shrink()),

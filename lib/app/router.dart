@@ -1,6 +1,10 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
+import "../features/main_navigation/main_navigation_page.dart";
+import "../features/main_navigation/routes_tab/routes_tab_page.dart";
+import "../features/main_navigation/routes_tab/routes_test_page.dart";
+import "../features/main_navigation/stops_tab/stops_tab_page.dart";
 import "../features/report_schedule/report_schedule_page.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
@@ -16,10 +20,29 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: StopsRoute.page, initial: true),
-    AutoRoute(page: StopDetailsRoute.page),
-    AutoRoute(page: TripRoute.page),
+    AutoRoute(
+      page: MainNavigationRoute.page,
+      initial: true,
+      children: [
+        AutoRoute(
+          page: RoutesTabRoute.page,
+          children: [
+            AutoRoute(page: RoutesHomeRoute.page, initial: true),
+            AutoRoute(page: RoutesTestRoute.page),
+          ],
+        ),
+        AutoRoute(
+          page: StopsTabRoute.page,
+          children: [
+            AutoRoute(page: StopsHomeRoute.page, initial: true),
+            AutoRoute(page: StopsMapRoute.page),
+            AutoRoute(page: StopDetailsRoute.page),
+            AutoRoute(page: TripRoute.page),
+          ],
+          initial: true,
+        ),
+      ],
+    ),
     AutoRoute(page: ReportScheduleRoute.page),
-    AutoRoute(page: StopsMapRoute.page),
   ];
 }
