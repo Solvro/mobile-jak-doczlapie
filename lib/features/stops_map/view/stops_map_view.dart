@@ -10,15 +10,15 @@ import "package:latlong2/latlong.dart";
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
-import "../../bottom_nav/view/bean_button.dart";
-import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
+import "../../bottom_nav/view/bean_button.dart";
+import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../data/stop.dart";
 import "../hooks/use_next_stop_navigation.dart";
-import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "stops_layer.dart";
 
 class StopsMapView extends HookWidget {

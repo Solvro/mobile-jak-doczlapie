@@ -3,10 +3,10 @@ import "package:flutter_svg/svg.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../../app/tokens.dart";
-import "../domain/bottom_nav_controller.dart";
-import "../../../gen/assets.gen.dart";
-import "bean_button.dart";
 import "../../../common/widgets/app_bars/curved_top_clipper.dart";
+import "../../../gen/assets.gen.dart";
+import "../domain/bottom_nav_controller.dart";
+import "bean_button.dart";
 import "map_list_switch.dart";
 
 class ClippedBottomNavBar extends HookConsumerWidget {
