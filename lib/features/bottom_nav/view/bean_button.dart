@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-import "../../app/theme.dart";
-import "../../app/tokens.dart";
+import "../../../app/theme.dart";
+import "../../../app/tokens.dart";
 
 class BeanButton extends StatelessWidget {
   const BeanButton({required this.icon, this.label, this.isActive = false, required this.onTap});

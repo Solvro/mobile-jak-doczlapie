@@ -31,6 +31,7 @@ class MyInput extends HookWidget {
     this.color,
     this.onSuffixIconPressed,
     this.variant = MyInputVariant.defaultVariant,
+    this.isReadonly = false,
   });
   final TextEditingController controller;
   final String hintText;
@@ -40,6 +41,7 @@ class MyInput extends HookWidget {
   final FocusNode? focusNode;
   final Color? color;
   final MyInputVariant variant;
+  final bool isReadonly;
   @override
   Widget build(BuildContext context) {
     final hasText = useHasText(controller);
@@ -56,11 +58,13 @@ class MyInput extends HookWidget {
           hasText.value = value.isNotEmpty;
           onChanged?.call(value);
         },
+        readOnly: isReadonly,
         onSubmitted: onSubmitted,
         textAlignVertical: TextAlignVertical.center,
+        style: TextStyle(color: isReadonly ? Colors.white : null),
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white.withValues(alpha: 0.9),
+          fillColor: isReadonly ? blueColorNew : Colors.white.withValues(alpha: 0.9),
           hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(r18), borderSide: BorderSide.none),
           contentPadding: const EdgeInsets.symmetric(horizontal: p16),
@@ -68,6 +72,7 @@ class MyInput extends HookWidget {
             dimension: p16,
             child: Center(child: DotIndicator(variant: DotIndicatorVariant.red)),
           ),
+
           suffixIcon: variant == MyInputVariant.dense
               ? null
               : hasText.value

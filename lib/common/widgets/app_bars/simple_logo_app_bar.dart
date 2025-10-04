@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
-import "../../app/tokens.dart";
-import "../../gen/assets.gen.dart";
+import "../../../app/tokens.dart";
+import "../../../gen/assets.gen.dart";
 
 class SimpleLogoAppBar extends AppBar {
   SimpleLogoAppBar({super.key})

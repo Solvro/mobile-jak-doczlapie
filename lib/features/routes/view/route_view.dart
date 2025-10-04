@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 
 import "../../../app/tokens.dart";
-import "../../../common/widgets/app_bar.dart";
-import "../../../common/widgets/bottom_nav_bar.dart";
+import "../../../common/widgets/cards/app_bar.dart";
+import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../../../common/widgets/gradient_scaffold.dart";
 
 class RouteView extends StatelessWidget {

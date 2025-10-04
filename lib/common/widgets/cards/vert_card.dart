@@ -29,7 +29,6 @@ class VertCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const blueColor = Color(0xFF3054E1);
     return Padding(
       padding: EdgeInsets.only(top: isActive ? 0 : heightActive - height),
       child: Material(
@@ -43,7 +42,7 @@ class VertCard extends StatelessWidget {
             width: 167,
             height: isActive ? heightActive : height,
             decoration: BoxDecoration(
-              color: isActive ? blueColor : const Color(0xFF252328),
+              color: isActive ? blueColorNew : const Color(0xFF252328),
               borderRadius: BorderRadius.circular(r31),
             ),
             child: Padding(
@@ -55,7 +54,7 @@ class VertCard extends StatelessWidget {
                     height: 62,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: isActive ? Colors.white : blueColor,
+                      color: isActive ? Colors.white : blueColorNew,
                       borderRadius: const BorderRadius.all(Radius.circular(r25)),
                     ),
                     child: Center(child: topChild),
@@ -65,7 +64,10 @@ class VertCard extends StatelessWidget {
                   Row(
                     children: [
                       DecoratedBox(
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: isActive ? Colors.white : blueColor),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isActive ? Colors.white : blueColorNew,
+                        ),
                         child: Padding(padding: const EdgeInsets.all(p8), child: bottomIcon),
                       ),
                       const Spacer(),

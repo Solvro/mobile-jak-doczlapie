@@ -7,7 +7,7 @@ import "../../app/router.dart" show StopsMapRoute;
 import "../../app/tokens.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 
-import "../../common/widgets/simple_logo_app_bar.dart";
+import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
 import "../bottom_nav/domain/bottom_nav_controller.dart";
 import "../routes/view/route_view.dart";
 import "view/animated_double_circle.dart";

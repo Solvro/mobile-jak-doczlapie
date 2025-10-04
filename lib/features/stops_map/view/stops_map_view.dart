@@ -10,15 +10,15 @@ import "package:latlong2/latlong.dart";
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
-import "../../../common/widgets/bean_button.dart";
-import "../../../common/widgets/bottom_nav_bar.dart";
+import "../../bottom_nav/view/bean_button.dart";
+import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../data/stop.dart";
 import "../hooks/use_next_stop_navigation.dart";
-import "map_app_bar.dart";
+import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "stops_layer.dart";
 
 class StopsMapView extends HookWidget {
@@ -178,7 +178,7 @@ class StopsBottomList extends StatelessWidget {
           ),
         ),
         bottomIcon: SvgPicture.asset(
-          Assets.icons.busIcon,
+          Assets.icons.busStopIcon,
           height: p20,
           colorFilter: isActive
               ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)

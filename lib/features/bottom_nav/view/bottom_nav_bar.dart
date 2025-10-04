@@ -2,11 +2,11 @@ import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
-import "../../app/tokens.dart";
-import "../../features/bottom_nav/domain/bottom_nav_controller.dart";
-import "../../gen/assets.gen.dart";
+import "../../../app/tokens.dart";
+import "../domain/bottom_nav_controller.dart";
+import "../../../gen/assets.gen.dart";
 import "bean_button.dart";
-import "curved_top_clipper.dart";
+import "../../../common/widgets/app_bars/curved_top_clipper.dart";
 import "map_list_switch.dart";
 
 class ClippedBottomNavBar extends HookConsumerWidget {
@@ -50,7 +50,7 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                     ),
                     BeanButton(
                       icon: SvgPicture.asset(
-                        Assets.icons.busIcon,
+                        Assets.icons.busStopIcon,
                         colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                         width: s20,
                         height: s20,

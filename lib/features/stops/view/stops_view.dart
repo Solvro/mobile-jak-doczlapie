@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
-import "../../../common/widgets/bottom_nav_bar.dart";
+import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "animated_showup_logo.dart";
 
 class StopsView extends StatelessWidget {

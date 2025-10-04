@@ -11,11 +11,24 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/gilroy-bold.ttf
+  String get gilroyBold => 'assets/fonts/gilroy-bold.ttf';
+
+  /// List of all assets
+  List<String> get values => [gilroyBold];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
-  /// File path: assets/icons/bus_icon.svg
-  String get busIcon => 'assets/icons/bus_icon.svg';
+  /// File path: assets/icons/bus_stop_icon.svg
+  String get busStopIcon => 'assets/icons/bus_stop_icon.svg';
+
+  /// File path: assets/icons/bus_vechicle_icon.svg
+  String get busVechicleIcon => 'assets/icons/bus_vechicle_icon.svg';
 
   /// File path: assets/icons/map_list_switch.svg
   String get mapListSwitch => 'assets/icons/map_list_switch.svg';
@@ -24,12 +37,18 @@ class $AssetsIconsGen {
   String get roadIcon => 'assets/icons/road_icon.svg';
 
   /// List of all assets
-  List<String> get values => [busIcon, mapListSwitch, roadIcon];
+  List<String> get values => [
+    busStopIcon,
+    busVechicleIcon,
+    mapListSwitch,
+    roadIcon,
+  ];
 }
 
 class Assets {
   const Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const AssetGenImage footsteps4xlogo = AssetGenImage(
     'assets/footsteps4xlogo.png',
   );

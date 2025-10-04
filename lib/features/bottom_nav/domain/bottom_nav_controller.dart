@@ -1,12 +1,12 @@
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "../../../common/widgets/map_list_switch.dart";
+import "../view/map_list_switch.dart";
 
 part "bottom_nav_controller.g.dart";
 
 @riverpod
 class BottomNavController extends _$BottomNavController {
   @override
-  int build() => 0;
+  int build() => 1;
 
   void setCurrentIndex(int index) {
     state = index;

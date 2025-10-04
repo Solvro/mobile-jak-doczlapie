@@ -7,7 +7,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:form_builder_validators/form_builder_validators.dart";
 import "package:image_picker/image_picker.dart";
 
-import "../../../common/widgets/app_bar.dart";
+import "../../../common/widgets/cards/app_bar.dart";
 import "../hooks/use_image_picker.dart";
 
 class ReportScheduleView extends HookWidget {
