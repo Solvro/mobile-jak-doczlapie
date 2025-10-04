@@ -32,7 +32,7 @@ class MyInput extends HookWidget {
     this.variant = MyInputVariant.defaultVariant,
     this.customSuffixIcon,
     this.isReadonly = false,
-
+    this.transparent = false,
     this.dotIndicatorVariant = DotIndicatorVariant.red,
   });
   final TextEditingController controller;
@@ -46,6 +46,8 @@ class MyInput extends HookWidget {
   final bool isReadonly;
   final Widget? customSuffixIcon;
   final DotIndicatorVariant dotIndicatorVariant;
+
+  final bool transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +68,14 @@ class MyInput extends HookWidget {
         readOnly: isReadonly,
         onSubmitted: onSubmitted,
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(color: isReadonly ? Colors.white : null),
+        style: TextStyle(color: isReadonly || transparent ? Colors.white : null),
         decoration: InputDecoration(
           filled: true,
-          fillColor: isReadonly ? blueColorNew : Colors.white.withValues(alpha: 0.9),
+          fillColor: isReadonly
+              ? blueColorNew
+              : transparent
+              ? Colors.transparent
+              : Colors.white.withValues(alpha: 0.9),
           hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(r18), borderSide: BorderSide.none),
           contentPadding: const EdgeInsets.symmetric(horizontal: p16),
@@ -80,7 +86,7 @@ class MyInput extends HookWidget {
 
           suffixIcon:
               customSuffixIcon ??
-              (hasText.value
+              (hasText.value && !isReadonly
                   ? IconButton(
                       onPressed: () {
                         controller.clear();

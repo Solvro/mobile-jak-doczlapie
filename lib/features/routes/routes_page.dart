@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
+import "../../app/router.dart";
 import "../../app/tokens.dart";
 
 import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
@@ -53,6 +54,12 @@ class RoutesPage extends HookConsumerWidget {
                             onChanged: (text) {
                               locationAddressStart.value = text;
                             },
+                            onSubmitted: (text) async {
+                              locationAddressStart.value = text;
+                              if (isBigger) {
+                                await context.router.push(const RouteDetailsRoute());
+                              }
+                            },
                             hintText: "Skąd jedziemy?",
                             variant: MyInputVariant.dense,
                           ),
@@ -61,9 +68,15 @@ class RoutesPage extends HookConsumerWidget {
                             onChanged: (text) {
                               locationAddressEnd.value = text;
                             },
+                            onSubmitted: (text) async {
+                              locationAddressEnd.value = text;
+                              if (isBigger) {
+                                await context.router.push(const RouteDetailsRoute());
+                              }
+                            },
                             hintText: "Dokąd jedziemy?",
                             variant: MyInputVariant.dense,
-                            dotIndicatorVariant: DotIndicatorVariant.blue,
+                            dotIndicatorVariant: DotIndicatorVariant.green,
                           ),
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.end,

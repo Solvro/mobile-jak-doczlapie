@@ -1,5 +1,7 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
+import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 
@@ -46,9 +48,7 @@ class RoutesView extends StatelessWidget {
             child: isBigger
                 ? FilledButton(
                     onPressed: () async {
-                      // final locationAddress = this.locationAddress;
-                      // if (locationAddress == null) return;
-                      // await context.router.push(StopsMapRoute(address: locationAddress));
+                      await context.router.push(const RouteDetailsRoute());
                     },
                     child: const Text("POKAŻ TRASY"),
                   )

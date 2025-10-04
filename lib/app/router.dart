@@ -6,6 +6,7 @@ import "../features/main_navigation/routes_tab/routes_tab_page.dart";
 import "../features/main_navigation/stops_tab/stops_tab_page.dart";
 import "../features/report_schedule/report_schedule_page.dart";
 import "../features/routes/routes_page.dart";
+import "../features/routes_details/route_details_page.dart";
 import "../features/routes_list/route_list_page.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
@@ -27,7 +28,10 @@ class AppRouter extends RootStackRouter {
       children: [
         AutoRoute(
           page: RoutesTabRoute.page,
-          children: [AutoRoute(page: RoutesRoute.page, initial: true)],
+          children: [
+            AutoRoute(page: RoutesRoute.page, initial: true),
+            AutoRoute(page: RouteDetailsRoute.page),
+          ],
         ),
         AutoRoute(
           page: StopsTabRoute.page,

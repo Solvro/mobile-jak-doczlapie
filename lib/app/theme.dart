@@ -70,15 +70,6 @@ extension AppThemeX on BuildContext {
     begin: AlignmentGeometry.topLeft,
     end: AlignmentGeometry.bottomRight,
   );
-  Gradient get blurGradient => const LinearGradient(
-    begin: Alignment(-0.03, 0),
-    end: Alignment(1.37, 0),
-    colors: [
-      Color(0x669C9387), // rgba(156, 147, 135, 0.40)
-      Color(0x66716F62), // rgba(113, 111, 98, 0.40)
-    ],
-    stops: [0.0316, 1.3747],
-  );
 }
 
 extension TextStyleX on TextStyle {

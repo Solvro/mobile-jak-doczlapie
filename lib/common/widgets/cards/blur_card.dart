@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 
 class BlurCard extends StatelessWidget {
@@ -19,7 +18,7 @@ class BlurCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
             border: Border.all(color: greyBorder),
-            gradient: context.blurGradient,
+            color: const Color(0x6D3E3E3E), // rgba(62, 62, 62, 0.30)
           ),
           child: child,
         ),
