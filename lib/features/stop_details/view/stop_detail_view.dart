@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:flutter_svg/flutter_svg.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:latlong2/latlong.dart";
 
 import "../../../app/theme.dart";
@@ -14,6 +15,7 @@ import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../../stops_map/data/line.dart";
 import "../../stops_map/data/stop.dart";
+import "../../trip/data/trip_repository.dart";
 import "../hooks/use_first_departure_time.dart";
 import "../hooks/use_line_cycling.dart";
 import "line_polyline_layer.dart";
@@ -162,7 +164,7 @@ class StopDetailBottomList extends StatelessWidget {
   }
 }
 
-class SingleDestinationVertTile extends HookWidget {
+class SingleDestinationVertTile extends HookConsumerWidget {
   const SingleDestinationVertTile({
     super.key,
     required this.isActive,
@@ -176,7 +178,7 @@ class SingleDestinationVertTile extends HookWidget {
   final String direction;
   final VoidCallback onTap;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final firstDepartureTime = useFirstDepartureTime(line.schedules ?? [], direction);
     return VertCard(
       isActive: isActive,
@@ -202,7 +204,13 @@ class SingleDestinationVertTile extends HookWidget {
             ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
             : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       ),
-      bottomText: "${line.stops?.length.toString() ?? "0"} przystanków",
+      bottomText: switch (ref.watch(
+        tripRepositoryProvider(line.id.toString(), line.schedules?.first.run ?? 0, direction),
+      )) {
+        AsyncData(:final value) => "${value.stops.length} przystanków",
+        _ => "",
+      },
+
       onTap: onTap,
       child: Center(
         child: Text.rich(
