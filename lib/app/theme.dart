@@ -9,12 +9,14 @@ abstract interface class AppThemeData {
   ThemeData get dark => ThemeData.dark().copyWith(textTheme: _textTheme);
 
   static final _textTheme = GoogleFonts.onestTextTheme().copyWith(
+    headlineLarge: GoogleFonts.onest(fontSize: 42, fontWeight: FontWeight.w500),
     headlineMedium: GoogleFonts.onest(fontSize: 34, fontWeight: FontWeight.w500, letterSpacing: -2.4),
-    headlineSmall: GoogleFonts.onest(fontSize: 32, fontWeight: FontWeight.w400),
+    headlineSmall: GoogleFonts.onest(fontSize: 32, fontWeight: FontWeight.w500),
+    displaySmall: GoogleFonts.onest(fontSize: 24, fontWeight: FontWeight.w500),
     titleLarge: GoogleFonts.onest(fontSize: 20, fontWeight: FontWeight.w500),
     titleMedium: GoogleFonts.onest(fontSize: 16, fontWeight: FontWeight.w600),
     titleSmall: GoogleFonts.onest(fontSize: 12, fontWeight: FontWeight.w600, wordSpacing: -0.5),
-    bodyLarge: GoogleFonts.onest(fontSize: 14, fontWeight: FontWeight.w500),
+    bodyLarge: GoogleFonts.onest(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: -0.64),
     bodySmall: GoogleFonts.onest(fontSize: 12, fontWeight: FontWeight.w400, wordSpacing: -0.5),
   );
 }

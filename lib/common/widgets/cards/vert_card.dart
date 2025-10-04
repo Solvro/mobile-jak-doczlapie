@@ -45,36 +45,39 @@ class VertCard extends StatelessWidget {
               color: isActive ? blueColorNew : const Color(0xFF252328),
               borderRadius: BorderRadius.circular(r31),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(p8),
-              child: Column(
-                children: [
-                  // White top section
-                  Container(
-                    height: 62,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: isActive ? Colors.white : blueColorNew,
-                      borderRadius: const BorderRadius.all(Radius.circular(r25)),
-                    ),
-                    child: Center(child: topChild),
-                  ),
-                  Expanded(child: child),
-                  // Blue bottom section
-                  Row(
-                    children: [
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isActive ? Colors.white : blueColorNew,
-                        ),
-                        child: Padding(padding: const EdgeInsets.all(p8), child: bottomIcon),
+            child: SizedBox(
+              width: 167,
+              child: Padding(
+                padding: const EdgeInsets.all(p8),
+                child: Column(
+                  children: [
+                    // White top section
+                    Container(
+                      height: 62,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: isActive ? Colors.white : blueColorNew,
+                        borderRadius: const BorderRadius.all(Radius.circular(r25)),
                       ),
-                      const Spacer(),
-                      Text(bottomText, style: context.textTheme.bodyLarge?.withColor(const Color(0xFFD8D8D8))),
-                    ],
-                  ),
-                ],
+                      child: Center(child: topChild),
+                    ),
+                    Expanded(child: child),
+                    // Blue bottom section
+                    Row(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isActive ? Colors.white : blueColorNew,
+                          ),
+                          child: Padding(padding: const EdgeInsets.all(p8), child: bottomIcon),
+                        ),
+                        const Spacer(),
+                        Text(bottomText, style: context.textTheme.bodySmall?.withColor(Colors.white)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

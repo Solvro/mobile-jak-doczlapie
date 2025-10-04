@@ -161,7 +161,7 @@ class SingleDestinationVertTile extends HookWidget {
             ),
             TextSpan(
               text: line.destinations?.first ?? "<><>",
-              style: isActive ? context.textTheme.headlineSmall : context.textTheme.headlineSmall?.white,
+              style: isActive ? context.textTheme.titleLarge : context.textTheme.titleLarge?.white,
             ),
           ],
         ),
@@ -174,15 +174,17 @@ class SingleDestinationVertTile extends HookWidget {
             : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       ),
       bottomText: "${line.stops?.length.toString() ?? "0"} przystanków",
-
       onTap: () {},
       child: Center(
         child: Text.rich(
           textAlign: TextAlign.center,
           TextSpan(
             children: [
-              TextSpan(text: "Odjazd\n", style: context.textTheme.titleLarge?.white),
-              TextSpan(text: firstDepartureTime, style: context.textTheme.titleLarge?.white),
+              TextSpan(text: "Odjazd\n", style: context.textTheme.bodySmall?.white),
+              TextSpan(
+                text: "${firstDepartureTime.split(":").first}:${firstDepartureTime.split(":")[1]}",
+                style: context.textTheme.headlineLarge?.white,
+              ),
             ],
           ),
         ),
