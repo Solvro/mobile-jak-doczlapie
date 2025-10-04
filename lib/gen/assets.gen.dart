@@ -17,11 +17,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/bus_icon.svg
   String get busIcon => 'assets/icons/bus_icon.svg';
 
+  /// File path: assets/icons/map_list_switch.svg
+  String get mapListSwitch => 'assets/icons/map_list_switch.svg';
+
   /// File path: assets/icons/road_icon.svg
   String get roadIcon => 'assets/icons/road_icon.svg';
 
   /// List of all assets
-  List<String> get values => [busIcon, roadIcon];
+  List<String> get values => [busIcon, mapListSwitch, roadIcon];
 }
 
 class Assets {
@@ -34,9 +37,16 @@ class Assets {
   static const AssetGenImage logoVertical = AssetGenImage(
     'assets/logo_vertical.png',
   );
+  static const AssetGenImage logoVerticalWhite = AssetGenImage(
+    'assets/logo_vertical_white.png',
+  );
 
   /// List of all assets
-  static List<AssetGenImage> get values => [footsteps4xlogo, logoVertical];
+  static List<AssetGenImage> get values => [
+    footsteps4xlogo,
+    logoVertical,
+    logoVerticalWhite,
+  ];
 }
 
 class AssetGenImage {

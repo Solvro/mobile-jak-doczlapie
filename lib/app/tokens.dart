@@ -5,11 +5,13 @@ const double p4 = 4;
 const double p8 = 8;
 const double p12 = 12;
 const double p16 = 16;
+const double p18 = 18;
 const double p20 = 20;
 const double p24 = 24;
 const double p28 = 28;
 const double p32 = 32;
 const double p40 = 40;
+const double p56 = 56;
 const double p64 = 64;
 const double p128 = 128;
 const double p256 = 256;
@@ -21,9 +23,12 @@ const double r14 = 14;
 const double r18 = 18;
 const double r22 = 22;
 const double r25 = 25;
+const double r27 = 27;
 const double r31 = 31;
 
 //other sizes
+const double s20 = 20;
+const double s25 = 25;
 const double s37 = 37;
 const double s52 = 52;
 const double s58 = 58;
@@ -40,7 +45,9 @@ const blueAccent = Color(0xFF0073D8);
 const greySubtitle = Color(0xFFC9C9C9);
 const greyIcon = Color(0xFFCFCFCF);
 const greyBorder = Color(0xFF848589);
+const greyBorderNav = Color(0xFF777777);
 const black = Color(0xFF0B0B0B);
 
 // effects
 final blurFilter = ImageFilter.blur(sigmaX: 13.55, sigmaY: 13.55);
+final navBlurFilter = ImageFilter.blur(sigmaX: 6.55, sigmaY: 6.55);

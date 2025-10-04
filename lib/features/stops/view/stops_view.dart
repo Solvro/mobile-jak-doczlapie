@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
+import "../../../common/widgets/bottom_nav_bar.dart";
 import "animated_showup_logo.dart";
 
 class StopsView extends StatelessWidget {
@@ -17,6 +18,7 @@ class StopsView extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         if (isBigger) AnimatedShowupLogo(isBigger: isBigger),
+
         // if (isBigger && isEmpty && isSearched.value)
         //   Align(
         //     alignment: Alignment.topCenter,
@@ -25,6 +27,7 @@ class StopsView extends StatelessWidget {
         //       child: Text("Nie znaleziono przystanków", style: context.textTheme.headlineSmall?.white),
         //     ),
         //   ),
+        Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(isSmall: !isBigger)),
         if (!isBigger)
           Positioned(
             left: 25,
@@ -46,19 +49,23 @@ class StopsView extends StatelessWidget {
             ),
           ),
 
-        Column(
-          children: [
-            const Expanded(child: SizedBox()),
-            if (isBigger)
-              FilledButton(
-                onPressed: () async {
-                  final locationAddress = this.locationAddress;
-                  if (locationAddress == null) return;
-                  await context.router.push(StopsMapRoute(address: locationAddress));
-                },
-                child: const Text("POKAŻ PRZYSTANKI"),
-              ),
-          ],
+        Positioned(
+          bottom: 110,
+          left: 0,
+          right: 0,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: isBigger
+                ? FilledButton(
+                    onPressed: () async {
+                      final locationAddress = this.locationAddress;
+                      if (locationAddress == null) return;
+                      await context.router.push(StopsMapRoute(address: locationAddress));
+                    },
+                    child: const Text("POKAŻ PRZYSTANKI"),
+                  )
+                : const SizedBox.shrink(),
+          ),
         ),
       ],
     );
