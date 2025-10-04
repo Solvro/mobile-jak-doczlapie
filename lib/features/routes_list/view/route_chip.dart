@@ -3,20 +3,23 @@ import "package:flutter/material.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 
+enum RouteChipColor { red, orange }
+
 class RouteChip extends StatelessWidget {
-  const RouteChip({super.key, required this.text});
+  const RouteChip({super.key, required this.text, this.color = RouteChipColor.red});
 
   final String text;
+  final RouteChipColor color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 150),
+      constraints: const BoxConstraints(maxWidth: 150, minWidth: 35),
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       decoration: BoxDecoration(
-        border: Border.all(color: red2),
+        border: Border.all(color: color == RouteChipColor.red ? red2 : orange),
         borderRadius: BorderRadius.circular(6),
-        color: red2,
+        color: color == RouteChipColor.red ? red2 : orange,
       ),
       child: Text(
         text,

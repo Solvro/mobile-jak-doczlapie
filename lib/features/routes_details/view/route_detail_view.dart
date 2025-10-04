@@ -10,11 +10,15 @@ import "package:latlong2/latlong.dart";
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+
 import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
+import "vert_route_card.dart";
+import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/glass_input.dart";
 import "../../../common/widgets/inputs/my_input.dart";
+import "../../../common/widgets/pop_button.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
@@ -80,7 +84,21 @@ class RouteDetailsView extends HookWidget {
           ),
           // App bar positioned at the top
           // if (stop != null)
-          const Positioned(top: 80, left: 20, right: 20, child: GlassReadonlyInput(initialText: "Route details")),
+          const Positioned(
+            top: 80,
+            left: 20,
+            right: 20,
+            child: Column(
+              spacing: p8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GlassReadonlyInput(initialText: "Route start"),
+                GlassReadonlyInput(initialText: "Route end", dotIndicatorVariant: DotIndicatorVariant.green),
+                BlurCard(borderRadius: r18, child: PopButton()),
+              ],
+            ),
+          ),
+
           // if (stop == null) const Center(child: CircularProgressIndicator()),
           const Positioned(
             bottom: 0,
@@ -108,10 +126,18 @@ class RouteDetailsView extends HookWidget {
                 (
                   startTime: "10:00",
                   endTime: "11:00",
-                  segments: [(lineNumber: "1"), (lineNumber: "IC")],
+                  segments: [
+                    (lineNumber: "1", duration: Duration(hours: 3)),
+                    (lineNumber: "IC", duration: Duration(hours: 1)),
+                  ],
                   totalTime: "1h",
                 ),
-                (startTime: "11:00", endTime: "12:00", segments: [(lineNumber: "IC")], totalTime: "1h"),
+                (
+                  startTime: "11:00",
+                  endTime: "12:00",
+                  segments: [(lineNumber: "IC", duration: Duration(hours: 1))],
+                  totalTime: "1h",
+                ),
               ],
             ),
           ),
@@ -121,7 +147,7 @@ class RouteDetailsView extends HookWidget {
   }
 }
 
-typedef Segment = ({String lineNumber});
+typedef Segment = ({String lineNumber, Duration duration});
 
 typedef Route = ({String startTime, String endTime, List<Segment> segments, String totalTime});
 
@@ -140,38 +166,7 @@ class RoutesBottomList extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> children = routes.map((route) {
       const isActive = true;
-      return VertCard(
-        isActive: isActive,
-        topChild: Text.rich(
-          textAlign: TextAlign.center,
-          TextSpan(
-            children: [
-              TextSpan(
-                text: "Kierunek\n",
-                style: context.textTheme.bodySmall?.withColor(isActive ? Colors.black : Colors.white),
-              ),
-            ],
-          ),
-        ),
-        bottomIcon: SvgPicture.asset(
-          Assets.icons.busVechicleIcon,
-          height: p20,
-          colorFilter: isActive
-              ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-              : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-        bottomText: "",
-
-        onTap: () {},
-        child: Center(
-          child: Text.rich(
-            textAlign: TextAlign.center,
-            TextSpan(
-              children: [TextSpan(text: "Odjazd\n", style: context.textTheme.bodySmall?.white)],
-            ),
-          ),
-        ),
-      );
+      return VertRouteCard(isActive: isActive, route: route, onTap: () {});
     }).toList();
 
     // children ??= List.generate(10, (index) => const VertCardShimmer());

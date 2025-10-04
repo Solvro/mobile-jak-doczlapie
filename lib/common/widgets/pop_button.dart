@@ -26,11 +26,11 @@ class PopButton extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(r18),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(r18),
             onTap: () => context.router.maybePop(),
             child: const Center(
               child: Row(
