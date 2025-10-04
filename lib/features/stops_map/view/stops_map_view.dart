@@ -189,6 +189,7 @@ class StopsBottomList extends StatelessWidget {
         bottomText: "120 m",
 
         onTap: () async {
+          activeStop.value = stop;
           await context.router.push<void>(StopDetailsRoute(id: stop.id.toString()));
         },
         child: Center(
