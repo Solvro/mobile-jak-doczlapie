@@ -1,3 +1,4 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
@@ -5,6 +6,7 @@ import "package:flutter_svg/flutter_svg.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:latlong2/latlong.dart";
 
+import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/app_bars/map_app_bar.dart";
@@ -140,8 +142,11 @@ class StopDetailBottomList extends StatelessWidget {
               isActive: isActive,
               line: line,
               direction: destination,
-              onTap: () {
+              onTap: () async {
                 activeLine.value = (line: line, destination: destination);
+                await context.router.push(
+                  TripRoute(lineId: line.id.toString(), runId: line.schedules?.first.run ?? 0, direction: destination),
+                );
               },
             );
           }).toList();
