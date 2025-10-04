@@ -11,16 +11,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsFontsGen {
-  const $AssetsFontsGen();
-
-  /// File path: assets/fonts/gilroy-bold.ttf
-  String get gilroyBold => 'assets/fonts/gilroy-bold.ttf';
-
-  /// List of all assets
-  List<String> get values => [gilroyBold];
-}
-
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -48,7 +38,6 @@ class $AssetsIconsGen {
 class Assets {
   const Assets._();
 
-  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const AssetGenImage footsteps4xlogo = AssetGenImage(
     'assets/footsteps4xlogo.png',
   );
