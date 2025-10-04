@@ -197,7 +197,9 @@ class SingleDestinationVertTile extends HookConsumerWidget {
             ),
             TextSpan(
               text: direction,
-              style: isActive ? context.textTheme.titleLarge : context.textTheme.titleLarge?.white,
+              style: (isActive ? context.textTheme.titleLarge : context.textTheme.titleLarge?.white)?.copyWith(
+                height: 0.9,
+              ),
             ),
           ],
         ),
