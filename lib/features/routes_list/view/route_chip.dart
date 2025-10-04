@@ -10,14 +10,21 @@ class RouteChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      padding: EdgeInsets.zero,
-      label: Text(text, style: context.textTheme.titleMedium),
-      shape: RoundedRectangleBorder(
-        side: const BorderSide(color: red2),
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 150),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      decoration: BoxDecoration(
+        border: Border.all(color: red2),
         borderRadius: BorderRadius.circular(6),
+        color: red2,
       ),
-      backgroundColor: red2,
+      child: Text(
+        text,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center, // środek wewnątrz maxWidth
+        softWrap: false,
+        style: context.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+      ),
     );
   }
 }

@@ -77,3 +77,62 @@ class ClippedBottomNavBar extends HookConsumerWidget {
     );
   }
 }
+
+class FadeBottomNavBar extends ConsumerWidget {
+  const FadeBottomNavBar({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(bottomNavControllerProvider);
+    final bottomNavController = ref.read(bottomNavControllerProvider.notifier);
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.transparent, Color(0xFF0B0B0B), black],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          height: 80,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              spacing: p8,
+              children: [
+                const MapListSwitchButton(),
+                const Spacer(),
+                BeanButton(
+                  icon: SvgPicture.asset(
+                    Assets.icons.roadIcon,
+                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    width: s20,
+                    height: s20,
+                  ),
+                  label: "Trasy",
+                  isActive: currentIndex == 0,
+                  onTap: () => bottomNavController.setCurrentIndex(0),
+                ),
+                BeanButton(
+                  icon: SvgPicture.asset(
+                    Assets.icons.busStopIcon,
+                    colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    width: s20,
+                    height: s20,
+                  ),
+                  label: "Przystanki",
+                  isActive: currentIndex == 1,
+                  onTap: () => bottomNavController.setCurrentIndex(1),
+                ),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

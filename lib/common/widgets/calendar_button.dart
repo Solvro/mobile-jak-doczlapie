@@ -26,7 +26,7 @@ class CalendarButton extends HookWidget {
     final date = useState<DateTime>(DateTime.now());
 
     return Container(
-      padding: const EdgeInsets.all(p4),
+      padding: const EdgeInsets.all(6),
       height: 33,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(r18),
@@ -48,15 +48,9 @@ class CalendarButton extends HookWidget {
             borderRadius: BorderRadius.circular(18),
             onTap: readonly ? null : () async => date.value = await getDateTime(context),
             child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(width: 4),
-                  Text(
-                    date.value.toPolishShort(),
-                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
-                  ),
-                ],
+              child: Text(
+                date.value.toPolishShort(),
+                style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
               ),
             ),
           ),

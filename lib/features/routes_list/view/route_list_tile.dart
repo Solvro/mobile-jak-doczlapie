@@ -26,7 +26,11 @@ class RouteListTile extends StatelessWidget {
                 children: [
                   Text(
                     "11:42",
-                    style: context.textTheme.headlineMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -1,
+                    ),
                   ),
                   if (isPunctual) Text("Punktualnie", style: context.textTheme.bodySmall?.copyWith(color: green)),
                 ],
@@ -34,20 +38,30 @@ class RouteListTile extends StatelessWidget {
               Column(
                 spacing: p4,
                 children: [
-                  Text("1 przesiadka", style: context.textTheme.bodyMedium?.copyWith(color: Colors.white)),
+                  Text(
+                    "1 przesiadka",
+                    style: context.textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(
                     height: 2,
                     width: 100,
                     child: LinearProgressIndicator(color: red2, value: 0.5, backgroundColor: orange),
                   ),
-                  Text("1h 12 min", style: context.textTheme.bodySmall?.copyWith(color: Colors.white)),
+                  Text(
+                    "1h 12 min",
+                    style: context.textTheme.bodySmall?.copyWith(color: Colors.white, letterSpacing: -1),
+                  ),
                 ],
               ),
               Column(
                 children: [
                   Text(
                     "11:42",
-                    style: context.textTheme.headlineMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -1,
+                    ),
                   ),
                 ],
               ),
