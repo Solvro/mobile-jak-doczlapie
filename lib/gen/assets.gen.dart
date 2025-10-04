@@ -34,9 +34,16 @@ class Assets {
   static const AssetGenImage logoVertical = AssetGenImage(
     'assets/logo_vertical.png',
   );
+  static const AssetGenImage logoVerticalWhite = AssetGenImage(
+    'assets/logo_vertical_white.png',
+  );
 
   /// List of all assets
-  static List<AssetGenImage> get values => [footsteps4xlogo, logoVertical];
+  static List<AssetGenImage> get values => [
+    footsteps4xlogo,
+    logoVertical,
+    logoVerticalWhite,
+  ];
 }
 
 class AssetGenImage {

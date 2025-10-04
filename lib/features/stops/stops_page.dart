@@ -5,8 +5,8 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../app/router.dart";
 import "../../app/tokens.dart";
-import "../../common/widgets/custom_tab_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
+import "../../common/widgets/simple_logo_app_bar.dart";
 import "../routes/view/route_view.dart";
 import "view/animated_double_circle.dart";
 import "view/location_picker_input.dart";
@@ -24,19 +24,13 @@ class StopsPage extends HookConsumerWidget {
     final searchController = useTextEditingController();
 
     return GradientScaffold(
+      safeArea: false,
       body: Stack(
         children: [
           AnimatedDoubleCircle(isBigger: isBigger),
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(p16),
-                child: CustomTabBar(
-                  selectedIndex: selectedTab.value,
-                  onTabChanged: (index) => selectedTab.value = index,
-                ),
-              ),
-              // Content based on selected tab
+              SimpleLogoAppBar(),
               Expanded(
                 child: selectedTab.value == 0
                     ? const RouteView()
