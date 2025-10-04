@@ -6,7 +6,7 @@ import "../cards/blur_card.dart";
 import "../dot_indicator.dart";
 import "my_input.dart";
 
-class GlassReadonlyInput extends StatelessWidget {
+class GlassReadonlyInput extends HookWidget {
   const GlassReadonlyInput({
     super.key,
     required this.initialText,
@@ -20,7 +20,7 @@ class GlassReadonlyInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController(text: initialText);
+    final controller = useTextEditingController(text: initialText);
     useEffect(() {
       controller.text = initialText;
       return null;
