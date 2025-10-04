@@ -29,7 +29,9 @@ class LinePolylineLayer extends HookConsumerWidget {
           PolylineLayer(
             polylines: [
               Polyline(
-                points: value.stops.map((stop) => stop.coordinates).toList(),
+                points: (value.stops..sort((a, b) => a.sequence.compareTo(b.sequence)))
+                    .map((stop) => stop.coordinates)
+                    .toList(),
                 strokeWidth: p4,
                 color: context.colorScheme.primary,
               ),

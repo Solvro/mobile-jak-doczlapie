@@ -12,6 +12,7 @@ abstract class Schedule with _$Schedule {
     required String time,
     required String destination,
     required int run,
+    required int sequence,
     List<Condition>? conditions,
   }) = _Schedule;
 
