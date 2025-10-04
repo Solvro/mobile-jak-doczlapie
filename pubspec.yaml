@@ -51,6 +51,13 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/fonts/
+
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/gilroy-bold.ttf
+          weight: 700
 
 lint_staged:
   "lib/**.dart": dart format && dart fix --apply

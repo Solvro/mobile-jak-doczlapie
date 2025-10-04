@@ -40,7 +40,7 @@ class PopButton extends StatelessWidget {
                   SizedBox(width: 4),
                   Text(
                     "Powrót",
-                    style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500),
+                    style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
                   ),
                 ],
               ),

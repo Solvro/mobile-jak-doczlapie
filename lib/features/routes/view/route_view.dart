@@ -22,7 +22,7 @@ class RouteView extends StatelessWidget {
                 SizedBox(height: p16),
                 Text(
                   "Trasa",
-                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
                 ),
                 SizedBox(height: p8),
                 Text("Funkcja w trakcie rozwoju", style: TextStyle(color: Colors.white70, fontSize: 16)),

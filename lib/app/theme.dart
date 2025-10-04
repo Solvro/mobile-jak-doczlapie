@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:google_fonts/google_fonts.dart";
 
 import "tokens.dart";
 
@@ -8,14 +7,14 @@ abstract interface class AppThemeData {
 
   ThemeData get dark => ThemeData.dark().copyWith(textTheme: _textTheme);
 
-  static final _textTheme = GoogleFonts.bricolageGrotesqueTextTheme().copyWith(
-    headlineMedium: GoogleFonts.bricolageGrotesque(fontSize: 34, fontWeight: FontWeight.w500, letterSpacing: -2.4),
-    headlineSmall: GoogleFonts.bricolageGrotesque(fontSize: 32, fontWeight: FontWeight.w400),
-    titleLarge: GoogleFonts.bricolageGrotesque(fontSize: 20, fontWeight: FontWeight.w500),
-    titleMedium: GoogleFonts.bricolageGrotesque(fontSize: 16, fontWeight: FontWeight.w600),
-    titleSmall: GoogleFonts.bricolageGrotesque(fontSize: 12, fontWeight: FontWeight.w600, wordSpacing: -0.5),
-    bodyLarge: GoogleFonts.bricolageGrotesque(fontSize: 14, fontWeight: FontWeight.w500),
-    bodySmall: GoogleFonts.bricolageGrotesque(fontSize: 12, fontWeight: FontWeight.w400, wordSpacing: -0.5),
+  static const _textTheme = TextTheme(
+    headlineMedium: TextStyle(fontFamily: "Gilroy", fontSize: 34, fontWeight: FontWeight.w700, letterSpacing: -2.4),
+    headlineSmall: TextStyle(fontFamily: "Gilroy", fontSize: 32, fontWeight: FontWeight.w700),
+    titleLarge: TextStyle(fontFamily: "Gilroy", fontSize: 20, fontWeight: FontWeight.w700),
+    titleMedium: TextStyle(fontFamily: "Gilroy", fontSize: 16, fontWeight: FontWeight.w700),
+    titleSmall: TextStyle(fontFamily: "Gilroy", fontSize: 12, fontWeight: FontWeight.w700, wordSpacing: -0.5),
+    bodyLarge: TextStyle(fontFamily: "Gilroy", fontSize: 14, fontWeight: FontWeight.w700),
+    bodySmall: TextStyle(fontFamily: "Gilroy", fontSize: 12, fontWeight: FontWeight.w700, wordSpacing: -0.5),
   );
 }
 
@@ -47,11 +46,12 @@ class AppTheme implements AppThemeData {
       padding: const EdgeInsets.all(p16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
       minimumSize: const Size(370, 48), // 370px width as specified
-      textStyle: GoogleFonts.bricolageGrotesque(
+      textStyle: const TextStyle(
+        fontFamily: "Gilroy",
         fontSize: 16,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
         letterSpacing: -0.64,
-        color: const Color(0xFFF8F7F7),
+        color: Color(0xFFF8F7F7),
       ),
     ),
   );
@@ -80,10 +80,6 @@ extension AppThemeX on BuildContext {
 }
 
 extension TextStyleX on TextStyle {
-  TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
-
-  TextStyle get w400 => copyWith(fontWeight: FontWeight.w400);
-
   TextStyle withColor(Color color) => copyWith(color: color);
 
   TextStyle get white => withColor(Colors.white);

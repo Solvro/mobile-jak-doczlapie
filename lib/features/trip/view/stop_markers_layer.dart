@@ -37,7 +37,7 @@ class StopMarkersLayer extends HookWidget {
               child: Center(
                 child: Text(
                   "${index + 1}",
-                  style: context.textTheme.bodyMedium?.bold.withColor(context.colorScheme.onPrimary),
+                  style: context.textTheme.bodyMedium?.withColor(context.colorScheme.onPrimary),
                 ),
               ),
             ),
