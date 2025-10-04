@@ -29,9 +29,8 @@ class MyInput extends HookWidget {
     this.onSubmitted,
     this.focusNode,
     this.color,
-    this.onSuffixIconPressed,
     this.variant = MyInputVariant.defaultVariant,
-
+    this.customSuffixIcon,
     this.isReadonly = false,
 
     this.dotIndicatorVariant = DotIndicatorVariant.red,
@@ -40,13 +39,12 @@ class MyInput extends HookWidget {
   final String hintText;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
-  final VoidCallback? onSuffixIconPressed;
   final FocusNode? focusNode;
   final Color? color;
   final MyInputVariant variant;
 
   final bool isReadonly;
-
+  final Widget? customSuffixIcon;
   final DotIndicatorVariant dotIndicatorVariant;
 
   @override
@@ -80,21 +78,18 @@ class MyInput extends HookWidget {
             child: Center(child: DotIndicator(variant: dotIndicatorVariant)),
           ),
 
-          suffixIcon: variant == MyInputVariant.dense
-              ? null
-              : hasText.value
-              ? IconButton(
-                  onPressed: () {
-                    controller.clear();
-                    hasText.value = false;
-                    onChanged?.call("");
-                  },
-                  icon: const Icon(Icons.close, color: blueAccent, size: 18),
-                )
-              : IconButton(
-                  onPressed: onSuffixIconPressed,
-                  icon: const Icon(Icons.my_location_outlined, color: Color(0xFF3056EF), size: 18),
-                ),
+          suffixIcon:
+              customSuffixIcon ??
+              (hasText.value
+                  ? IconButton(
+                      onPressed: () {
+                        controller.clear();
+                        hasText.value = false;
+                        onChanged?.call("");
+                      },
+                      icon: const Icon(Icons.close, color: blueAccent, size: 18),
+                    )
+                  : null),
         ),
       ),
     );

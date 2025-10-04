@@ -1,8 +1,9 @@
 import "package:flutter/material.dart";
+
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../common/widgets/app_bars/route_list_app_bar.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
-import "route_list_app_bar.dart";
 import "route_list_tile.dart";
 
 class RouteListView extends StatelessWidget {
