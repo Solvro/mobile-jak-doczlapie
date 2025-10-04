@@ -66,6 +66,8 @@ class MyInput extends HookWidget {
           onChanged?.call(value);
         },
         readOnly: isReadonly,
+        canRequestFocus: !isReadonly,
+        enabled: !isReadonly,
         onSubmitted: onSubmitted,
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(color: isReadonly || transparent ? Colors.white : null),
