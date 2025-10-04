@@ -4,7 +4,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "../../../app/tokens.dart";
 import "../../../features/stops_map/view/curved_bottom_clipper.dart";
 import "../../../gen/assets.gen.dart";
-import "../my_input.dart";
+import "../inputs/my_input.dart";
 import "../pop_button.dart";
 
 class MapAppBar extends HookWidget {

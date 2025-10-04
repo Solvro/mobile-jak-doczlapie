@@ -13,7 +13,8 @@ import "../../../app/tokens.dart";
 import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
-import "../../../common/widgets/my_input.dart";
+import "../../../common/widgets/inputs/glass_input.dart";
+import "../../../common/widgets/inputs/my_input.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
@@ -79,20 +80,7 @@ class RouteDetailsView extends HookWidget {
           ),
           // App bar positioned at the top
           // if (stop != null)
-          Positioned(
-            top: 80,
-            left: 20,
-            right: 20,
-            child: BlurCard(
-              borderRadius: r18,
-              child: MyInput(
-                controller: TextEditingController(),
-                onSubmitted: (text) {},
-                variant: MyInputVariant.dense,
-                transparent: true,
-              ),
-            ),
-          ),
+          const Positioned(top: 80, left: 20, right: 20, child: GlassReadonlyInput(initialText: "Route details")),
           // if (stop == null) const Center(child: CircularProgressIndicator()),
           const Positioned(
             bottom: 0,

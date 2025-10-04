@@ -10,7 +10,7 @@ import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
 import "../../common/widgets/calendar_button.dart";
 import "../../common/widgets/dot_indicator.dart";
 import "../../common/widgets/gradient_scaffold.dart";
-import "../../common/widgets/my_input.dart";
+import "../../common/widgets/inputs/my_input.dart";
 import "../stops/view/animated_double_circle.dart";
 import "../stops/view/location_picker_input.dart";
 import "view/routes_view.dart";

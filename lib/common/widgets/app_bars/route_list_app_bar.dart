@@ -3,7 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "../../../app/tokens.dart";
 import "../calendar_button.dart";
 import "../dot_indicator.dart";
-import "../my_input.dart";
+import "../inputs/my_input.dart";
 import "../pop_button.dart";
 
 class RouteListAppBar extends HookWidget implements PreferredSizeWidget {

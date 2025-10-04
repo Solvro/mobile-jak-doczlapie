@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
-import "../../app/tokens.dart";
-import "dot_indicator.dart";
+import "../../../app/tokens.dart";
+import "../dot_indicator.dart";
 
 ValueNotifier<bool> useHasText(TextEditingController controller) {
   final hasText = useState(controller.text.isNotEmpty);
@@ -70,11 +70,12 @@ class MyInput extends HookWidget {
         textAlignVertical: TextAlignVertical.center,
         style: TextStyle(color: isReadonly || transparent ? Colors.white : null),
         decoration: InputDecoration(
+          hintStyle: transparent ? const TextStyle(color: Colors.white) : null,
           filled: true,
-          fillColor: isReadonly
-              ? blueColorNew
-              : transparent
+          fillColor: transparent
               ? Colors.transparent
+              : isReadonly
+              ? blueColorNew
               : Colors.white.withValues(alpha: 0.9),
           hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(r18), borderSide: BorderSide.none),

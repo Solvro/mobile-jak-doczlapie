@@ -3,7 +3,7 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../../common/services/location_service.dart";
 import "../../../common/widgets/dot_indicator.dart";
-import "../../../common/widgets/my_input.dart";
+import "../../../common/widgets/inputs/my_input.dart";
 
 class LocationPickerInput extends HookConsumerWidget {
   const LocationPickerInput({
