@@ -41,8 +41,6 @@ class MapListSwitchButton extends ConsumerWidget {
 
     return BeanButton(
       icon: MapListSwitchIcon(viewType: viewType),
-      label: "",
-      isActive: false,
       onTap: viewTypeController.toggleViewType,
     );
   }

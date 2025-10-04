@@ -4,15 +4,17 @@ import "../../app/theme.dart";
 import "../../app/tokens.dart";
 
 class BeanButton extends StatelessWidget {
-  const BeanButton({required this.icon, required this.label, required this.isActive, required this.onTap});
+  const BeanButton({required this.icon, this.label, this.isActive = false, required this.onTap});
 
   final Widget icon;
-  final String label;
+  final String? label;
   final bool isActive;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final isLabelVisible = label != null && isActive;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -41,9 +43,9 @@ class BeanButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   icon,
-                  if (isActive) ...[
+                  if (isLabelVisible) ...[
                     const SizedBox(width: p8),
-                    Text(label, style: context.textTheme.titleMedium?.white),
+                    Text(label!, style: context.textTheme.titleMedium?.white),
                   ],
                 ],
               ),

@@ -10,9 +10,10 @@ import "curved_top_clipper.dart";
 import "map_list_switch.dart";
 
 class ClippedBottomNavBar extends HookConsumerWidget {
-  const ClippedBottomNavBar({super.key, this.isSmall = false});
+  const ClippedBottomNavBar({super.key, this.isSmall = false, this.extraBeanButton});
 
   final bool isSmall;
+  final Widget? extraBeanButton;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
@@ -59,7 +60,7 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                       onTap: () => bottomNavController.setCurrentIndex(1),
                     ),
                     const Spacer(),
-                    const SizedBox(width: 56),
+                    SizedBox(width: 56, child: extraBeanButton ?? const SizedBox.shrink()),
                   ],
                 ),
               ),

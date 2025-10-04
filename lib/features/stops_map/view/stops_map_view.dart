@@ -6,12 +6,14 @@ import "package:latlong2/latlong.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../common/widgets/bean_button.dart";
 import "../../../common/widgets/bottom_nav_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../data/stop.dart";
+import "../hooks/use_next_stop_navigation.dart";
 import "map_app_bar.dart";
 import "stops_layer.dart";
 
@@ -34,6 +36,15 @@ class StopsMapView extends HookWidget {
     }, [stops]);
 
     final mapController = useMemoized(MapController.new, []);
+    final scrollController = useMemoized(ScrollController.new, []);
+
+    // Use the next stop navigation hook
+    final navigateToNextStop = useNextStopNavigation(
+      stops: stops ?? [],
+      activeStop: activeStop,
+      mapController: mapController,
+      scrollController: scrollController,
+    );
     final initialCenter = useMemoized(() {
       final stopsLocal = stops;
       if (stopsLocal == null || stopsLocal.isEmpty) {
@@ -90,14 +101,27 @@ class StopsMapView extends HookWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: ClippedBottomNavBar(isSmall: stops == null || stops!.isEmpty),
+            child: ClippedBottomNavBar(
+              isSmall: stops == null || stops!.isEmpty,
+              extraBeanButton: stops == null || stops!.isEmpty
+                  ? null
+                  : BeanButton(
+                      icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
+                      onTap: navigateToNextStop,
+                    ),
+            ),
           ),
           if (stops != null)
             Positioned(
               bottom: 100,
               left: 0,
               right: 0,
-              child: StopsBottomList(stops: stops!, activeStop: activeStop, mapController: mapController),
+              child: StopsBottomList(
+                stops: stops!,
+                activeStop: activeStop,
+                mapController: mapController,
+                scrollController: scrollController,
+              ),
             ),
         ],
       ),
@@ -106,11 +130,18 @@ class StopsMapView extends HookWidget {
 }
 
 class StopsBottomList extends StatelessWidget {
-  const StopsBottomList({super.key, required this.stops, required this.activeStop, required this.mapController});
+  const StopsBottomList({
+    super.key,
+    required this.stops,
+    required this.activeStop,
+    required this.mapController,
+    required this.scrollController,
+  });
 
   final List<Stop> stops;
   final ValueNotifier<Stop?> activeStop;
   final MapController mapController;
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     final children = stops.map((stop) {
@@ -158,6 +189,7 @@ class StopsBottomList extends StatelessWidget {
     return SizedBox(
       height: VertCard.heightActive,
       child: ListView.separated(
+        controller: scrollController,
         padding: const EdgeInsets.symmetric(horizontal: p8),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => children[index],
