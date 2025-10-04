@@ -7,8 +7,8 @@ import "../../app/tokens.dart";
 import "../../common/widgets/custom_tab_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 import "../routes/view/route_view.dart";
+import "hooks/use_is_searched.dart";
 import "view/animated_double_circle.dart";
-import "view/animated_showup_logo.dart";
 import "view/location_picker_input.dart";
 import "view/stops_view.dart";
 
@@ -21,12 +21,13 @@ class StopsPage extends HookConsumerWidget {
     final selectedTab = useState(1);
     final locationAddress = useState<String?>(null);
     final isBigger = locationAddress.value?.isNotEmpty ?? false;
+    final searchController = useTextEditingController();
+    final isSearched = useIsSearched(locationAddress.value ?? "");
 
     return GradientScaffold(
       body: Stack(
         children: [
           AnimatedDoubleCircle(isBigger: isBigger),
-          AnimatedShowupLogo(isBigger: isBigger),
           Column(
             children: [
               Padding(
@@ -47,13 +48,21 @@ class StopsPage extends HookConsumerWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: p16),
                             child: LocationPickerInput(
+                              controller: searchController,
                               onChanged: (value) {
+                                locationAddress.value = value;
+                              },
+                              onSubmitted: (value) {
                                 locationAddress.value = value;
                               },
                             ),
                           ),
                           Expanded(
-                            child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),
+                            child: StopsView(
+                              isBigger: isBigger,
+                              locationAddress: locationAddress.value,
+                              isSearched: isSearched,
+                            ),
                           ),
                         ],
                       ),

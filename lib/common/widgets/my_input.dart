@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 import "../../app/tokens.dart";
 import "dot_indicator.dart";
 
-class MyInput extends StatelessWidget {
+class MyInput extends HookWidget {
   const MyInput({
     super.key,
-    this.controller,
+    required this.controller,
     this.hintText = "Jaki przystanek?",
     this.onChanged,
     this.onSubmitted,
@@ -13,8 +14,7 @@ class MyInput extends StatelessWidget {
     this.color,
     this.onSuffixIconPressed,
   });
-
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String hintText;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;

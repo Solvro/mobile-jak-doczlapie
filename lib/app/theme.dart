@@ -23,7 +23,11 @@ class AppTheme implements AppThemeData {
   ThemeData get dark => ThemeData();
 
   @override
-  ThemeData get light => ThemeData(inputDecorationTheme: _inputDecorationThemeData, listTileTheme: _listTileTheme);
+  ThemeData get light => ThemeData(
+    inputDecorationTheme: _inputDecorationThemeData,
+    listTileTheme: _listTileTheme,
+    filledButtonTheme: _filledButtonTheme,
+  );
 
   InputDecorationThemeData get _inputDecorationThemeData =>
       const InputDecorationThemeData(border: OutlineInputBorder());
@@ -33,6 +37,22 @@ class AppTheme implements AppThemeData {
     titleTextStyle: AppThemeData._textTheme.titleLarge?.withColor(Colors.white),
     subtitleTextStyle: AppThemeData._textTheme.bodyLarge?.withColor(greySubtitle),
     iconColor: yellow,
+  );
+
+  FilledButtonThemeData get _filledButtonTheme => FilledButtonThemeData(
+    style: FilledButton.styleFrom(
+      backgroundColor: const Color(0xFF3156EE),
+      foregroundColor: const Color(0xFFF8F7F7),
+      padding: const EdgeInsets.all(p16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+      minimumSize: const Size(370, 48), // 370px width as specified
+      textStyle: GoogleFonts.bricolageGrotesque(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        letterSpacing: -0.64,
+        color: const Color(0xFFF8F7F7),
+      ),
+    ),
   );
 }
 
@@ -60,6 +80,8 @@ extension AppThemeX on BuildContext {
 
 extension TextStyleX on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);
+
+  TextStyle get w400 => copyWith(fontWeight: FontWeight.w400);
 
   TextStyle withColor(Color color) => copyWith(color: color);
 

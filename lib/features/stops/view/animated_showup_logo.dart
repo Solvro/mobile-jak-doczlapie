@@ -14,7 +14,7 @@ class AnimatedShowupLogo extends StatelessWidget {
           ? const Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: EdgeInsets.only(top: 250), // not sure about this
+                padding: EdgeInsets.only(top: 100), // not sure about this
                 child: AppLogo(variant: AppLogoVariant.logoWithText),
               ),
             )

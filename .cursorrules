@@ -1,0 +1,16 @@
+# Flutter Development Rules
+
+## State Management
+- ALWAYS use `flutter_hooks` (HookWidget) instead of StatefulWidget where possible
+- Prefer hooks like `useTextEditingController`, `useState`, `useEffect`, `useMemoized` over manual state management
+- Only use StatefulWidget when hooks cannot handle the specific use case (rare)
+- use riverpod with code generation notation for 
+
+## Flutter API Usage
+- NEVER use deprecated `withOpacity()` method
+- ALWAYS use `withValues(alpha: value)` instead of `withOpacity(value)`
+- Use `withValues(alpha: 0.5)` instead of `withOpacity(0.5)`
+
+## Code Style
+- Use `const` constructors whenever possible
+- Prefer composition over inheritance
