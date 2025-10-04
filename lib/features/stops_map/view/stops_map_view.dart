@@ -9,7 +9,6 @@ import "../../../app/tokens.dart";
 import "../../../common/widgets/bottom_nav_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
-import "../../../common/widgets/map_list_switch.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../data/stop.dart";
@@ -25,7 +24,6 @@ class StopsMapView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewType = useState<ViewType>(ViewType.map);
     final activeStop = useState<Stop?>(null);
     final mapController = useMemoized(MapController.new, []);
     final initialCenter = useMemoized(() {
@@ -84,12 +82,7 @@ class StopsMapView extends HookWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: ClippedBottomNavBar(
-              currentIndex: 0,
-              onTap: (index) {},
-              viewType: viewType.value,
-              onViewTypeChange: (type) => viewType.value = type,
-            ),
+            child: ClippedBottomNavBar(isSmall: stops == null || stops!.isEmpty),
           ),
           if (stops != null)
             Positioned(

@@ -2,8 +2,10 @@ import "dart:math";
 
 import "package:flutter/material.dart";
 import "package:flutter_svg/svg.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../app/tokens.dart";
+import "../../features/bottom_nav/domain/bottom_nav_controller.dart";
 import "../../gen/assets.gen.dart";
 import "bean_button.dart";
 
@@ -29,17 +31,19 @@ class MapListSwitchIcon extends StatelessWidget {
   }
 }
 
-class MapListSwitchButton extends StatelessWidget {
-  const MapListSwitchButton({super.key, required this.viewType, required this.onChange});
-  final ViewType viewType;
-  final void Function(ViewType) onChange;
+class MapListSwitchButton extends ConsumerWidget {
+  const MapListSwitchButton({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewType = ref.watch(viewTypeControllerProvider);
+    final viewTypeController = ref.watch(viewTypeControllerProvider.notifier);
+
     return BeanButton(
       icon: MapListSwitchIcon(viewType: viewType),
       label: "",
       isActive: false,
-      onTap: () => onChange(viewType == ViewType.map ? ViewType.list : ViewType.map),
+      onTap: viewTypeController.toggleViewType,
     );
   }
 }

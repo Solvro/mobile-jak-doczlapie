@@ -1,30 +1,23 @@
 import "package:flutter/material.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_svg/svg.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../app/tokens.dart";
+import "../../features/bottom_nav/domain/bottom_nav_controller.dart";
 import "../../gen/assets.gen.dart";
 import "bean_button.dart";
 import "curved_top_clipper.dart";
 import "map_list_switch.dart";
 
-class ClippedBottomNavBar extends HookWidget {
-  const ClippedBottomNavBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-    this.viewType,
-    required this.onViewTypeChange,
-    this.isSmall = false,
-  });
+class ClippedBottomNavBar extends HookConsumerWidget {
+  const ClippedBottomNavBar({super.key, this.isSmall = false});
 
-  final int currentIndex;
-  final ValueChanged<int> onTap;
-  final ViewType? viewType;
-  final void Function(ViewType) onViewTypeChange;
   final bool isSmall;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(bottomNavControllerProvider);
+    final bottomNavController = ref.read(bottomNavControllerProvider.notifier);
+
     return Hero(
       tag: "bottom_nav_bar",
       child: ClipPath(
@@ -33,14 +26,15 @@ class ClippedBottomNavBar extends HookWidget {
           color: black,
           child: Padding(
             padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
-            child: SizedBox(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
               height: isSmall ? 145 : 200,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(
                   spacing: p8,
                   children: [
-                    if (viewType != null) MapListSwitchButton(viewType: viewType!, onChange: onViewTypeChange),
+                    const MapListSwitchButton(),
                     const Spacer(),
                     BeanButton(
                       icon: SvgPicture.asset(
@@ -51,7 +45,7 @@ class ClippedBottomNavBar extends HookWidget {
                       ),
                       label: "Trasy",
                       isActive: currentIndex == 0,
-                      onTap: () => onTap(0),
+                      onTap: () => bottomNavController.setCurrentIndex(0),
                     ),
                     BeanButton(
                       icon: SvgPicture.asset(
@@ -62,10 +56,10 @@ class ClippedBottomNavBar extends HookWidget {
                       ),
                       label: "Przystanki",
                       isActive: currentIndex == 1,
-                      onTap: () => onTap(1),
+                      onTap: () => bottomNavController.setCurrentIndex(1),
                     ),
                     const Spacer(),
-                    if (viewType != null) const SizedBox(width: 56),
+                    const SizedBox(width: 56),
                   ],
                 ),
               ),

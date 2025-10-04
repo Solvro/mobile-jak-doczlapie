@@ -1,22 +1,18 @@
-import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
 import "../../../app/tokens.dart";
 import "../../../common/widgets/app_bar.dart";
 import "../../../common/widgets/bottom_nav_bar.dart";
 import "../../../common/widgets/gradient_scaffold.dart";
-import "../../../common/widgets/map_list_switch.dart";
 
-@RoutePage()
 class RouteView extends StatelessWidget {
-  const RouteView({super.key, required this.selectedTab, required this.viewType});
-  final ValueNotifier<int> selectedTab;
-  final ValueNotifier<ViewType> viewType;
+  const RouteView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return const Stack(
       children: [
-        const GradientScaffold(
+        GradientScaffold(
           appBar: CommonAppBar(),
           body: Center(
             child: Column(
@@ -34,22 +30,7 @@ class RouteView extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: ClippedBottomNavBar(
-            currentIndex: selectedTab.value,
-            onTap: (index) {
-              selectedTab.value = index;
-            },
-            onViewTypeChange: (type) {
-              viewType.value = type;
-            },
-            viewType: viewType.value,
-            isSmall: true,
-          ),
-        ),
+        Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(isSmall: true)),
       ],
     );
   }
