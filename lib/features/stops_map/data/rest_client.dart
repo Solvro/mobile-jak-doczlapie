@@ -10,7 +10,7 @@ import "stop.dart";
 
 part "rest_client.g.dart";
 
-@RestApi(baseUrl: "https://jak-doczlapie-hackyeah.b.solvro.pl/")
+@RestApi(baseUrl: "https://jak-doczlapie  -hackyeah.b.solvro.pl/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) = _RestClient;
 

@@ -6,6 +6,7 @@ import "../features/main_navigation/routes_tab/routes_tab_page.dart";
 import "../features/main_navigation/routes_tab/routes_test_page.dart";
 import "../features/main_navigation/stops_tab/stops_tab_page.dart";
 import "../features/report_schedule/report_schedule_page.dart";
+import "../features/routes_list/route_list_page.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
 import "../features/stops_map/stops_map_page.dart";
@@ -44,5 +45,7 @@ class AppRouter extends RootStackRouter {
       ],
     ),
     AutoRoute(page: ReportScheduleRoute.page),
+    AutoRoute(page: StopsMapRoute.page),
+    AutoRoute(page: RouteListRoute.page, initial: true),
   ];
 }
