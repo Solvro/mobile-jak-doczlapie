@@ -5,7 +5,9 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../app/router.dart";
 import "../../app/tokens.dart";
+import "../../common/widgets/bottom_nav_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
+import "../../common/widgets/map_list_switch.dart";
 import "../../common/widgets/simple_logo_app_bar.dart";
 import "../routes/view/route_view.dart";
 import "view/animated_double_circle.dart";
@@ -18,6 +20,7 @@ class StopsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewType = useState<ViewType>(ViewType.map);
     final selectedTab = useState(1);
     final locationAddress = useState<String?>(null);
     final isBigger = locationAddress.value?.isNotEmpty ?? false;
@@ -58,6 +61,22 @@ class StopsPage extends HookConsumerWidget {
                       ),
               ),
             ],
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: ClippedBottomNavBar(
+              currentIndex: selectedTab.value,
+              onTap: (index) {
+                selectedTab.value = index;
+              },
+              onViewTypeChange: (type) {
+                viewType.value = type;
+              },
+              viewType: viewType.value,
+              isSmall: true,
+            ),
           ),
         ],
       ),

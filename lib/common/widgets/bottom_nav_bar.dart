@@ -15,21 +15,24 @@ class ClippedBottomNavBar extends HookWidget {
     required this.onTap,
     this.viewType,
     required this.onViewTypeChange,
+    this.isSmall = false,
   });
 
   final int currentIndex;
   final ValueChanged<int> onTap;
   final ViewType? viewType;
   final void Function(ViewType) onViewTypeChange;
+  final bool isSmall;
   @override
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: CurvedTopClipper(),
       child: ColoredBox(
         color: black,
-        child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
           child: SizedBox(
-            height: 208,
+            height: isSmall ? 145 : 208,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Row(
@@ -60,6 +63,7 @@ class ClippedBottomNavBar extends HookWidget {
                     onTap: () => onTap(1),
                   ),
                   const Spacer(),
+                  if (viewType != null) const SizedBox(width: 56),
                 ],
               ),
             ),

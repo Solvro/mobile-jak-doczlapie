@@ -93,7 +93,7 @@ class StopsMapView extends HookWidget {
           ),
           if (stops != null)
             Positioned(
-              bottom: 120,
+              bottom: 100,
               left: 0,
               right: 0,
               child: StopsBottomList(stops: stops!, activeStop: activeStop, mapController: mapController),
