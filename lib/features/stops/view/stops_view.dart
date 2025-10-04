@@ -3,13 +3,23 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
+import "../../../common/widgets/bottom_nav_bar.dart";
+import "../../../common/widgets/map_list_switch.dart";
 import "animated_showup_logo.dart";
 
 class StopsView extends StatelessWidget {
-  const StopsView({super.key, required this.isBigger, required this.locationAddress});
+  const StopsView({
+    super.key,
+    required this.isBigger,
+    required this.locationAddress,
+    required this.selectedTab,
+    required this.viewType,
+  });
 
   final bool isBigger;
   final String? locationAddress;
+  final ValueNotifier<int> selectedTab;
+  final ValueNotifier<ViewType> viewType;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +27,7 @@ class StopsView extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         if (isBigger) AnimatedShowupLogo(isBigger: isBigger),
+
         // if (isBigger && isEmpty && isSearched.value)
         //   Align(
         //     alignment: Alignment.topCenter,
@@ -25,6 +36,22 @@ class StopsView extends StatelessWidget {
         //       child: Text("Nie znaleziono przystanków", style: context.textTheme.headlineSmall?.white),
         //     ),
         //   ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: ClippedBottomNavBar(
+            currentIndex: selectedTab.value,
+            onTap: (index) {
+              selectedTab.value = index;
+            },
+            onViewTypeChange: (type) {
+              viewType.value = type;
+            },
+            viewType: viewType.value,
+            isSmall: !isBigger,
+          ),
+        ),
         if (!isBigger)
           Positioned(
             left: 25,
@@ -46,20 +73,20 @@ class StopsView extends StatelessWidget {
             ),
           ),
 
-        Column(
-          children: [
-            const Expanded(child: SizedBox()),
-            if (isBigger)
-              FilledButton(
-                onPressed: () async {
-                  final locationAddress = this.locationAddress;
-                  if (locationAddress == null) return;
-                  await context.router.push(StopsMapRoute(address: locationAddress));
-                },
-                child: const Text("POKAŻ PRZYSTANKI"),
-              ),
-          ],
-        ),
+        if (isBigger)
+          Positioned(
+            bottom: 110,
+            left: 0,
+            right: 0,
+            child: FilledButton(
+              onPressed: () async {
+                final locationAddress = this.locationAddress;
+                if (locationAddress == null) return;
+                await context.router.push(StopsMapRoute(address: locationAddress));
+              },
+              child: const Text("POKAŻ PRZYSTANKI"),
+            ),
+          ),
       ],
     );
   }

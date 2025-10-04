@@ -5,7 +5,6 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../app/router.dart";
 import "../../app/tokens.dart";
-import "../../common/widgets/bottom_nav_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 import "../../common/widgets/map_list_switch.dart";
 import "../../common/widgets/simple_logo_app_bar.dart";
@@ -36,7 +35,7 @@ class StopsPage extends HookConsumerWidget {
               SimpleLogoAppBar(),
               Expanded(
                 child: selectedTab.value == 0
-                    ? const RouteView()
+                    ? RouteView(selectedTab: selectedTab, viewType: viewType)
                     : Column(
                         spacing: 12,
                         mainAxisSize: MainAxisSize.min,
@@ -55,28 +54,17 @@ class StopsPage extends HookConsumerWidget {
                             ),
                           ),
                           Expanded(
-                            child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),
+                            child: StopsView(
+                              isBigger: isBigger,
+                              locationAddress: locationAddress.value,
+                              selectedTab: selectedTab,
+                              viewType: viewType,
+                            ),
                           ),
                         ],
                       ),
               ),
             ],
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ClippedBottomNavBar(
-              currentIndex: selectedTab.value,
-              onTap: (index) {
-                selectedTab.value = index;
-              },
-              onViewTypeChange: (type) {
-                viewType.value = type;
-              },
-              viewType: viewType.value,
-              isSmall: true,
-            ),
           ),
         ],
       ),

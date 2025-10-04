@@ -25,46 +25,49 @@ class ClippedBottomNavBar extends HookWidget {
   final bool isSmall;
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: CurvedTopClipper(),
-      child: ColoredBox(
-        color: black,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
-          child: SizedBox(
-            height: isSmall ? 145 : 208,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                spacing: p8,
-                children: [
-                  if (viewType != null) MapListSwitchButton(viewType: viewType!, onChange: onViewTypeChange),
-                  const Spacer(),
-                  BeanButton(
-                    icon: SvgPicture.asset(
-                      Assets.icons.roadIcon,
-                      colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                      width: s20,
-                      height: s20,
+    return Hero(
+      tag: "bottom_nav_bar",
+      child: ClipPath(
+        clipper: CurvedTopClipper(),
+        child: ColoredBox(
+          color: black,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
+            child: SizedBox(
+              height: isSmall ? 145 : 200,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  spacing: p8,
+                  children: [
+                    if (viewType != null) MapListSwitchButton(viewType: viewType!, onChange: onViewTypeChange),
+                    const Spacer(),
+                    BeanButton(
+                      icon: SvgPicture.asset(
+                        Assets.icons.roadIcon,
+                        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                        width: s20,
+                        height: s20,
+                      ),
+                      label: "Trasy",
+                      isActive: currentIndex == 0,
+                      onTap: () => onTap(0),
                     ),
-                    label: "Trasy",
-                    isActive: currentIndex == 0,
-                    onTap: () => onTap(0),
-                  ),
-                  BeanButton(
-                    icon: SvgPicture.asset(
-                      Assets.icons.busIcon,
-                      colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                      width: s20,
-                      height: s20,
+                    BeanButton(
+                      icon: SvgPicture.asset(
+                        Assets.icons.busIcon,
+                        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                        width: s20,
+                        height: s20,
+                      ),
+                      label: "Przystanki",
+                      isActive: currentIndex == 1,
+                      onTap: () => onTap(1),
                     ),
-                    label: "Przystanki",
-                    isActive: currentIndex == 1,
-                    onTap: () => onTap(1),
-                  ),
-                  const Spacer(),
-                  if (viewType != null) const SizedBox(width: 56),
-                ],
+                    const Spacer(),
+                    if (viewType != null) const SizedBox(width: 56),
+                  ],
+                ),
               ),
             ),
           ),
