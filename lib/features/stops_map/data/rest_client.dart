@@ -1,8 +1,10 @@
-import "package:dio/dio.dart";
+import "package:dio/dio.dart" hide Headers;
+import "package:flutter/widgets.dart";
 import "package:retrofit/error_logger.dart";
 import "package:retrofit/http.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../trip/data/track_response.dart";
 import "line.dart";
 import "stop.dart";
 
@@ -24,9 +26,19 @@ abstract class RestClient {
 
   @GET("/api/v1/stops/{id}")
   Future<Stop> getStopDetails(@Path("id") String id);
+
+  @Headers(<String, dynamic>{"Content-Type": "application/json"})
+  @POST("/api/v1/routes/{id}/tracks")
+  Future<void> sendUserTrack(@Path("id") String id, @Body() TrackResponse trackResponse);
 }
 
 @riverpod
 RestClient restClient(Ref ref) {
-  return RestClient(Dio());
+  final dio = Dio();
+
+  dio.interceptors.add(
+    LogInterceptor(requestBody: true, responseBody: true, logPrint: (object) => debugPrint("🌐 HTTP: $object")),
+  );
+
+  return RestClient(dio);
 }

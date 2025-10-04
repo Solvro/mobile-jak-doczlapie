@@ -19,7 +19,24 @@ class TripPage extends ConsumerWidget {
     return switch (line) {
       AsyncData(:final value) => TripView(trip: value),
       AsyncLoading() => const AppLoadingScreen(),
-      _ => const Scaffold(),
+      AsyncError(:final error, :final stackTrace) => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error, size: 64, color: Colors.red),
+              const SizedBox(height: 16),
+              Text(
+                "Błąd: $error",
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text("Stack trace: $stackTrace", style: const TextStyle(fontSize: 12), textAlign: TextAlign.center),
+            ],
+          ),
+        ),
+      ),
     };
   }
 }
