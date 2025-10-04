@@ -6,6 +6,7 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 import "../../app/router.dart" show StopsMapRoute;
 import "../../app/tokens.dart";
 import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
+import "../../common/widgets/calendar_button.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 import "view/animated_double_circle.dart";
 import "view/location_picker_input.dart";
@@ -46,6 +47,10 @@ class StopsPage extends HookConsumerWidget {
                           await context.router.push(StopsMapRoute(address: value));
                         },
                       ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: p16),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [CalendarButton(readonly: false)]),
                     ),
                     Expanded(
                       child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),

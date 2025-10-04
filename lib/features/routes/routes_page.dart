@@ -65,7 +65,10 @@ class RoutesPage extends HookConsumerWidget {
                             variant: MyInputVariant.dense,
                             dotIndicatorVariant: DotIndicatorVariant.blue,
                           ),
-                          const Row(mainAxisAlignment: MainAxisAlignment.end, children: [CalendarButton()]),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [CalendarButton(readonly: false)],
+                          ),
                           const SizedBox(height: p4),
                         ],
                       ),

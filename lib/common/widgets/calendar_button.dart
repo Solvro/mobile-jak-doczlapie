@@ -5,7 +5,7 @@ import "../../app/tokens.dart";
 import "../utils/date_time_ext.dart";
 
 class CalendarButton extends HookWidget {
-  const CalendarButton({super.key, this.readonly = true});
+  const CalendarButton({super.key, required this.readonly});
 
   final bool readonly;
 
