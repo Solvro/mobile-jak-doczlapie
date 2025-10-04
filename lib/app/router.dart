@@ -2,7 +2,6 @@ import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 
 import "../features/report_schedule/report_schedule_page.dart";
-import "../features/stop_details/hooks/use_sorted_departures.dart";
 import "../features/stop_details/stop_details_page.dart";
 import "../features/stops/stops_page.dart";
 import "../features/trip/trip_page.dart";

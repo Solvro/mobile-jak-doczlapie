@@ -26,6 +26,10 @@ dependencies:
   device_preview: ^1.1.0
   geocoding: ^4.0.0
   geolocator: ^14.0.2
+  flutter_gen: ^5.12.0
+  google_fonts: ^6.3.2
+  flutter_svg: ^2.2.1
+  glass: ^2.0.0+2
   dio: ^5.9.0
   retrofit: ^4.7.3
   json_annotation: ^4.9.0
@@ -37,11 +41,16 @@ dev_dependencies:
   riverpod_generator: ^3.0.0
   auto_route_generator: ^10.2.4
   solvro_config: ^1.1.1
+  flutter_gen_runner: ^5.12.0
   retrofit_generator: ^10.0.0
   json_serializable: ^6.11.1
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/icons/
 
 lint_staged:
   "lib/**.dart": dart format && dart fix --apply

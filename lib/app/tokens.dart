@@ -1,4 +1,6 @@
 // paddings and sizes
+import "dart:ui";
+
 const double p4 = 4;
 const double p8 = 8;
 const double p12 = 12;
@@ -7,9 +9,33 @@ const double p20 = 20;
 const double p24 = 24;
 const double p28 = 28;
 const double p32 = 32;
+const double p40 = 40;
 const double p64 = 64;
 const double p128 = 128;
 const double p256 = 256;
 
 // radiuses
-const double r4 = 4;
+const double r4 = 4; // remove this
+const double r7 = 7;
+const double r14 = 14;
+const double r18 = 18;
+const double r22 = 22;
+const double r24 = 24;
+
+//other sizes
+const double s71 = 71;
+const double s58 = 58;
+const double s181 = 181;
+
+// colors
+const lightBlueGradientPoint = Color(0xFF3057F4);
+const darkBlueGradientPoint = Color(0xFF192437);
+const yellow = Color(0xFFF7D80C);
+const red = Color(0xFFC93529);
+const blueAccent = Color(0xFF0073D8);
+const greySubtitle = Color(0xFFC9C9C9);
+const greyIcon = Color(0xFFCFCFCF);
+const greyBorder = Color(0xFF848589);
+
+// effects
+final blurFilter = ImageFilter.blur(sigmaX: 13.55, sigmaY: 13.55);

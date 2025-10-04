@@ -5,7 +5,7 @@ import "package:latlong2/latlong.dart";
 
 import "../../../app/tokens.dart";
 import "../../../config/sheet_config.dart";
-import "../data/trip.dart";
+import "../data/trip_repository.dart";
 import "pop_button.dart";
 import "report_button.dart";
 import "route_polyline_layer.dart";
@@ -27,7 +27,7 @@ class TripView extends HookWidget {
         return const LatLng(50.0645, 19.9830); // tauron arena
       }
       final firstStop = trip.stops.first;
-      return LatLng(firstStop.latitude, firstStop.longitude);
+      return LatLng(firstStop.coordinates.latitude, firstStop.coordinates.longitude);
     }, [trip.stops]);
 
     return Scaffold(
@@ -46,7 +46,7 @@ class TripView extends HookWidget {
                 trip: trip,
                 onMarkerTap: (index) async {
                   final stop = trip.stops[index];
-                  mapController.moveAndRotate(LatLng(stop.latitude, stop.longitude), 20, 0);
+                  mapController.moveAndRotate(stop.coordinates, 20, 0);
                   await draggableController.animateTo(
                     defaultSheetConfig.baseSize,
                     duration: const Duration(milliseconds: 300),
@@ -62,7 +62,7 @@ class TripView extends HookWidget {
             draggableController: draggableController,
             onStopTap: (index) async {
               final stop = trip.stops[index];
-              mapController.move(LatLng(stop.latitude, stop.longitude), 20);
+              mapController.move(stop.coordinates, 20);
               await draggableController.animateTo(
                 defaultSheetConfig.minSize,
                 duration: const Duration(milliseconds: 300),

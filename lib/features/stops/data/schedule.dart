@@ -15,6 +15,5 @@ abstract class Schedule with _$Schedule {
     List<Condition>? conditions,
   }) = _Schedule;
 
-  factory Schedule.fromJson(Map<String, dynamic> json) =>
-      _$ScheduleFromJson(json);
+  factory Schedule.fromJson(Map<String, dynamic> json) => _$ScheduleFromJson(json);
 }

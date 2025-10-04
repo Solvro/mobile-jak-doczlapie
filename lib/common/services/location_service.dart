@@ -1,9 +1,6 @@
 import "package:geocoding/geocoding.dart";
 import "package:geolocator/geolocator.dart";
 import "package:latlong2/latlong.dart";
-import "package:riverpod_annotation/riverpod_annotation.dart";
-
-part "location_service.g.dart";
 
 class LocationService {
   static Future<void> requestPermission() async {
@@ -70,19 +67,19 @@ class LocationService {
       locationSettings: locationSettings,
     ).map((position) => LatLng(position.latitude, position.longitude));
   }
-}
 
-@riverpod
-Future<LatLng> currentLocation(Ref ref) {
-  return LocationService.getCurrentLocation();
-}
+  static Future<LatLng?> getCoordinatesFromAddress(String address) async {
+    try {
+      final locations = await locationFromAddress(address).timeout(const Duration(seconds: 10));
 
-@riverpod
-Future<String?> currentPlacemark(Ref ref) {
-  return LocationService.getPlacemark();
-}
+      if (locations.isNotEmpty) {
+        final location = locations[0];
+        return LatLng(location.latitude, location.longitude);
+      }
 
-@riverpod
-Stream<LatLng> locationStream(Ref ref) {
-  return LocationService.getLocationStream();
+      return null;
+    } on Exception {
+      return null;
+    }
+  }
 }

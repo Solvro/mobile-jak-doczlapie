@@ -9,7 +9,7 @@ import "view/stop_details_view.dart";
 class StopDetailsPage extends ConsumerWidget {
   const StopDetailsPage({super.key, required this.id});
 
-  final int id;
+  final String id;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

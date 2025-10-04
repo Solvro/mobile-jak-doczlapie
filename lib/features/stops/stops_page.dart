@@ -1,21 +1,67 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "../../common/widgets/app_loading_screen.dart";
-import "data/stops_repository.dart";
+
+import "../../app/tokens.dart";
+import "../../common/widgets/custom_tab_bar.dart";
+import "../../common/widgets/gradient_scaffold.dart";
+import "../routes/view/route_view.dart";
+import "view/animated_double_circle.dart";
+import "view/animated_showup_logo.dart";
+import "view/location_picker_input.dart";
 import "view/stops_view.dart";
 
 @RoutePage()
-class StopsPage extends ConsumerWidget {
+class StopsPage extends HookConsumerWidget {
   const StopsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stops = ref.watch(stopsRepositoryProvider);
-    return switch (stops) {
-      AsyncData(:final value) => StopsView(stops: value),
-      AsyncLoading() => const AppLoadingScreen(),
-      _ => const Scaffold(),
-    };
+    final selectedTab = useState(1);
+    final locationAddress = useState<String?>(null);
+    final isBigger = locationAddress.value?.isNotEmpty ?? false;
+
+    return GradientScaffold(
+      body: Stack(
+        children: [
+          AnimatedDoubleCircle(isBigger: isBigger),
+          AnimatedShowupLogo(isBigger: isBigger),
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(p16),
+                child: CustomTabBar(
+                  selectedIndex: selectedTab.value,
+                  onTabChanged: (index) => selectedTab.value = index,
+                ),
+              ),
+              // Content based on selected tab
+              Expanded(
+                child: selectedTab.value == 0
+                    ? const RouteView()
+                    : Column(
+                        spacing: 12,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: p16),
+                            child: LocationPickerInput(
+                              onChanged: (value) {
+                                locationAddress.value = value;
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),
+                          ),
+                        ],
+                      ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

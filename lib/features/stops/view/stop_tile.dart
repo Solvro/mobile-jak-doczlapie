@@ -1,8 +1,10 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "../../../app/router.dart";
+import "../../../app/theme.dart";
+import "../../../app/tokens.dart";
+import "../../../common/widgets/cards/wide_tile_card.dart";
 import "../data/stop.dart";
-import "line_chip.dart";
 
 class StopTile extends StatelessWidget {
   const StopTile({super.key, required this.stop});
@@ -11,10 +13,30 @@ class StopTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(stop.name),
-      trailing: Wrap(children: stop.lines.map((line) => LineChip(lineNumber: line.number)).toList()),
-      onTap: () => context.router.push(StopDetailsRoute(id: stop.id)),
+    return WideTileCard(
+      leading: SizedBox.square(
+        dimension: s71,
+        child: Center(
+          child: Text.rich(
+            textAlign: TextAlign.center,
+            TextSpan(
+              children: [
+                TextSpan(text: "4\n", style: context.textTheme.headlineSmall?.white),
+                TextSpan(text: "kierunki", style: context.textTheme.titleSmall?.white),
+              ],
+            ),
+          ),
+        ),
+      ),
+      child: ListTile(
+        title: Text(stop.name),
+        subtitle: Text("(${stop.coordinates.latitude}, ${stop.coordinates.longitude})"),
+        trailing: IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.star, size: p24),
+        ),
+      ),
+      onTap: () => context.router.push(StopDetailsRoute(id: stop.id.toString())),
     );
   }
 }

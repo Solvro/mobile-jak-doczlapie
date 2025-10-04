@@ -3,20 +3,21 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/tokens.dart";
-import "../../../utils/format_time.dart";
-import "../hooks/use_sorted_departures.dart";
+
+import "../../stops/data/schedule.dart";
 
 class DepartureRow extends StatelessWidget {
-  const DepartureRow({required this.departure, required this.lineNumber});
+  const DepartureRow({required this.schedule, required this.lineNumber, required this.lineId});
   final String lineNumber;
-  final DepartureWithDirection departure;
+  final String lineId;
+  final Schedule schedule;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => context.router.push(TripRoute(lineNumber: lineNumber, startingDeparture: departure)),
+      onTap: () => context.router.push(TripRoute(lineId: lineId, runId: schedule.run, direction: schedule.destination)),
       leading: const Icon(Icons.directions_bus, size: p16),
-      title: Row(spacing: p8, children: [Text(formatTime(departure.departure.timestamp)), Text(departure.direction)]),
+      title: Row(spacing: p8, children: [Text(schedule.time), Text(schedule.destination)]),
     );
   }
 }

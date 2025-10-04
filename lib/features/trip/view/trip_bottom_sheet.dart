@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../../../app/theme.dart";
 import "../../../config/sheet_config.dart";
-import "../data/trip.dart";
+import "../data/trip_repository.dart";
 import "handle.dart";
 import "trip_header.dart";
 import "trip_stop_tile.dart";

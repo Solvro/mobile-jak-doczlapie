@@ -1,11 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
-import "package:latlong2/latlong.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
-import "../data/trip.dart";
+import "../data/trip_repository.dart";
 
 class StopMarkersLayer extends HookWidget {
   const StopMarkersLayer({super.key, required this.trip, this.onMarkerTap});
@@ -21,7 +20,7 @@ class StopMarkersLayer extends HookWidget {
         final stop = entry.value;
 
         return Marker(
-          point: LatLng(stop.latitude, stop.longitude),
+          point: stop.coordinates,
           width: p64,
           height: p64,
           child: GestureDetector(

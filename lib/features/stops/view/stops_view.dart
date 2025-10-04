@@ -1,56 +1,39 @@
-import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
-import "../../../app/router.dart";
-import "../../../common/services/location_service.dart";
-import "../../../common/widgets/app_bar.dart";
-import "../data/stop.dart";
+
+import "../../../app/tokens.dart";
+import "../../../common/widgets/app_loading_screen.dart";
+import "../data/stops_repository.dart";
+import "../hooks/use_coords.dart";
 import "stop_tile.dart";
 
 class StopsView extends HookConsumerWidget {
-  const StopsView({super.key, required this.stops});
+  const StopsView({super.key, required this.isBigger, required this.locationAddress});
 
-  final List<Stop> stops;
+  final bool isBigger;
+  final String? locationAddress;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useTextEditingController();
-    return Scaffold(
-      appBar: CommonAppBar(
-        title: "Przystanki",
-        actions: [
-          IconButton(
-            onPressed: () => context.router.push(const ReportScheduleRoute()),
-            icon: const Icon(Icons.feedback),
-          ),
-        ],
-      ),
-      body: Column(
-        spacing: 12,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            spacing: 10,
-            children: [
-              Expanded(child: TextField(controller: controller)),
-              IconButton.filled(
-                onPressed: () async {
-                  await LocationService.requestPermission();
-                  final placemark = await ref.read(currentPlacemarkProvider.future);
-                  controller.text = placemark ?? "";
-                },
-                icon: const Icon(Icons.place),
-              ),
-            ],
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: stops.length,
-            itemBuilder: (context, index) => StopTile(stop: stops[index]),
-          ),
-        ],
+    final coords = useCoords(locationAddress);
+
+    final stopsAsync = ref.watch(
+      stopsRepositoryProvider(
+        coords.data?.latitude.toString() != null
+            ? (latitude: coords.data!.latitude.toString(), longitiude: coords.data!.longitude.toString())
+            : null,
       ),
     );
+    return switch (stopsAsync) {
+      AsyncData(:final value) => ListView.separated(
+        padding: const EdgeInsets.symmetric(horizontal: p12),
+        shrinkWrap: true,
+        itemCount: value.length,
+        itemBuilder: (context, index) => StopTile(stop: value[index]),
+        separatorBuilder: (context, index) => const SizedBox(height: p12),
+      ),
+      AsyncLoading() => const AppLoadingScreen(),
+      _ => const Scaffold(),
+    };
   }
 }

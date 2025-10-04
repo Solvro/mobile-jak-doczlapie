@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../../../app/theme.dart";
-import "../../../utils/format_time.dart";
-import "../data/trip_stop.dart";
+import "../data/trip_repository.dart";
 
 class TripStopTile extends StatelessWidget {
   const TripStopTile({super.key, required this.stop, required this.onStopTap, required this.index});
@@ -20,7 +19,7 @@ class TripStopTile extends StatelessWidget {
           style: TextStyle(color: context.colorScheme.onPrimary, fontWeight: FontWeight.bold),
         ),
       ),
-      title: Text("${formatTime(stop.arrivalTime)} ${stop.name}"),
+      title: Text("${stop.time} ${stop.name}"),
 
       onTap: () => onStopTap(index),
     );

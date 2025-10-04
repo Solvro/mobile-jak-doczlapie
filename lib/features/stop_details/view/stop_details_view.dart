@@ -10,11 +10,15 @@ class StopDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lines = stop.routes;
+    if (lines == null) {
+      throw Exception("Stop has no routes");
+    }
     return Scaffold(
-      appBar: CommonAppBar(title: stop.name),
+      appBar: const CommonAppBar(),
       body: ListView.builder(
-        itemCount: stop.lines.length,
-        itemBuilder: (context, index) => LineExpandingTile(line: stop.lines[index]),
+        itemCount: lines.length,
+        itemBuilder: (context, index) => LineExpandingTile(line: lines[index]),
       ),
     );
   }

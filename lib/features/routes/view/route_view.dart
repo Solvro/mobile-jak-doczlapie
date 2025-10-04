@@ -1,0 +1,31 @@
+import "package:flutter/material.dart";
+
+import "../../../app/tokens.dart";
+import "../../../common/widgets/app_bar.dart";
+import "../../../common/widgets/gradient_scaffold.dart";
+
+class RouteView extends StatelessWidget {
+  const RouteView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const GradientScaffold(
+      appBar: CommonAppBar(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.route, size: 64, color: Colors.white),
+            SizedBox(height: p16),
+            Text(
+              "Trasa",
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: p8),
+            Text("Funkcja w trakcie rozwoju", style: TextStyle(color: Colors.white70, fontSize: 16)),
+          ],
+        ),
+      ),
+    );
+  }
+}

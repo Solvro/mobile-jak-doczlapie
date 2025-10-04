@@ -22,7 +22,7 @@ class ReportScheduleView extends HookWidget {
     return FormBuilder(
       key: key.value,
       child: Scaffold(
-        appBar: const CommonAppBar(title: "Zgłoś rozkład"),
+        appBar: const CommonAppBar(),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(

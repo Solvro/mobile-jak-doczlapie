@@ -1,14 +1,13 @@
 import "package:flutter/material.dart";
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CommonAppBar({super.key, required this.title, this.actions = const []});
+  const CommonAppBar({super.key, this.actions = const []});
 
-  final String title;
   final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(title: Text(title), actions: actions);
+    return AppBar(actions: actions, backgroundColor: Colors.transparent);
   }
 
   @override
