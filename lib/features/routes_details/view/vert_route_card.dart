@@ -3,10 +3,10 @@ import "package:flutter_svg/svg.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../common/widgets/cards/vert_card.dart";
+import "../../../gen/assets.gen.dart";
 import "../../routes_list/view/route_chip.dart";
 import "route_detail_view.dart" show Route;
-import "../../../gen/assets.gen.dart";
-import "../../../common/widgets/cards/vert_card.dart";
 
 class VertRouteCard extends StatelessWidget {
   const VertRouteCard({super.key, required this.route, this.isActive = false, this.onTap});

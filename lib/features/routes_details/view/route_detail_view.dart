@@ -1,32 +1,30 @@
-import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
-import "package:flutter_svg/flutter_svg.dart";
-import "package:glass/glass.dart";
-import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:latlong2/latlong.dart";
 
-import "../../../app/router.dart";
-import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 
-import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "vert_route_card.dart";
 import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/glass_input.dart";
-import "../../../common/widgets/inputs/my_input.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../common/widgets/tile_layer.dart";
-import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
-import "../../stops_map/data/line.dart";
-import "../../stops_map/data/stop.dart";
-import "../../trip/data/trip_repository.dart";
-import "line_polyline_layer.dart";
+import "../hooks/use_route_cycling.dart";
+
+const mockRoutes = [
+  (
+    startTime: "10:00",
+    endTime: "11:00",
+    segments: [(lineNumber: "1", duration: Duration(hours: 3)), (lineNumber: "IC", duration: Duration(hours: 1))],
+    totalTime: "1h",
+  ),
+  (startTime: "11:00", endTime: "12:00", segments: [(lineNumber: "IC", duration: Duration(hours: 1))], totalTime: "1h"),
+];
 
 class RouteDetailsView extends HookWidget {
   const RouteDetailsView({super.key});
@@ -35,11 +33,7 @@ class RouteDetailsView extends HookWidget {
   Widget build(BuildContext context) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
-    // final activeLine = useState<LineWithDestination?>(
-    //   stop?.routes?.first != null
-    //       ? (line: stop!.routes!.first, destination: stop?.routes?.first.destinations?.first ?? "")
-    //       : null,
-    // );
+    final activeRoute = useState<Route?>(mockRoutes.first);
 
     // useEffect(() {
     //   if (stop != null) {
@@ -65,7 +59,7 @@ class RouteDetailsView extends HookWidget {
     //   return null;
     // }, [initialCenter]);
 
-    // final cycleToNextLine = useLineCycling(activeLine: activeLine, routes: stop?.routes);
+    final cycleToNextRoute = useRouteCycling(activeRoute: activeRoute, routes: mockRoutes);
 
     return Scaffold(
       body: Stack(
@@ -82,7 +76,6 @@ class RouteDetailsView extends HookWidget {
               // LinePolylineLayer(line: activeLine.value),
             ],
           ),
-          // App bar positioned at the top
           // if (stop != null)
           const Positioned(
             top: 80,
@@ -100,18 +93,15 @@ class RouteDetailsView extends HookWidget {
           ),
 
           // if (stop == null) const Center(child: CircularProgressIndicator()),
-          const Positioned(
+          Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
-              // isSmall: stop == null,
-              // extraBeanButton: stop == null
-              //     ? null
-              //     : BeanButton(
-              //         icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
-              //         onTap: cycleToNextLine,
-              //       ),
+              extraBeanButton: BeanButton(
+                icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
+                onTap: cycleToNextRoute,
+              ),
             ),
           ),
 
@@ -122,23 +112,9 @@ class RouteDetailsView extends HookWidget {
             child: RoutesBottomList(
               mapController: mapController,
               scrollController: scrollController,
-              routes: const [
-                (
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  segments: [
-                    (lineNumber: "1", duration: Duration(hours: 3)),
-                    (lineNumber: "IC", duration: Duration(hours: 1)),
-                  ],
-                  totalTime: "1h",
-                ),
-                (
-                  startTime: "11:00",
-                  endTime: "12:00",
-                  segments: [(lineNumber: "IC", duration: Duration(hours: 1))],
-                  totalTime: "1h",
-                ),
-              ],
+              routes: mockRoutes,
+              activeRoute: activeRoute,
+              onRouteTap: (route) => activeRoute.value = route,
             ),
           ),
         ],
@@ -157,16 +133,20 @@ class RoutesBottomList extends StatelessWidget {
     required this.mapController,
     required this.scrollController,
     required this.routes,
+    required this.activeRoute,
+    required this.onRouteTap,
   });
 
   final MapController mapController;
   final ScrollController scrollController;
   final List<Route> routes;
+  final ValueNotifier<Route?> activeRoute;
+  final void Function(Route) onRouteTap;
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = routes.map((route) {
-      const isActive = true;
-      return VertRouteCard(isActive: isActive, route: route, onTap: () {});
+      final isActive = activeRoute.value == route;
+      return VertRouteCard(isActive: isActive, route: route, onTap: () => onRouteTap(route));
     }).toList();
 
     // children ??= List.generate(10, (index) => const VertCardShimmer());
