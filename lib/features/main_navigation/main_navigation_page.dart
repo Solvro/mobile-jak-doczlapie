@@ -13,6 +13,7 @@ class MainNavigationPage extends StatelessWidget {
       homeIndex: 1,
       routes: const [RoutesTabRoute(), StopsTabRoute()],
       transitionBuilder: (context, child, animation) => FadeTransition(opacity: animation, child: child),
+      duration: const Duration(milliseconds: 700),
       builder: (context, child) {
         return child;
       },

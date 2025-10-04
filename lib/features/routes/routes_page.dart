@@ -12,7 +12,7 @@ import "../../common/widgets/gradient_scaffold.dart";
 import "../../common/widgets/my_input.dart";
 import "../stops/view/animated_double_circle.dart";
 import "../stops/view/location_picker_input.dart";
-import "../stops/view/stops_view.dart";
+import "view/routes_view.dart";
 
 @RoutePage()
 class RoutesPage extends HookConsumerWidget {
@@ -20,8 +20,10 @@ class RoutesPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locationAddress = useState<String?>(null);
-    final isBigger = locationAddress.value?.isNotEmpty ?? false;
+    final locationAddressStart = useState<String?>(null);
+    final locationAddressEnd = useState<String?>(null);
+    final isBigger =
+        (locationAddressStart.value?.isNotEmpty ?? false) && (locationAddressEnd.value?.isNotEmpty ?? false);
     final searchControllerStart = useTextEditingController();
     final searchControllerEnd = useTextEditingController();
 
@@ -48,13 +50,17 @@ class RoutesPage extends HookConsumerWidget {
                           const SizedBox(height: p4),
                           LocationPickerInput(
                             controller: searchControllerStart,
-                            onSubmitted: (text) {},
+                            onChanged: (text) {
+                              locationAddressStart.value = text;
+                            },
                             hintText: "Skąd jedziemy?",
                             variant: MyInputVariant.dense,
                           ),
                           MyInput(
                             controller: searchControllerEnd,
-                            onSubmitted: (text) {},
+                            onChanged: (text) {
+                              locationAddressEnd.value = text;
+                            },
                             hintText: "Dokąd jedziemy?",
                             variant: MyInputVariant.dense,
                             dotIndicatorVariant: DotIndicatorVariant.blue,
@@ -64,9 +70,7 @@ class RoutesPage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),
-                    ),
+                    Expanded(child: RoutesView(isBigger: isBigger)),
                   ],
                 ),
               ),
