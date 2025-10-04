@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
@@ -27,7 +29,6 @@ class StopsMapView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final activeStop = useState<Stop?>(stops == null || stops!.isEmpty ? null : stops!.first);
-
     useEffect(() {
       if (stops != null && stops!.isNotEmpty) {
         activeStop.value = stops!.first;
@@ -38,6 +39,12 @@ class StopsMapView extends HookWidget {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
 
+    final navigateToSpecificStop = useSpecificStopNavigation(
+      stops: stops ?? [],
+      activeStop: activeStop,
+      mapController: mapController,
+      scrollController: scrollController,
+    );
     // Use the next stop navigation hook
     final navigateToNextStop = useNextStopNavigation(
       stops: stops ?? [],
@@ -74,7 +81,7 @@ class StopsMapView extends HookWidget {
                   onMarkerTap: (index) {
                     final stop = stops![index];
                     mapController.moveAndRotate(stop.coordinates, 16, 0);
-                    activeStop.value = stop;
+                    unawaited(navigateToSpecificStop(stop));
                   },
                 ),
             ],

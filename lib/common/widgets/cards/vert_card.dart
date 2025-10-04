@@ -115,7 +115,7 @@ class VertCardShimmer extends HookWidget {
           return Container(
             width: 167,
             height: isActive ? heightActive : height,
-            decoration: BoxDecoration(color: const Color(0xFF252328), borderRadius: BorderRadius.circular(r31)),
+            decoration: BoxDecoration(color: greyBorder, borderRadius: BorderRadius.circular(r31)),
             child: Padding(
               padding: const EdgeInsets.all(p8),
               child: Column(
@@ -124,9 +124,9 @@ class VertCardShimmer extends HookWidget {
                   Container(
                     height: 62,
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color.lerp(const Color(0xFF252328), const Color(0xFF3A3A3A), animation.value),
-                      borderRadius: const BorderRadius.all(Radius.circular(r25)),
+                    decoration: const BoxDecoration(
+                      color: greyBorder,
+                      borderRadius: BorderRadius.all(Radius.circular(r25)),
                     ),
                   ),
                   const Expanded(child: SizedBox()),
@@ -136,19 +136,13 @@ class VertCardShimmer extends HookWidget {
                       Container(
                         width: 32,
                         height: 32,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.lerp(const Color(0xFF252328), const Color(0xFF3A3A3A), animation.value),
-                        ),
+                        decoration: const BoxDecoration(shape: BoxShape.circle, color: greyBorder),
                       ),
                       const Spacer(),
                       Container(
                         width: 60,
                         height: 16,
-                        decoration: BoxDecoration(
-                          color: Color.lerp(const Color(0xFF252328), const Color(0xFF3A3A3A), animation.value),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                        decoration: BoxDecoration(color: greyBorder, borderRadius: BorderRadius.circular(8)),
                       ),
                     ],
                   ),

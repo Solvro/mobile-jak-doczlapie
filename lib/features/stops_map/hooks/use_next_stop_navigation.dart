@@ -37,12 +37,47 @@ VoidCallback useNextStopNavigation({
     mapController.moveAndRotate(nextStop.coordinates, 16, 0);
 
     // Scroll to the next stop in the list
-    if (scrollController.hasClients) {
-      await scrollController.animateTo(
-        nextIndex * (167 + p8), // Calculate position based on card width (167) and spacing (p8)
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
+    await useScrollToStop(scrollController: scrollController, stopIndex: nextIndex);
+  }, [stops, activeStop, mapController, scrollController]);
+}
+
+/// Common hook for scrolling to a specific stop index
+///
+/// Returns a function that scrolls to the specified stop index in the list.
+/// This is shared logic used by both next stop navigation and specific stop navigation.
+Future<void> useScrollToStop({required ScrollController scrollController, required int stopIndex}) async {
+  if (scrollController.hasClients) {
+    await scrollController.animateTo(
+      stopIndex * (167 + p8), // Calculate position based on card width (167) and spacing (p8)
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+}
+
+/// Hook for navigating to a specific stop
+///
+/// Returns a function that navigates to the specified stop,
+/// updating the active stop, moving the map, and scrolling to it.
+Future<void> Function(Stop) useSpecificStopNavigation({
+  required List<Stop> stops,
+  required ValueNotifier<Stop?> activeStop,
+  required MapController mapController,
+  required ScrollController scrollController,
+}) {
+  return useCallback((Stop targetStop) async {
+    // Find the target stop index
+    final targetIndex = stops.indexWhere((stop) => stop.id == targetStop.id);
+
+    if (targetIndex == -1) return; // Stop not found
+
+    // Set target stop as active
+    activeStop.value = targetStop;
+
+    // Move map to target stop
+    mapController.moveAndRotate(targetStop.coordinates, 16, 0);
+
+    // Scroll to the target stop in the list
+    await useScrollToStop(scrollController: scrollController, stopIndex: targetIndex);
   }, [stops, activeStop, mapController, scrollController]);
 }
