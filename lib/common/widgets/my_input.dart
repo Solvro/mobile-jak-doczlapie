@@ -24,10 +24,24 @@ class MyInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasText = useState(controller.text.isNotEmpty);
+
+    useEffect(() {
+      void listener() {
+        hasText.value = controller.text.isNotEmpty;
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
+
     return TextField(
       controller: controller,
       focusNode: focusNode,
-      onChanged: onChanged,
+      onChanged: (value) {
+        hasText.value = value.isNotEmpty;
+        onChanged?.call(value);
+      },
       onSubmitted: onSubmitted,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
@@ -40,10 +54,19 @@ class MyInput extends HookWidget {
           dimension: p16,
           child: Center(child: DotIndicator(variant: DotIndicatorVariant.red)),
         ),
-        suffixIcon: IconButton(
-          onPressed: onSuffixIconPressed,
-          icon: const Icon(Icons.my_location_outlined, color: blueAccent, size: 18),
-        ),
+        suffixIcon: hasText.value
+            ? IconButton(
+                onPressed: () {
+                  controller.clear();
+                  hasText.value = false;
+                  onChanged?.call("");
+                },
+                icon: const Icon(Icons.close, color: blueAccent, size: 18),
+              )
+            : IconButton(
+                onPressed: onSuffixIconPressed,
+                icon: const Icon(Icons.my_location_outlined, color: Color(0xFF3056EF), size: 18),
+              ),
       ),
     );
   }
