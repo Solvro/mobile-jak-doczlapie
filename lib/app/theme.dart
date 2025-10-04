@@ -15,6 +15,7 @@ abstract interface class AppThemeData {
     titleMedium: GoogleFonts.bricolageGrotesque(fontSize: 16, fontWeight: FontWeight.w600),
     titleSmall: GoogleFonts.bricolageGrotesque(fontSize: 12, fontWeight: FontWeight.w600, wordSpacing: -0.5),
     bodyLarge: GoogleFonts.bricolageGrotesque(fontSize: 14, fontWeight: FontWeight.w500),
+    bodySmall: GoogleFonts.bricolageGrotesque(fontSize: 12, fontWeight: FontWeight.w400, wordSpacing: -0.5),
   );
 }
 

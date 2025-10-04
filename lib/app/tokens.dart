@@ -20,12 +20,16 @@ const double r7 = 7;
 const double r14 = 14;
 const double r18 = 18;
 const double r22 = 22;
-const double r24 = 24;
+const double r25 = 25;
+const double r31 = 31;
 
 //other sizes
-const double s71 = 71;
+const double s37 = 37;
+const double s52 = 52;
 const double s58 = 58;
+const double s71 = 71;
 const double s181 = 181;
+const double s153 = 153;
 
 // colors
 const lightBlueGradientPoint = Color(0xFF3057F4);
@@ -36,6 +40,7 @@ const blueAccent = Color(0xFF0073D8);
 const greySubtitle = Color(0xFFC9C9C9);
 const greyIcon = Color(0xFFCFCFCF);
 const greyBorder = Color(0xFF848589);
+const black = Color(0xFF0B0B0B);
 
 // effects
 final blurFilter = ImageFilter.blur(sigmaX: 13.55, sigmaY: 13.55);

@@ -4,9 +4,9 @@ import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 
 import "../../../app/tokens.dart";
+import "../../../common/widgets/pop_button.dart";
 import "../../../config/sheet_config.dart";
 import "../data/trip_repository.dart";
-import "pop_button.dart";
 import "report_button.dart";
 import "route_polyline_layer.dart";
 import "stop_markers_layer.dart";

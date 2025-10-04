@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 import "../../../app/router.dart";
 import "../../../app/tokens.dart";
 
-import "../../stops/data/schedule.dart";
+import "../../stops_map/data/schedule.dart";
 
 class DepartureRow extends StatelessWidget {
   const DepartureRow({required this.schedule, required this.lineNumber, required this.lineId});

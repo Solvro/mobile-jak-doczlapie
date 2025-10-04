@@ -2,9 +2,9 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 
 import "../../../app/tokens.dart";
-import "../../stops/data/line.dart";
-import "../../stops/data/schedule.dart";
 import "../../stops/view/line_chip.dart";
+import "../../stops_map/data/line.dart";
+import "../../stops_map/data/schedule.dart";
 import "../hooks/use_first_departure_time.dart";
 import "departure_row.dart";
 

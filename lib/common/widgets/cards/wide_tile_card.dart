@@ -15,9 +15,9 @@ class WideTileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(r24),
+      borderRadius: BorderRadius.circular(r25),
       child: GlassCard(
-        borderRadius: r24,
+        borderRadius: r25,
         child: Row(
           children: [
             Padding(

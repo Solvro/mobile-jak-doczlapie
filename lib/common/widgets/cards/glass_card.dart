@@ -13,18 +13,18 @@ class GlassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(r24),
+        borderRadius: BorderRadius.circular(r25),
         border: Border.all(color: greyBorder),
       ),
       child:
           DecoratedBox(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(r24),
+              borderRadius: BorderRadius.circular(r25),
               border: Border.all(color: greyBorder),
             ),
             child: child,
           ).asGlass(
-            clipBorderRadius: BorderRadius.circular(r24),
+            clipBorderRadius: BorderRadius.circular(r25),
             frosted: false,
             tintColor: Colors.white.withValues(alpha: 0.9),
           ),

@@ -31,9 +31,12 @@ class Assets {
     'assets/footsteps4xlogo.png',
   );
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const AssetGenImage logoVertical = AssetGenImage(
+    'assets/logo_vertical.png',
+  );
 
   /// List of all assets
-  static List<AssetGenImage> get values => [footsteps4xlogo];
+  static List<AssetGenImage> get values => [footsteps4xlogo, logoVertical];
 }
 
 class AssetGenImage {

@@ -4,7 +4,7 @@ import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/wide_tile_card.dart";
-import "../data/stop.dart";
+import "../../stops_map/data/stop.dart";
 
 class StopTile extends StatelessWidget {
   const StopTile({super.key, required this.stop});

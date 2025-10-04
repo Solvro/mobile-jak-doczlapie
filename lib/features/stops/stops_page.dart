@@ -3,11 +3,11 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
+import "../../app/router.dart";
 import "../../app/tokens.dart";
 import "../../common/widgets/custom_tab_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 import "../routes/view/route_view.dart";
-import "hooks/use_is_searched.dart";
 import "view/animated_double_circle.dart";
 import "view/location_picker_input.dart";
 import "view/stops_view.dart";
@@ -22,7 +22,6 @@ class StopsPage extends HookConsumerWidget {
     final locationAddress = useState<String?>(null);
     final isBigger = locationAddress.value?.isNotEmpty ?? false;
     final searchController = useTextEditingController();
-    final isSearched = useIsSearched(locationAddress.value ?? "");
 
     return GradientScaffold(
       body: Stack(
@@ -52,17 +51,14 @@ class StopsPage extends HookConsumerWidget {
                               onChanged: (value) {
                                 locationAddress.value = value;
                               },
-                              onSubmitted: (value) {
+                              onSubmitted: (value) async {
                                 locationAddress.value = value;
+                                await context.router.push(StopsMapRoute(address: value));
                               },
                             ),
                           ),
                           Expanded(
-                            child: StopsView(
-                              isBigger: isBigger,
-                              locationAddress: locationAddress.value,
-                              isSearched: isSearched,
-                            ),
+                            child: StopsView(isBigger: isBigger, locationAddress: locationAddress.value),
                           ),
                         ],
                       ),

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "../../../common/widgets/app_bar.dart";
-import "../../stops/data/stop.dart";
+import "../../stops_map/data/stop.dart";
 import "line_expanding_tile.dart";
 
 class StopDetailsView extends StatelessWidget {

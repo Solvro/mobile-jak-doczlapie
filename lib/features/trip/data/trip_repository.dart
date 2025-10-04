@@ -1,7 +1,7 @@
 import "package:latlong2/latlong.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-import "../../stops/data/rest_client.dart";
+import "../../stops_map/data/rest_client.dart";
 
 part "trip_repository.g.dart";
 
