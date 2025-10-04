@@ -122,10 +122,15 @@ class StopDetailBottomList extends StatelessWidget {
   final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
-    List<Widget>? children = stop?.routes?.map((line) {
-      const isActive = false;
-      return SingleDestinationVertTile(isActive: isActive, line: line);
-    }).toList();
+    List<Widget>? children = stop?.routes
+        ?.map((line) {
+          const isActive = false;
+          return line.destinations?.map<Widget>((destination) {
+            return SingleDestinationVertTile(isActive: isActive, line: line, direction: destination);
+          }).toList();
+        })
+        .expand((element) => element ?? <Widget>[])
+        .toList();
 
     children ??= List.generate(10, (index) => const VertCardShimmer());
     return SizedBox(
@@ -143,13 +148,14 @@ class StopDetailBottomList extends StatelessWidget {
 }
 
 class SingleDestinationVertTile extends HookWidget {
-  const SingleDestinationVertTile({super.key, required this.isActive, required this.line});
+  const SingleDestinationVertTile({super.key, required this.isActive, required this.line, required this.direction});
 
   final bool isActive;
   final Line line;
+  final String direction;
   @override
   Widget build(BuildContext context) {
-    final firstDepartureTime = useFirstDepartureTime(line.schedules ?? [], line.destinations?.first ?? "");
+    final firstDepartureTime = useFirstDepartureTime(line.schedules ?? [], direction);
     return VertCard(
       topChild: Text.rich(
         textAlign: TextAlign.center,
@@ -160,7 +166,7 @@ class SingleDestinationVertTile extends HookWidget {
               style: context.textTheme.bodySmall?.withColor(isActive ? Colors.black : Colors.white),
             ),
             TextSpan(
-              text: line.destinations?.first ?? "<><>",
+              text: direction,
               style: isActive ? context.textTheme.titleLarge : context.textTheme.titleLarge?.white,
             ),
           ],

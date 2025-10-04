@@ -36,7 +36,7 @@ class AppLogo extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const _Logo(),
-          Text("JakDoczlap!e", style: context.textTheme.headlineMedium?.white),
+          Text("JakDoczlap!e", style: context.textTheme.headlineMedium?.white.megaBold),
         ],
       ),
     };

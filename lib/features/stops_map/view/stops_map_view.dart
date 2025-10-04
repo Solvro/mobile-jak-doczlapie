@@ -167,7 +167,9 @@ class StopsBottomList extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: stop.routes?.length.toString() ?? "0",
+                text:
+                    stop.routes?.map((route) => route.destinations?.length ?? 0).reduce((a, b) => a + b).toString() ??
+                    "0",
                 style: isActive ? context.textTheme.headlineSmall : context.textTheme.headlineSmall?.white,
               ),
               TextSpan(
