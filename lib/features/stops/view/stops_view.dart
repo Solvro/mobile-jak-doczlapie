@@ -42,7 +42,7 @@ class StopsView extends StatelessWidget {
                   ),
                   TextSpan(
                     text: "Wpisz nazwę lub lokalizację, w której się znajdujesz, aby wyszukać najbliższe przystanki.",
-                    style: context.textTheme.titleMedium?.withColor(const Color(0xFFD4D2CC)),
+                    style: context.textTheme.titleMedium?.w400.withColor(const Color(0xFFD4D2CC)),
                   ),
                 ],
               ),
