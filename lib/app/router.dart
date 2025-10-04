@@ -46,6 +46,6 @@ class AppRouter extends RootStackRouter {
     ),
     AutoRoute(page: ReportScheduleRoute.page),
     AutoRoute(page: StopsMapRoute.page),
-    AutoRoute(page: RouteListRoute.page, initial: true),
+    AutoRoute(page: RouteListRoute.page),
   ];
 }
