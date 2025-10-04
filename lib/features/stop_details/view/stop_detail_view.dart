@@ -10,10 +10,12 @@ import "../../../common/widgets/app_bars/map_app_bar.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
+import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../../stops_map/data/line.dart";
 import "../../stops_map/data/stop.dart";
 import "../hooks/use_first_departure_time.dart";
+import "../hooks/use_line_cycling.dart";
 import "line_polyline_layer.dart";
 
 typedef LineWithDestination = ({Line line, String destination});
@@ -42,19 +44,6 @@ class StopDetailsView extends HookWidget {
       return null;
     }, [stop]);
 
-    // final navigateToSpecificStop = useSpecificStopNavigation(
-    //   stops: stops ?? [],
-    //   activeStop: activeStop,
-    //   mapController: mapController,
-    //   scrollController: scrollController,
-    // );
-    // // Use the next stop navigation hook
-    // final navigateToNextStop = useNextStopNavigation(
-    //   stops: stops ?? [],
-    //   activeStop: activeStop,
-    //   mapController: mapController,
-    //   scrollController: scrollController,
-    // );
     final initialCenter = useMemoized(() {
       final stopLocal = stop;
       if (stopLocal == null) {
@@ -69,6 +58,8 @@ class StopDetailsView extends HookWidget {
       }
       return null;
     }, [initialCenter]);
+
+    final cycleToNextLine = useLineCycling(activeLine: activeLine, routes: stop?.routes);
 
     return Scaffold(
       body: Stack(
@@ -95,12 +86,12 @@ class StopDetailsView extends HookWidget {
             right: 0,
             child: ClippedBottomNavBar(
               isSmall: stop == null,
-              // extraBeanButton: stop == null
-              //     ? null
-              //     : BeanButton(
-              //         icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
-              //         onTap: navigateToNextStop,
-              //       ),
+              extraBeanButton: stop == null
+                  ? null
+                  : BeanButton(
+                      icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
+                      onTap: cycleToNextLine,
+                    ),
             ),
           ),
 

@@ -14,12 +14,11 @@ class LinePolylineLayer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routePoints = () {
-      if (line?.line.stops == null || line!.line.stops!.isEmpty) {
-        return <LatLng>[];
-      }
-      return line!.line.stops!.map((stop) => stop.coordinates).toList();
-    }();
+    // todo: make a fetch
+    final routePoints = switch (line?.line.stops) {
+      null || [] => <LatLng>[],
+      final stops => stops.map((stop) => stop.coordinates).toList(),
+    };
 
     if (routePoints.isEmpty) {
       return const SizedBox.shrink();
