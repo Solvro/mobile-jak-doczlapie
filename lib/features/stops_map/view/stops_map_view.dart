@@ -24,7 +24,15 @@ class StopsMapView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeStop = useState<Stop?>(null);
+    final activeStop = useState<Stop?>(stops == null || stops!.isEmpty ? null : stops!.first);
+
+    useEffect(() {
+      if (stops != null && stops!.isNotEmpty) {
+        activeStop.value = stops!.first;
+      }
+      return null;
+    }, [stops]);
+
     final mapController = useMemoized(MapController.new, []);
     final initialCenter = useMemoized(() {
       final stopsLocal = stops;
