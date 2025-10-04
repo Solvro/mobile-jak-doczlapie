@@ -47,7 +47,13 @@ const greyIcon = Color(0xFFCFCFCF);
 const greyBorder = Color(0xFF848589);
 const greyBorderNav = Color(0xFF777777);
 const black = Color(0xFF0B0B0B);
+
 const blueColorNew = Color(0xFF3054E1);
+
+const darkGrey = Color(0xFF252328);
+const red2 = Color(0xFFEE3030);
+const green = Color(0xFF73B85A);
+const orange = Color(0xFFEE8C30);
 
 // effects
 final blurFilter = ImageFilter.blur(sigmaX: 13.55, sigmaY: 13.55);

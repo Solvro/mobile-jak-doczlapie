@@ -15,7 +15,7 @@ class PopButton extends StatelessWidget {
       height: 33,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(r18),
-        border: Border.all(color: const Color(0xFF777777)),
+        border: Border.all(color: const Color(0xFFCDCDCD)),
         boxShadow: const [
           BoxShadow(
             color: Color(0x00AFAFAF), // rgba(175, 175, 175, 0.00)
