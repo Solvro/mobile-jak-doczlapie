@@ -14,6 +14,9 @@ import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../../stops_map/data/line.dart";
 import "../../stops_map/data/stop.dart";
 import "../hooks/use_first_departure_time.dart";
+import "line_polyline_layer.dart";
+
+typedef LineWithDestination = ({Line line, String destination});
 
 class StopDetailsView extends HookWidget {
   const StopDetailsView({super.key, required this.stop});
@@ -24,6 +27,20 @@ class StopDetailsView extends HookWidget {
   Widget build(BuildContext context) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
+    final activeLine = useState<LineWithDestination?>(
+      stop?.routes?.first != null
+          ? (line: stop!.routes!.first, destination: stop?.routes?.first.destinations?.first ?? "")
+          : null,
+    );
+
+    useEffect(() {
+      if (stop != null) {
+        activeLine.value = stop?.routes?.first != null
+            ? (line: stop!.routes!.first, destination: stop?.routes?.first.destinations?.first ?? "")
+            : null;
+      }
+      return null;
+    }, [stop]);
 
     // final navigateToSpecificStop = useSpecificStopNavigation(
     //   stops: stops ?? [],
@@ -63,17 +80,9 @@ class StopDetailsView extends HookWidget {
               interactionOptions: const InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
             ),
 
-            children: const [
-              AppTileLayer(),
-              // if (stop != null)
-              //   StopMarkersLayer(
-              //     stops: stops!,
-              //     onMarkerTap: (index) {
-              //       final stop = stops![index];
-              //       mapController.move(stop.coordinates, 16);
-              //       unawaited(navigateToSpecificStop(stop));
-              //     },
-              //   ),
+            children: [
+              const AppTileLayer(),
+              LinePolylineLayer(line: activeLine.value),
             ],
           ),
           // App bar positioned at the top
@@ -99,7 +108,12 @@ class StopDetailsView extends HookWidget {
             bottom: 100,
             left: 0,
             right: 0,
-            child: StopDetailBottomList(stop: stop, mapController: mapController, scrollController: scrollController),
+            child: StopDetailBottomList(
+              stop: stop,
+              activeLine: activeLine,
+              mapController: mapController,
+              scrollController: scrollController,
+            ),
           ),
         ],
       ),
@@ -111,7 +125,7 @@ class StopDetailBottomList extends StatelessWidget {
   const StopDetailBottomList({
     super.key,
     required this.stop,
-
+    required this.activeLine,
     required this.mapController,
     required this.scrollController,
   });
@@ -120,13 +134,23 @@ class StopDetailBottomList extends StatelessWidget {
 
   final MapController mapController;
   final ScrollController scrollController;
+
+  final ValueNotifier<LineWithDestination?> activeLine;
+
   @override
   Widget build(BuildContext context) {
     List<Widget>? children = stop?.routes
         ?.map((line) {
-          const isActive = false;
           return line.destinations?.map<Widget>((destination) {
-            return SingleDestinationVertTile(isActive: isActive, line: line, direction: destination);
+            final isActive = activeLine.value?.line.id == line.id && activeLine.value?.destination == destination;
+            return SingleDestinationVertTile(
+              isActive: isActive,
+              line: line,
+              direction: destination,
+              onTap: () {
+                activeLine.value = (line: line, destination: destination);
+              },
+            );
           }).toList();
         })
         .expand((element) => element ?? <Widget>[])
@@ -148,15 +172,23 @@ class StopDetailBottomList extends StatelessWidget {
 }
 
 class SingleDestinationVertTile extends HookWidget {
-  const SingleDestinationVertTile({super.key, required this.isActive, required this.line, required this.direction});
+  const SingleDestinationVertTile({
+    super.key,
+    required this.isActive,
+    required this.line,
+    required this.direction,
+    required this.onTap,
+  });
 
   final bool isActive;
   final Line line;
   final String direction;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     final firstDepartureTime = useFirstDepartureTime(line.schedules ?? [], direction);
     return VertCard(
+      isActive: isActive,
       topChild: Text.rich(
         textAlign: TextAlign.center,
         TextSpan(
@@ -180,7 +212,7 @@ class SingleDestinationVertTile extends HookWidget {
             : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       ),
       bottomText: "${line.stops?.length.toString() ?? "0"} przystanków",
-      onTap: () {},
+      onTap: onTap,
       child: Center(
         child: Text.rich(
           textAlign: TextAlign.center,
