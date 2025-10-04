@@ -70,15 +70,11 @@ class MyInput extends HookWidget {
         enabled: !isReadonly,
         onSubmitted: onSubmitted,
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(color: isReadonly || transparent ? Colors.white : null),
+        style: TextStyle(color: transparent ? Colors.white : null),
         decoration: InputDecoration(
           hintStyle: transparent ? const TextStyle(color: Colors.white) : null,
           filled: true,
-          fillColor: transparent
-              ? Colors.transparent
-              : isReadonly
-              ? blueColorNew
-              : Colors.white.withValues(alpha: 0.9),
+          fillColor: transparent ? Colors.transparent : Colors.white.withValues(alpha: 0.9),
           hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(r18), borderSide: BorderSide.none),
           contentPadding: const EdgeInsets.symmetric(horizontal: p16),

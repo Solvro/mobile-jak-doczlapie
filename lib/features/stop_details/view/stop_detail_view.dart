@@ -82,7 +82,12 @@ class StopDetailsView extends HookWidget {
           ),
           // App bar positioned at the top
           if (stop != null)
-            Positioned(top: 0, left: 0, right: 0, child: MapAppBar(searchText: stop?.name, isReadonly: true)),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: MapSingleInputAppBar(searchText: stop?.name, isReadonly: true),
+            ),
           if (stop == null) const Center(child: CircularProgressIndicator()),
           Positioned(
             bottom: 0,

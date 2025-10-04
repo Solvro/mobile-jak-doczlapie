@@ -97,7 +97,7 @@ class StopsMapView extends HookWidget {
             top: 0,
             left: 0,
             right: 0,
-            child: MapAppBar(searchText: searchText, onSearchSubmitted: onSearchSubmitted),
+            child: MapSingleInputAppBar(searchText: searchText, onSearchSubmitted: onSearchSubmitted),
           ),
           if (stops == null) const Center(child: CircularProgressIndicator()),
           if (stops != null && stops!.isEmpty)
