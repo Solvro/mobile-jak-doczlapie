@@ -62,7 +62,7 @@ class StopsMapView extends HookWidget {
 
     useEffect(() {
       if (stops != null) {
-        mapController.moveAndRotate(initialCenter, 15, 0);
+        mapController.move(initialCenter, 15);
       }
       return null;
     }, [initialCenter]);
@@ -72,7 +72,11 @@ class StopsMapView extends HookWidget {
         children: [
           FlutterMap(
             mapController: mapController,
-            options: MapOptions(initialCenter: initialCenter),
+            options: MapOptions(
+              initialCenter: initialCenter,
+              interactionOptions: const InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
+            ),
+
             children: [
               const AppTileLayer(),
               if (stops != null)
@@ -80,7 +84,7 @@ class StopsMapView extends HookWidget {
                   stops: stops!,
                   onMarkerTap: (index) {
                     final stop = stops![index];
-                    mapController.moveAndRotate(stop.coordinates, 16, 0);
+                    mapController.move(stop.coordinates, 16);
                     unawaited(navigateToSpecificStop(stop));
                   },
                 ),

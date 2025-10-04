@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 
-import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../common/widgets/dot_indicator.dart";
 import "../data/stop.dart";
 
 class StopMarkersLayer extends HookWidget {
@@ -21,26 +21,14 @@ class StopMarkersLayer extends HookWidget {
 
         return Marker(
           point: stop.coordinates,
-          width: p64,
-          height: p64,
+          width: p20,
+          height: p20,
           child: GestureDetector(
             onTap: switch (onMarkerTap) {
               null => null,
               final fn => () => fn(index),
             },
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: context.colorScheme.primary,
-                shape: BoxShape.circle,
-                border: Border.all(color: context.colorScheme.onPrimary, width: p4),
-              ),
-              child: Center(
-                child: Text(
-                  "${index + 1}",
-                  style: context.textTheme.bodyMedium?.withColor(context.colorScheme.onPrimary),
-                ),
-              ),
-            ),
+            child: const DotIndicator(variant: DotIndicatorVariant.red),
           ),
         );
       }).toList(),

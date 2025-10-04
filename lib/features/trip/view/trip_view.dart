@@ -70,7 +70,7 @@ class TripView extends HookConsumerWidget {
                 trip: trip,
                 onMarkerTap: (index) async {
                   final stop = trip.stops[index];
-                  mapController.moveAndRotate(stop.coordinates, 20, 0);
+                  mapController.move(stop.coordinates, 20);
                   await draggableController.animateTo(
                     defaultSheetConfig.baseSize,
                     duration: const Duration(milliseconds: 300),

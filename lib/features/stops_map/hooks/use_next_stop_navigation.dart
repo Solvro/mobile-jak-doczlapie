@@ -34,7 +34,7 @@ VoidCallback useNextStopNavigation({
     activeStop.value = nextStop;
 
     // Move map to next stop
-    mapController.moveAndRotate(nextStop.coordinates, 16, 0);
+    mapController.move(nextStop.coordinates, 16);
 
     // Scroll to the next stop in the list
     await useScrollToStop(scrollController: scrollController, stopIndex: nextIndex);
@@ -75,7 +75,7 @@ Future<void> Function(Stop) useSpecificStopNavigation({
     activeStop.value = targetStop;
 
     // Move map to target stop
-    mapController.moveAndRotate(targetStop.coordinates, 16, 0);
+    mapController.move(targetStop.coordinates, 16);
 
     // Scroll to the target stop in the list
     await useScrollToStop(scrollController: scrollController, stopIndex: targetIndex);
