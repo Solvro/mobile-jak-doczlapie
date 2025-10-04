@@ -6,6 +6,7 @@ import "package:latlong2/latlong.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../common/widgets/bottom_nav_bar.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../common/widgets/tile_layer.dart";
@@ -76,9 +77,11 @@ class StopsMapView extends HookWidget {
                 ),
               ),
             ),
+
+          Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(currentIndex: 0, onTap: (index) {})),
           if (stops != null)
             Positioned(
-              bottom: 20,
+              bottom: 120,
               left: 0,
               right: 0,
               child: StopsBottomList(stops: stops!, activeStop: activeStop, mapController: mapController),
