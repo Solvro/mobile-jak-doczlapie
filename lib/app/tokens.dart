@@ -28,6 +28,7 @@ const double r31 = 31;
 
 //other sizes
 const double s20 = 20;
+const double s25 = 25;
 const double s37 = 37;
 const double s52 = 52;
 const double s58 = 58;
