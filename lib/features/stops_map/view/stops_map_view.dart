@@ -74,6 +74,7 @@ class StopsMapView extends HookWidget {
                   onMarkerTap: (index) {
                     final stop = stops![index];
                     mapController.moveAndRotate(stop.coordinates, 16, 0);
+                    activeStop.value = stop;
                   },
                 ),
             ],
@@ -111,18 +112,18 @@ class StopsMapView extends HookWidget {
                     ),
             ),
           ),
-          if (stops != null)
-            Positioned(
-              bottom: 100,
-              left: 0,
-              right: 0,
-              child: StopsBottomList(
-                stops: stops!,
-                activeStop: activeStop,
-                mapController: mapController,
-                scrollController: scrollController,
-              ),
+
+          Positioned(
+            bottom: 100,
+            left: 0,
+            right: 0,
+            child: StopsBottomList(
+              stops: stops,
+              activeStop: activeStop,
+              mapController: mapController,
+              scrollController: scrollController,
             ),
+          ),
         ],
       ),
     );
@@ -138,13 +139,13 @@ class StopsBottomList extends StatelessWidget {
     required this.scrollController,
   });
 
-  final List<Stop> stops;
+  final List<Stop>? stops;
   final ValueNotifier<Stop?> activeStop;
   final MapController mapController;
   final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
-    final children = stops.map((stop) {
+    List<Widget>? children = stops?.map((stop) {
       final isActive = activeStop.value?.id == stop.id;
       return VertCard(
         isActive: isActive,
@@ -173,8 +174,7 @@ class StopsBottomList extends StatelessWidget {
         bottomText: "120 m",
 
         onTap: () {
-          activeStop.value = stop;
-          mapController.move(stop.coordinates, 16);
+          // todo: navigation logic
         },
         child: Center(
           child: Text.rich(
@@ -186,13 +186,15 @@ class StopsBottomList extends StatelessWidget {
         ),
       );
     }).toList();
+
+    children ??= List.generate(10, (index) => const VertCardShimmer());
     return SizedBox(
       height: VertCard.heightActive,
       child: ListView.separated(
         controller: scrollController,
         padding: const EdgeInsets.symmetric(horizontal: p8),
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => children[index],
+        itemBuilder: (context, index) => children![index],
         itemCount: children.length,
         separatorBuilder: (context, index) => const SizedBox(width: p8),
       ),
