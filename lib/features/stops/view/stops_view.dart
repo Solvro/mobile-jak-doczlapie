@@ -18,15 +18,6 @@ class StopsView extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         if (isBigger) AnimatedShowupLogo(isBigger: isBigger),
-
-        // if (isBigger && isEmpty && isSearched.value)
-        //   Align(
-        //     alignment: Alignment.topCenter,
-        //     child: Padding(
-        //       padding: const EdgeInsets.only(top: 100),
-        //       child: Text("Nie znaleziono przystanków", style: context.textTheme.headlineSmall?.white),
-        //     ),
-        //   ),
         Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(isSmall: !isBigger)),
         if (!isBigger)
           Positioned(
@@ -38,7 +29,7 @@ class StopsView extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: "Sprawdź jakie linie odjeżdżają z tego przystanku\n",
-                    style: context.textTheme.headlineSmall?.white,
+                    style: context.textTheme.headlineSmall?.white.bold,
                   ),
                   TextSpan(
                     text: "Wpisz nazwę lub lokalizację, w której się znajdujesz, aby wyszukać najbliższe przystanki.",
