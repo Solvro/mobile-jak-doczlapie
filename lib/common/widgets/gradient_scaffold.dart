@@ -16,6 +16,7 @@ class GradientScaffold extends StatelessWidget {
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       extendBody: true,
+      resizeToAvoidBottomInset: false,
       body: DecoratedBox(
         decoration: BoxDecoration(gradient: context.backgroundGradient),
         child: safeArea ? SafeArea(child: body) : body,
