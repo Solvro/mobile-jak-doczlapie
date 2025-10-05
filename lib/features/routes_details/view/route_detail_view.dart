@@ -49,7 +49,11 @@ class RouteDetailsView extends HookWidget {
       return null;
     }, [initialCenter]);
 
-    final cycleToNextRoute = useRouteCycling(activeRoute: activeRoute, routes: routes);
+    final cycleToNextRoute = useRouteCycling(
+      activeRoute: activeRoute,
+      routes: routes,
+      scrollController: scrollController,
+    );
 
     return Scaffold(
       body: Stack(
