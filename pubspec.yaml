@@ -35,6 +35,7 @@ dependencies:
   json_annotation: ^4.9.0
   intl: ^0.20.2
   shimmer: ^3.0.0
+  toastification: ^3.0.3
 
 dev_dependencies:
   flutter_test:

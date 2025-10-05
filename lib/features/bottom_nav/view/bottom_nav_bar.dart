@@ -18,10 +18,12 @@ class ClippedBottomNavBar extends HookConsumerWidget {
     this.variant = ClippedBottomNavBarVariant.normal,
     this.extraBeanButton,
     this.showListSwitch = false,
+    this.extraBeanButtonLeft,
   });
 
   final ClippedBottomNavBarVariant variant;
   final Widget? extraBeanButton;
+  final Widget? extraBeanButtonLeft;
   final bool showListSwitch;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,7 +56,7 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                   spacing: p8,
                   children: [
                     if (showListSwitch) const MapListSwitchButton(),
-                    if (!showListSwitch) const SizedBox(width: 56),
+                    if (!showListSwitch) SizedBox(width: 56, child: extraBeanButtonLeft ?? const SizedBox.shrink()),
                     const Spacer(),
                     BeanButton(
                       icon: SvgPicture.asset(

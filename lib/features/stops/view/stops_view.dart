@@ -5,6 +5,7 @@ import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../report_schedule/view/report_schedule_button.dart";
 
 class StopsView extends StatelessWidget {
   const StopsView({super.key, required this.isBigger, required this.locationAddress});
@@ -23,6 +24,7 @@ class StopsView extends StatelessWidget {
           right: 0,
           child: ClippedBottomNavBar(
             variant: !isBigger ? ClippedBottomNavBarVariant.verySmall : ClippedBottomNavBarVariant.small,
+            extraBeanButtonLeft: const ReportScheduleButton(),
           ),
         ),
         if (isBigger)
