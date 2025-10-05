@@ -19,6 +19,7 @@ import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../data/route_response.dart";
 import "../hooks/use_route_cycling.dart";
+import "route_map_polyline_layer.dart";
 import "vert_route_card.dart";
 
 class RoutesMapView extends HookWidget {
@@ -75,9 +76,9 @@ class RoutesMapView extends HookWidget {
               interactionOptions: const InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
             ),
 
-            children: const [
-              AppTileLayer(),
-              // LinePolylineLayer(line: activeLine.value),
+            children: [
+              const AppTileLayer(),
+              RouteMapPolylineLayer(route: activeRoute.value),
             ],
           ),
           Positioned(
