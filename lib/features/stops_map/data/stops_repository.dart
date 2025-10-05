@@ -12,8 +12,8 @@ Future<List<Stop>?> stopsRepository(Ref ref, ({String latitude, String longitiud
   }
 
   // Start with radius 1000 and increase step by step
-  const initialRadius = 500;
-  const radiusStep = 500;
+  const initialRadius = 1000;
+  const radiusStep = 1000;
   const maxRadius = 10000; // Maximum radius to prevent infinite loops
 
   for (var radius = initialRadius; radius <= maxRadius; radius += radiusStep) {

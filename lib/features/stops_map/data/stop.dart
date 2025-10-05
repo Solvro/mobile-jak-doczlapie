@@ -15,7 +15,7 @@ abstract class Stop with _$Stop {
     required int id,
     required String name,
     required TransportType type,
-    required int distance,
+    required int? distance,
     @LatLngConverter() required LatLng coordinates,
     List<Line>? routes,
     List<Schedule>? schedules,
