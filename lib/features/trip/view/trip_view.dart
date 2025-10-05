@@ -16,7 +16,6 @@ import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/rest_client.dart";
 import "../data/track_response.dart";
 import "route_polyline_layer.dart";
-import "stop_markers_layer.dart";
 import "trip_bottom_sheet.dart";
 
 class TripView extends HookConsumerWidget {
@@ -71,18 +70,6 @@ class TripView extends HookConsumerWidget {
                 userAgentPackageName: "pl.solvro.jak_doczlapie",
               ),
               RoutePolylineLayer(route: route),
-              StopMarkersLayer(
-                route: route,
-                onMarkerTap: (index) async {
-                  final stop = route.routes[index];
-                  mapController.move(stop.departure.coordinates, 20);
-                  await draggableController.animateTo(
-                    defaultSheetConfig.baseSize,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeIn,
-                  );
-                },
-              ),
               const Positioned(top: p64, left: p16, child: PopButton()),
             ],
           ),

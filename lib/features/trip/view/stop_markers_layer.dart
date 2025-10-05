@@ -15,12 +15,12 @@ class StopMarkersLayer extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final markers = [
-      ...route.routes.asMap().entries.map((entry) {
+      ...route.routes.asMap().entries.skip(1).map((entry) {
         final index = entry.key;
         final stop = entry.value;
 
         return Marker(
-          point: stop.departure.coordinates,
+          point: stop.arrival.coordinates,
           width: p12,
           height: p12,
           child: GestureDetector(
