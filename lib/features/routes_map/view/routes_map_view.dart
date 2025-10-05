@@ -1,8 +1,10 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 
+import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/blur_card.dart";
@@ -130,7 +132,10 @@ class RoutesMapView extends HookWidget {
               scrollController: scrollController,
               routes: routes,
               activeRoute: activeRoute,
-              onRouteTap: (route) => activeRoute.value = route,
+              onRouteTap: (route) async {
+                activeRoute.value = route;
+                await context.router.push(RouteTripRoute(route: route));
+              },
             ),
           ),
         ],
