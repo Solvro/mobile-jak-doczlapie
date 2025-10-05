@@ -37,5 +37,5 @@ Future<List<RouteResponse>?> routesRepository(
   }
 
   // If no routes found with any radius, return null
-  return null;
+  return [];
 }

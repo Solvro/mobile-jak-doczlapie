@@ -28,5 +28,5 @@ Future<List<Stop>?> stopsRepository(Ref ref, ({String latitude, String longitiud
   }
 
   // If no stops found with any radius, return null
-  return null;
+  return [];
 }
