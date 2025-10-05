@@ -65,7 +65,12 @@ class CommuteSection extends StatelessWidget {
             const Icon(Icons.east, color: Colors.white, size: 18),
             const SizedBox(width: p4),
             Flexible(
-              child: Text(segment.destination, style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+              child: Text(
+                segment.destination,
+                style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
             ),
             const Spacer(),
             Text(

@@ -43,7 +43,7 @@ class RouteChip extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               softWrap: false,
-              maxLines: 3,
+              maxLines: 1,
               style: style ?? context.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
             ),
           ),
