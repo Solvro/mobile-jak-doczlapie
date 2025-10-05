@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import "package:flutter_form_builder/flutter_form_builder.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:image_picker/image_picker.dart";
+import "package:toastification/toastification.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
@@ -50,9 +51,13 @@ class ReportScheduleView extends HookWidget {
                     imagePicker: imagePicker,
                     onFormSubmit: () {
                       if (key.value.currentState?.saveAndValidate() ?? false) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(const SnackBar(content: Text("Zgłoszenie wysłane pomyślnie")));
+                        toastification.show(
+                          type: ToastificationType.success,
+                          style: ToastificationStyle.flat,
+                          title: const Text("Zgłoszenie wysłane pomyślnie"),
+                          autoCloseDuration: const Duration(seconds: 3),
+                          alignment: Alignment.topCenter,
+                        );
                         context.router.pop();
                       }
                     },
