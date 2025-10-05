@@ -1,7 +1,5 @@
-import "dart:async";
-
 import "package:flutter/material.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
+import "package:shimmer/shimmer.dart";
 
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
@@ -87,7 +85,7 @@ class VertCard extends StatelessWidget {
   }
 }
 
-class VertCardShimmer extends HookWidget {
+class VertCardShimmer extends StatelessWidget {
   const VertCardShimmer({super.key, this.isActive = false});
 
   final bool isActive;
@@ -97,65 +95,49 @@ class VertCardShimmer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final animationController = useAnimationController(duration: const Duration(milliseconds: 1500));
-
-    final animation = useMemoized(
-      () => Tween<double>(
-        begin: 0,
-        end: 1,
-      ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOut)),
-      [animationController],
-    );
-
-    useEffect(() {
-      unawaited(animationController.repeat(reverse: true));
-      return null;
-    }, [animationController]);
-
     return Padding(
       padding: EdgeInsets.only(top: isActive ? 0 : heightActive - height),
-      child: AnimatedBuilder(
-        animation: animation,
-        builder: (context, child) {
-          return Container(
-            width: 167,
-            height: isActive ? heightActive : height,
-            decoration: BoxDecoration(color: greyBorder, borderRadius: BorderRadius.circular(r31)),
-            child: Padding(
-              padding: const EdgeInsets.all(p8),
-              child: Column(
-                children: [
-                  // Top section shimmer
-                  Container(
-                    height: 62,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: greyBorder,
-                      borderRadius: BorderRadius.all(Radius.circular(r25)),
+      child: Shimmer.fromColors(
+        baseColor: const Color(0xFF2A2A2A),
+        highlightColor: const Color(0xFF3A3A3A),
+        child: Container(
+          width: 167,
+          height: isActive ? heightActive : height,
+          decoration: BoxDecoration(color: const Color(0xFF2A2A2A), borderRadius: BorderRadius.circular(r31)),
+          child: Padding(
+            padding: const EdgeInsets.all(p8),
+            child: Column(
+              children: [
+                // Top section shimmer
+                Container(
+                  height: 62,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(r25)),
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                // Bottom section shimmer
+                Row(
+                  children: [
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
                     ),
-                  ),
-                  const Expanded(child: SizedBox()),
-                  // Bottom section shimmer
-                  Row(
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: const BoxDecoration(shape: BoxShape.circle, color: greyBorder),
-                      ),
-                      const Spacer(),
-                      Container(
-                        width: 60,
-                        height: 16,
-                        decoration: BoxDecoration(color: greyBorder, borderRadius: BorderRadius.circular(8)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    const Spacer(),
+                    Container(
+                      width: 60,
+                      height: 16,
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8)),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
