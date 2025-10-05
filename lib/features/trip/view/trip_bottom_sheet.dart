@@ -19,11 +19,6 @@ class TripBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final children = [
-      if(route.departure.distance != 0) const WalkSection(address: "Wschowa, ul Walna", time: "10:10", distance: 420, duration: 5),
-    ]
-
     return DraggableScrollableSheet(
       initialChildSize: defaultSheetConfig.baseSize,
       minChildSize: defaultSheetConfig.minSize,
@@ -56,11 +51,11 @@ class TripBottomSheet extends StatelessWidget {
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     return [
-                      const WalkSection(address: "Wschowa, ul Walna", time: "10:10", distance: 420, duration: 5),
+                      if (route.departure.distance != 0) WalkSection(routeStop: route.departure),
                       const SizedBox(height: p12),
-                      const CommuteSection(),
+                      ...route.routes.map((segment) => CommuteSection(segment: segment)),
                       const SizedBox(height: p8),
-                      const FinalSection(),
+                      FinalSection(routePoint: route.arrival),
                     ][index];
                   }, childCount: 5),
                 ),

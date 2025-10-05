@@ -4,11 +4,13 @@ import "package:flutter_svg/svg.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../gen/assets.gen.dart";
+import "../../../utils/format_time.dart";
 import "../../routes_list/view/route_chip.dart";
+import "../../routes_map/data/route_response.dart";
 
 class CommuteSection extends StatelessWidget {
-  const CommuteSection({super.key});
-
+  const CommuteSection({super.key, required this.segment});
+  final Segment segment;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,10 +21,10 @@ class CommuteSection extends StatelessWidget {
           children: [
             const SizedBox(width: p4),
             RouteChip(
-              text: "10:21",
+              text: "${segment.departure.time.split(":").first}:${segment.departure.time.split(":")[1]}",
               style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
             ),
-            Text("ul. Piątka 1", style: context.textTheme.titleLarge?.copyWith(color: Colors.white)),
+            Text(segment.departure.name, style: context.textTheme.titleLarge?.copyWith(color: Colors.white)),
           ],
         ),
         const SizedBox(height: p4),
@@ -35,13 +37,18 @@ class CommuteSection extends StatelessWidget {
               child: SvgPicture.asset(Assets.icons.train),
             ),
             const SizedBox(width: p8),
-            const RouteChip(text: "210"),
+            RouteChip(text: segment.name.split(" ")[0]),
             const SizedBox(width: p4),
             const Icon(Icons.east, color: Colors.white, size: 18),
             const SizedBox(width: p4),
-            Text("Poznań", style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+            Flexible(
+              child: Text(segment.destination, style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+            ),
             const Spacer(),
-            Text("1h 21min", style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+            Text(
+              formatDuration(segment.travelTime),
+              style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
+            ),
           ],
         ),
         IntrinsicHeight(

@@ -11,9 +11,9 @@ import "../../routes_map/data/route_response.dart";
 import "../../stops_map/hooks/use_coords.dart";
 
 class WalkSection extends StatelessWidget {
-  const WalkSection({super.key, required this.route});
+  const WalkSection({super.key, required this.routeStop});
 
-  final RouteResponse route;
+  final RouteStop routeStop;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class WalkSection extends StatelessWidget {
           spacing: p8,
           children: [
             RouteChip(
-              text: route.departure.time,
+              text: "${routeStop.time.split(":").first}:${routeStop.time.split(":")[1]}",
               color: RouteChipColor.grey,
               style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
               leading: SvgPicture.asset(Assets.icons.point),
             ),
-            AddresLabel(coordinates: route.departure.coordinates),
+            AddresLabel(coordinates: routeStop.coordinates),
           ],
         ),
         Row(
@@ -41,12 +41,12 @@ class WalkSection extends StatelessWidget {
               child: SvgPicture.asset(Assets.icons.walk),
             ),
             const SizedBox(width: p16),
+            Text("Idź ${routeStop.distance}m", style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+            const Spacer(),
             Text(
-              "Idź ${route.departure.distance}m",
+              "${((routeStop.distance ?? 1) / 1000 * 60 / 5).round()}min",
               style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
             ),
-            const Spacer(),
-            Text("${route.departure.distance}m", style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
           ],
         ),
         const Row(children: [SizedBox(width: 28), DottedLine(dots: 4)]),
@@ -61,7 +61,7 @@ class AddresLabel extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final address = useAddress(coordinates);
-    return Text(address.toString(), style: context.textTheme.titleLarge?.copyWith(color: Colors.white));
+    return Text(address.data.toString(), style: context.textTheme.titleLarge?.copyWith(color: Colors.white));
   }
 }
 
