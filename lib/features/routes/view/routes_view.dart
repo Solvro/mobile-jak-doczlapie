@@ -1,5 +1,6 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
@@ -179,6 +180,19 @@ class RoutesViewContent extends StatelessWidget {
                     onPressed: () async {
                       await context.router.push(RoutesMapRoute(fromAddress: fromAddress!, toAddress: toAddress!));
                     },
+                    style: FilledButton.styleFrom(
+                      backgroundColor: const Color(0xFF3156EE),
+                      foregroundColor: const Color(0xFFF8F7F7),
+                      padding: const EdgeInsets.all(p16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+                      minimumSize: const Size(370, 48), // 370px width as specified
+                      textStyle: GoogleFonts.bricolageGrotesque(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.64,
+                        color: const Color(0xFFF8F7F7),
+                      ),
+                    ),
                     child: const Text("POKAŻ TRASY"),
                   )
                 : const SizedBox.shrink(),

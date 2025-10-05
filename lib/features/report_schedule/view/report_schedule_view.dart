@@ -4,6 +4,7 @@ import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_form_builder/flutter_form_builder.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
+import "package:google_fonts/google_fonts.dart";
 import "package:image_picker/image_picker.dart";
 import "package:toastification/toastification.dart";
 
@@ -140,6 +141,15 @@ class ReportScheduleViewContent extends StatelessWidget {
                   icon: const Icon(Icons.camera_alt),
                   label: const Text("Zrób zdjęcie"),
                   style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.all(p16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+
+                    textStyle: GoogleFonts.bricolageGrotesque(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.64,
+                      color: const Color(0xFFF8F7F7),
+                    ),
                     backgroundColor: Colors.white.withValues(alpha: 0.9),
                     foregroundColor: const Color(0xFF3156EE),
                     minimumSize: const Size(double.infinity, 48),
@@ -151,6 +161,15 @@ class ReportScheduleViewContent extends StatelessWidget {
                   icon: const Icon(Icons.photo_library),
                   label: const Text("Wybierz zdjęcie"),
                   style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.all(p16),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+
+                    textStyle: GoogleFonts.bricolageGrotesque(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.64,
+                      color: const Color(0xFFF8F7F7),
+                    ),
                     backgroundColor: Colors.white.withValues(alpha: 0.9),
                     foregroundColor: const Color(0xFF3156EE),
                     minimumSize: const Size(double.infinity, 48),
@@ -168,7 +187,23 @@ class ReportScheduleViewContent extends StatelessWidget {
           child: AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: isBigger
-                ? FilledButton(onPressed: onFormSubmit, child: const Text("WYŚLIJ ZGŁOSZENIE"))
+                ? FilledButton(
+                    onPressed: onFormSubmit,
+                    style: FilledButton.styleFrom(
+                      backgroundColor: const Color(0xFF3156EE),
+                      foregroundColor: const Color(0xFFF8F7F7),
+                      padding: const EdgeInsets.all(p16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+                      minimumSize: const Size(370, 48), // 370px width as specified
+                      textStyle: GoogleFonts.bricolageGrotesque(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.64,
+                        color: const Color(0xFFF8F7F7),
+                      ),
+                    ),
+                    child: const Text("WYŚLIJ ZGŁOSZENIE"),
+                  )
                 : const SizedBox.shrink(),
           ),
         ),
