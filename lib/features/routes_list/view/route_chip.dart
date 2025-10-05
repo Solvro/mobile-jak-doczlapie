@@ -35,7 +35,10 @@ class RouteChip extends StatelessWidget {
         children: [
           ?leading,
           Text(
-            text,
+            switch (text) {
+              "POLREGIO" => "POLREG",
+              final value => value,
+            },  
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             softWrap: false,

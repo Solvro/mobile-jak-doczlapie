@@ -17,6 +17,7 @@ import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../routes_map/data/route_response.dart";
 import "../data/stop.dart";
 import "../hooks/use_next_stop_navigation.dart";
 import "stops_layer.dart";
@@ -84,6 +85,7 @@ class StopsMapView extends HookWidget {
               if (stops != null)
                 StopMarkersLayer(
                   stops: stops!,
+                  activeStop: activeStop.value,
                   onMarkerTap: (index) {
                     final stop = stops![index];
                     mapController.move(stop.coordinates, 16);
@@ -99,7 +101,6 @@ class StopsMapView extends HookWidget {
             right: 0,
             child: MapSingleInputAppBar(searchText: searchText, onSearchSubmitted: onSearchSubmitted),
           ),
-          if (stops == null) const Center(child: CircularProgressIndicator()),
           if (stops != null && stops!.isEmpty)
             Center(
               child: BlurCard(
@@ -116,7 +117,11 @@ class StopsMapView extends HookWidget {
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
-              isSmall: stops == null || stops!.isEmpty,
+              variant: stops != null && stops!.isEmpty
+                  ? ClippedBottomNavBarVariant.verySmall
+                  : stops == null
+                  ? ClippedBottomNavBarVariant.small
+                  : ClippedBottomNavBarVariant.normal,
               extraBeanButton: stops == null || stops!.isEmpty
                   ? null
                   : BeanButton(
@@ -179,14 +184,16 @@ class StopsBottomList extends StatelessWidget {
             ],
           ),
         ),
-        bottomIcon: SvgPicture.asset(
-          Assets.icons.busStopIcon,
-          height: p20,
-          colorFilter: isActive
-              ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-              : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-        bottomText: "120 m",
+        bottomIcon: stop.type == TransportType.bus
+            ? SvgPicture.asset(
+                Assets.icons.busStopIcon,
+                height: p20,
+                colorFilter: isActive
+                    ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+                    : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              )
+            : Icon(Icons.train, size: p20, color: isActive ? Colors.black : Colors.white),
+        bottomText: "${stop.distance} m",
 
         onTap: () async {
           activeStop.value = stop;

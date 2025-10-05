@@ -10,11 +10,19 @@ import "../domain/bottom_nav_controller.dart";
 import "bean_button.dart";
 import "map_list_switch.dart";
 
-class ClippedBottomNavBar extends HookConsumerWidget {
-  const ClippedBottomNavBar({super.key, this.isSmall = false, this.extraBeanButton});
+enum ClippedBottomNavBarVariant { normal, small, verySmall }
 
-  final bool isSmall;
+class ClippedBottomNavBar extends HookConsumerWidget {
+  const ClippedBottomNavBar({
+    super.key,
+    this.variant = ClippedBottomNavBarVariant.normal,
+    this.extraBeanButton,
+    this.showListSwitch = false,
+  });
+
+  final ClippedBottomNavBarVariant variant;
   final Widget? extraBeanButton;
+  final bool showListSwitch;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
@@ -35,13 +43,18 @@ class ClippedBottomNavBar extends HookConsumerWidget {
             padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
-              height: isSmall ? 145 : 200,
+              height: variant == ClippedBottomNavBarVariant.small
+                  ? 180 + MediaQuery.paddingOf(context).bottom
+                  : variant == ClippedBottomNavBarVariant.verySmall
+                  ? 85 + MediaQuery.paddingOf(context).bottom
+                  : 240 + MediaQuery.paddingOf(context).bottom,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(
                   spacing: p8,
                   children: [
-                    const MapListSwitchButton(),
+                    if (showListSwitch) const MapListSwitchButton(),
+                    if (!showListSwitch) const SizedBox(width: 56),
                     const Spacer(),
                     BeanButton(
                       icon: SvgPicture.asset(
@@ -85,6 +98,13 @@ class FadeBottomNavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
     final bottomNavController = ref.read(bottomNavControllerProvider.notifier);
+
+    final router = AutoTabsRouter.of(context);
+    void setCurrentIndex(int index) {
+      bottomNavController.setCurrentIndex(index);
+      router.setActiveIndex(index);
+    }
+
     return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -114,7 +134,7 @@ class FadeBottomNavBar extends ConsumerWidget {
                   ),
                   label: "Trasy",
                   isActive: currentIndex == 0,
-                  onTap: () => bottomNavController.setCurrentIndex(0),
+                  onTap: () => setCurrentIndex(0),
                 ),
                 BeanButton(
                   icon: SvgPicture.asset(
@@ -125,9 +145,10 @@ class FadeBottomNavBar extends ConsumerWidget {
                   ),
                   label: "Przystanki",
                   isActive: currentIndex == 1,
-                  onTap: () => bottomNavController.setCurrentIndex(1),
+                  onTap: () => setCurrentIndex(1),
                 ),
                 const Spacer(),
+                const SizedBox(width: p56),
               ],
             ),
           ),

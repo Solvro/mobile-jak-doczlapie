@@ -14,8 +14,8 @@ class StopMarkersLayer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final markers = useMemoized(
-      () => trip.stops.asMap().entries.map((entry) {
+    final markers = [
+      ...trip.stops.asMap().entries.map((entry) {
         final index = entry.key;
         final stop = entry.value;
 
@@ -28,12 +28,11 @@ class StopMarkersLayer extends HookWidget {
               null => null,
               final fn => () => fn(index),
             },
-            child: const DotIndicator(variant: DotIndicatorVariant.red),
+            child: const DotIndicator(variant: DotIndicatorVariant.blue),
           ),
         );
-      }).toList(),
-      [trip.stops],
-    );
+      }),
+    ];
 
     return MarkerLayer(markers: markers);
   }

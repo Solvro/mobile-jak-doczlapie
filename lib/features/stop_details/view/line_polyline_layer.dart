@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
-import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../trip/data/trip_repository.dart";
 import "../../trip/view/stop_markers_layer.dart";
@@ -33,7 +32,7 @@ class LinePolylineLayer extends HookConsumerWidget {
                     .map((stop) => stop.coordinates)
                     .toList(),
                 strokeWidth: p4,
-                color: context.colorScheme.primary,
+                color: blueColorNew,
               ),
             ],
           ),

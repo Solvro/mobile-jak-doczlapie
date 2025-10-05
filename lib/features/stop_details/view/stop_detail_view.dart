@@ -15,22 +15,24 @@ import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/line.dart";
 import "../../stops_map/data/stop.dart";
 import "../../trip/data/trip_repository.dart";
 import "../hooks/use_first_departure_time.dart";
 import "../hooks/use_line_cycling.dart";
+import "../hooks/use_line_map_focus.dart";
 import "line_polyline_layer.dart";
 
 typedef LineWithDestination = ({Line line, String destination});
 
-class StopDetailsView extends HookWidget {
+class StopDetailsView extends HookConsumerWidget {
   const StopDetailsView({super.key, required this.stop});
 
   final Stop? stop;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
     final activeLine = useState<LineWithDestination?>(
@@ -58,12 +60,15 @@ class StopDetailsView extends HookWidget {
 
     useEffect(() {
       if (stop != null) {
-        mapController.move(initialCenter, 15);
+        mapController.move(initialCenter, 12);
       }
       return null;
     }, [initialCenter]);
 
     final cycleToNextLine = useLineCycling(activeLine: activeLine, routes: stop?.routes);
+
+    // Focus map on active line when it changes
+    useLineMapFocus(activeLine: activeLine, mapController: mapController, ref: ref);
 
     return Scaffold(
       body: Stack(
@@ -88,13 +93,12 @@ class StopDetailsView extends HookWidget {
               right: 0,
               child: MapSingleInputAppBar(searchText: stop?.name, isReadonly: true),
             ),
-          if (stop == null) const Center(child: CircularProgressIndicator()),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
-              isSmall: stop == null,
+              variant: stop == null ? ClippedBottomNavBarVariant.small : ClippedBottomNavBarVariant.normal,
               extraBeanButton: stop == null
                   ? null
                   : BeanButton(
@@ -209,13 +213,15 @@ class SingleDestinationVertTile extends HookConsumerWidget {
           ],
         ),
       ),
-      bottomIcon: SvgPicture.asset(
-        Assets.icons.busVechicleIcon,
-        height: p20,
-        colorFilter: isActive
-            ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-            : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-      ),
+      bottomIcon: line.type == TransportType.bus
+          ? SvgPicture.asset(
+              Assets.icons.busVechicleIcon,
+              height: p20,
+              colorFilter: isActive
+                  ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+                  : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            )
+          : Icon(Icons.train, size: p20, color: isActive ? Colors.black : Colors.white),
       bottomText: switch (ref.watch(
         tripRepositoryProvider(line.id.toString(), line.schedules?.first.run ?? 0, direction),
       )) {

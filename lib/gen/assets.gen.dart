@@ -54,6 +54,9 @@ class $AssetsIconsGen {
 class Assets {
   const Assets._();
 
+  static const AssetGenImage fakeGreenBadge = AssetGenImage(
+    'assets/fake_green_badge.png',
+  );
   static const AssetGenImage footsteps4xlogo = AssetGenImage(
     'assets/footsteps4xlogo.png',
   );
@@ -67,6 +70,7 @@ class Assets {
 
   /// List of all assets
   static List<AssetGenImage> get values => [
+    fakeGreenBadge,
     footsteps4xlogo,
     logoVertical,
     logoVerticalWhite,
