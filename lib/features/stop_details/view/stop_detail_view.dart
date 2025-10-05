@@ -151,10 +151,15 @@ class StopDetailBottomList extends StatelessWidget {
               isActive: isActive,
               line: line,
               direction: destination,
-              onTap: () async {
+              onTap: (firstDepartureTime) async {
                 activeLine.value = (line: line, destination: destination);
                 await context.router.push(
-                  TripRoute(lineId: line.id.toString(), runId: line.schedules?.first.run ?? 0, direction: destination),
+                  TripRoute(
+                    lineId: line.id.toString(),
+                    runId: line.schedules?.first.run ?? 0,
+                    direction: destination,
+                    firstDepartureTime: firstDepartureTime,
+                  ),
                 );
               },
             );
@@ -190,7 +195,7 @@ class SingleDestinationVertTile extends HookConsumerWidget {
   final bool isActive;
   final Line line;
   final String direction;
-  final VoidCallback onTap;
+  final void Function(String firstDepartureTime) onTap;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final firstDepartureTime = useFirstDepartureTime(line.schedules ?? [], direction);
@@ -229,7 +234,7 @@ class SingleDestinationVertTile extends HookConsumerWidget {
         _ => "",
       },
 
-      onTap: onTap,
+      onTap: () => onTap(firstDepartureTime),
       child: Center(
         child: Text.rich(
           textAlign: TextAlign.center,

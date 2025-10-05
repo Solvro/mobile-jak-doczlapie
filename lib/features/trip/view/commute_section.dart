@@ -142,7 +142,9 @@ class StopRoute extends StatelessWidget {
       spacing: p8,
       children: [
         RouteChip(text: hour, color: color),
-        Text(text, style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+        Flexible(
+          child: Text(text, style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
+        ),
       ],
     );
   }

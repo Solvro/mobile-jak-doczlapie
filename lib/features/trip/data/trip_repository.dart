@@ -1,13 +1,23 @@
 import "package:latlong2/latlong.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/rest_client.dart";
 import "../../stops_map/data/schedule.dart";
 part "trip_repository.g.dart";
 
 typedef TripStop = ({LatLng coordinates, String name, String time, int sequence});
 
-typedef Trip = ({List<TripStop> stops, String name, String direction, int run, String lineId});
+typedef Trip = ({
+  List<TripStop> stops,
+  String name,
+  String direction,
+  int run,
+  String lineId,
+  TransportType type,
+  String operator,
+});
+
 @riverpod
 Future<Trip> tripRepository(Ref ref, String lineId, int runId, String direction) async {
   final client = ref.watch(restClientProvider);
@@ -26,5 +36,13 @@ Future<Trip> tripRepository(Ref ref, String lineId, int runId, String direction)
         );
       }).toList() ??
       [];
-  return (stops: stops, name: line.name, direction: direction, run: runId, lineId: lineId);
+  return (
+    stops: stops,
+    name: line.name,
+    direction: direction,
+    run: runId,
+    lineId: lineId,
+    type: line.type,
+    operator: line.operator,
+  );
 }
