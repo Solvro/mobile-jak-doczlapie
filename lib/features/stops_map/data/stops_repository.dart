@@ -10,6 +10,23 @@ Future<List<Stop>?> stopsRepository(Ref ref, ({String latitude, String longitiud
   if (coords == null) {
     return null;
   }
-  final response = await ref.read(restClientProvider).getNearbyStops(coords.latitude, coords.longitiude, "10000");
-  return response;
+
+  // Start with radius 1000 and increase step by step
+  const initialRadius = 500;
+  const radiusStep = 500;
+  const maxRadius = 10000; // Maximum radius to prevent infinite loops
+
+  for (var radius = initialRadius; radius <= maxRadius; radius += radiusStep) {
+    final response = await ref
+        .read(restClientProvider)
+        .getNearbyStops(coords.latitude, coords.longitiude, radius.toString());
+
+    // If we found stops, return them
+    if (response.isNotEmpty) {
+      return response;
+    }
+  }
+
+  // If no stops found with any radius, return null
+  return null;
 }
