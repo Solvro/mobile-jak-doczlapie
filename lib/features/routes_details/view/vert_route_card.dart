@@ -5,6 +5,7 @@ import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../gen/assets.gen.dart";
+import "../../../utils/format_time.dart";
 import "../../routes_list/view/route_chip.dart";
 import "../data/route_response.dart";
 
@@ -81,16 +82,18 @@ class VertRouteCard extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Wrap(
-                            runSpacing: p4,
-                            spacing: p8,
-                            children: route.routes.map((segment) {
-                              final isTrain = segment.type == TransportType.train;
-                              return RouteChip(
-                                text: segment.operator,
-                                color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
-                              );
-                            }).toList(),
+                          Expanded(
+                            child: Wrap(
+                              runSpacing: p4,
+                              spacing: p8,
+                              children: route.routes.map((segment) {
+                                final isTrain = segment.type == TransportType.train;
+                                return RouteChip(
+                                  text: segment.operator.substring(0, 6),
+                                  color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ],
                       ),
@@ -132,7 +135,7 @@ class VertRouteCard extends StatelessWidget {
                             style: context.textTheme.bodySmall?.bold.withColor(Colors.white),
                           ),
                           Text(
-                            Duration(minutes: route.travelTime.abs()).toString(), // todo: format
+                            formatDuration(route.travelTime),
                             style: context.textTheme.bodySmall?.withColor(Colors.white),
                           ),
                         ],
