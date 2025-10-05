@@ -36,6 +36,7 @@ dependencies:
   intl: ^0.20.2
   shimmer: ^3.0.0
   toastification: ^3.0.3
+  device_frame: ^1.4.0
 
 dev_dependencies:
   flutter_test:

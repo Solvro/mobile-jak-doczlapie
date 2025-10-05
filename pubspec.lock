@@ -386,7 +386,7 @@ packages:
     source: hosted
     version: "0.7.11"
   device_frame:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: device_frame
       sha256: "7b2ebb2a09d6cc0f086b51bd1412d7be83e0170056a7290349169be41164c86a"

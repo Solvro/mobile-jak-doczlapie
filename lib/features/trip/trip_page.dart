@@ -68,7 +68,7 @@ class TripAdapter extends StatelessWidget {
       // Calculate difference in minutes
       final difference = arrival.difference(departure);
       return difference.inMinutes;
-    } catch (e) {
+    } on Exception {
       return 60; // fallback to 60 minutes if any error occurs
     }
   }
@@ -89,7 +89,7 @@ class TripAdapter extends StatelessWidget {
         }
       }
       return null;
-    } catch (e) {
+    } on Exception {
       return null;
     }
   }

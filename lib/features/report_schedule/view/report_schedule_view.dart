@@ -81,7 +81,7 @@ class ReportScheduleViewContent extends StatelessWidget {
   });
 
   final XFile? image;
-  final dynamic imagePicker;
+  final ImagePickerController imagePicker;
   final VoidCallback onFormSubmit;
 
   @override
