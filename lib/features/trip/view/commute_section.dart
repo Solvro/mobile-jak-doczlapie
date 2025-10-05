@@ -98,7 +98,8 @@ class CommuteSection extends StatelessWidget {
                       .map(
                         (stop) => StopRoute(
                           color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
-                          hour: "${stop.time.split(":").first}:${stop.time.split(":")[1]}",
+                          hour:
+                              "${stop.time.split(":").first}:${stop.time.split(":").length > 1 ? stop.time.split(":")[1] : "00"}",
                           text: stop.name,
                         ),
                       )

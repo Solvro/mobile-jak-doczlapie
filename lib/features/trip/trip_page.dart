@@ -124,12 +124,11 @@ class TripAdapter extends StatelessWidget {
           type: trip.type,
           run: trip.run,
           stops: trip.stops.asMap().entries.map((entry) {
-            final index = entry.key;
             final stop = entry.value;
             return RouteStop(
               name: stop.name,
               coordinates: stop.coordinates,
-              time: index == 0 ? firstDepartureTime : stop.time,
+              time: stop.time == "UNKOWN" ? firstDepartureTime : stop.time,
               id: 0,
               distance: null,
             );
