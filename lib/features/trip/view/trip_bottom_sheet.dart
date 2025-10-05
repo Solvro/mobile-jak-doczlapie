@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:glass/glass.dart";
 
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/blur_card.dart";
@@ -9,7 +8,6 @@ import "commute_section.dart";
 import "final_section.dart";
 import "handle.dart";
 import "trip_header.dart";
-import "trip_stop_tile.dart";
 import "walk_section.dart";
 
 class TripBottomSheet extends StatelessWidget {
