@@ -1,16 +1,27 @@
-# jak_doczlapie
+# Jak Doczłapie Mobile
+![HackYeah Slide 31](https://github.com/user-attachments/assets/a8f1f27b-578c-44fa-b707-0d6f02a32293)
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+Mobilna część wygranego projektu na [HackYeah 2025](https://challengerocket.com/hackyeah-2025) w zadaniu "Journey Radar". 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Oprócz części mobilnej napisanej we Flutterze, w skład projektu wchodził Backend, webowy panel admina i designy.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Team
+- Szymon Kowaliński - Flutter Developer
+- Tomasz Trela - Flutter Developer
+- Maciej Talarczyk - UI/UX Designer
+- Dawid Linek - Backend Developer i Product Owner
+- Jakub Czajkowiski - Backend Developer
+- Bartosz Gotowski - Frontend Developer
+
+<img  alt="image" src="https://github.com/user-attachments/assets/5ae14441-1f44-46b1-bb64-d7c5459c9846" />
+
+
+## KN Solvro
+
+![Solvro banner](https://github.com/Solvro/backend-topwr-sks/blob/main/assets/solvro_dark.png#gh-dark-mode-only)
+![Solvro banner](https://github.com/Solvro/backend-topwr-sks/blob/main/assets/solvro_dark.png#gh-light-mode-only)
+
+Jesteśmy dumnymi członkami koła naukowego zrzeszającego 120 pasjonatów informatyki tworzących software. Daj [na follow](https://github.com/Solvro) i [gwiazdki na naszych repo](https://github.com/Solvro/mobile-topwr)
