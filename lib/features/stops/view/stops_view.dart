@@ -56,7 +56,7 @@ class StopsView extends StatelessWidget {
           ),
         ),
 
-        const Positioned(bottom: 110, child: ReportIncidentsBtn()),
+        // const Positioned(bottom: 110, child: ReportIncidentsBtn()),
         Positioned(
           bottom: 110,
           left: 0,
