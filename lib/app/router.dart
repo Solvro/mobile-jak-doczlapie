@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "../features/main_navigation/main_navigation_page.dart";
 import "../features/main_navigation/routes_tab/routes_tab_page.dart";
 import "../features/main_navigation/stops_tab/stops_tab_page.dart";
+import "../features/report_incidents/report_incidents_page.dart";
 import "../features/report_schedule/report_schedule_page.dart";
 import "../features/route_trip/route_trip_page.dart";
 import "../features/routes/routes_page.dart";
@@ -48,5 +49,6 @@ class AppRouter extends RootStackRouter {
       ],
     ),
     AutoRoute(page: ReportScheduleRoute.page),
+    AutoRoute(page: ReportIncidentsRoute.page),
   ];
 }
