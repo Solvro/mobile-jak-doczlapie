@@ -27,19 +27,13 @@ class RouteListShimmerTile extends StatelessWidget {
                     Container(
                       height: 24,
                       width: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                     const SizedBox(height: p4),
                     Container(
                       height: 12,
                       width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                   ],
                 ),
@@ -49,26 +43,17 @@ class RouteListShimmerTile extends StatelessWidget {
                     Container(
                       height: 12,
                       width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                     Container(
                       height: 2,
                       width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                     Container(
                       height: 12,
                       width: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                   ],
                 ),
@@ -77,10 +62,7 @@ class RouteListShimmerTile extends StatelessWidget {
                     Container(
                       height: 24,
                       width: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(4),
-                      ),
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
                     ),
                   ],
                 ),
@@ -90,10 +72,7 @@ class RouteListShimmerTile extends StatelessWidget {
             Container(
               height: 1,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4),
-              ),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4)),
             ),
             const SizedBox(height: p8),
             Row(
@@ -101,10 +80,7 @@ class RouteListShimmerTile extends StatelessWidget {
                 Container(
                   height: 24,
                   width: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
                 ),
               ],
             ),

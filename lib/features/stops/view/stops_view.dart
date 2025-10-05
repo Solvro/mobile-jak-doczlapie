@@ -27,7 +27,7 @@ class StopsView extends StatelessWidget {
         ),
         if (isBigger)
           Positioned(
-            // TODO: this is fake
+            // TODO(simon-the-shark): this is fake
             bottom: 145 + MediaQuery.paddingOf(context).bottom,
             left: MediaQuery.sizeOf(context).width * 0.5 - 85,
             child: Assets.fakeGreenBadge.image(width: 170),
