@@ -43,7 +43,7 @@ abstract class RestClient {
 
   @Headers(<String, dynamic>{"Content-Type": "application/json"})
   @POST("/api/v1/routes/{id}/reports")
-  Future<void> sendReport(@Path("id") String routeId, @Body() ReportDto reportData);
+  Future<void> sendReport(@Path("id") String id, @Body() ReportDto reportData);
 }
 
 @riverpod
