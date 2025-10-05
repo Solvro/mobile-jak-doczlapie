@@ -4,7 +4,7 @@ import "package:retrofit/error_logger.dart";
 import "package:retrofit/http.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-import "../../routes_search_details/data/route_response.dart";
+import "../../routes_map/data/route_response.dart";
 import "../../trip/data/track_response.dart";
 import "line.dart";
 import "stop.dart";

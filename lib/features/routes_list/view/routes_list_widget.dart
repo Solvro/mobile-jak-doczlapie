@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
-import "../../routes_search_details/data/route_response.dart";
+import "../../routes_map/data/route_response.dart";
 import "route_list_tile.dart";
 
 class RoutesListWidget extends StatelessWidget {

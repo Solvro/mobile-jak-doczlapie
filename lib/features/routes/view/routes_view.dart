@@ -62,7 +62,7 @@ class RoutesView extends StatelessWidget {
                               locationAddressStart.value = text;
                               if (isBigger) {
                                 await context.router.push(
-                                  RouteDetailsRoute(
+                                  RoutesMapRoute(
                                     fromAddress: locationAddressStart.value!,
                                     toAddress: locationAddressEnd.value!,
                                   ),
@@ -81,7 +81,7 @@ class RoutesView extends StatelessWidget {
                               locationAddressEnd.value = text;
                               if (isBigger) {
                                 await context.router.push(
-                                  RouteDetailsRoute(
+                                  RoutesMapRoute(
                                     fromAddress: locationAddressStart.value!,
                                     toAddress: locationAddressEnd.value!,
                                   ),
@@ -175,7 +175,7 @@ class RoutesViewContent extends StatelessWidget {
             child: isBigger
                 ? FilledButton(
                     onPressed: () async {
-                      await context.router.push(RouteDetailsRoute(fromAddress: fromAddress!, toAddress: toAddress!));
+                      await context.router.push(RoutesMapRoute(fromAddress: fromAddress!, toAddress: toAddress!));
                     },
                     child: const Text("POKAŻ TRASY"),
                   )

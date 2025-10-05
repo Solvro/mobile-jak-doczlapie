@@ -17,8 +17,8 @@ import "../data/route_response.dart";
 import "../hooks/use_route_cycling.dart";
 import "vert_route_card.dart";
 
-class RouteSearchDetailsView extends HookWidget {
-  const RouteSearchDetailsView({super.key, this.routes, required this.fromAddress, required this.toAddress});
+class RoutesMapView extends HookWidget {
+  const RoutesMapView({super.key, this.routes, required this.fromAddress, required this.toAddress});
 
   final List<RouteResponse>? routes;
   final ValueNotifier<String> fromAddress;

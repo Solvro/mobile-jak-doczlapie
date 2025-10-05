@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/app_bars/route_list_app_bar.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
-import "../../routes_search_details/data/route_response.dart";
+import "../../routes_map/data/route_response.dart";
 import "routes_list_widget.dart";
 import "shimmer_loading_widget.dart";
 

@@ -8,11 +8,11 @@ import "../bottom_nav/view/map_list_switch.dart";
 import "../routes_list/view/route_list_view.dart";
 import "../stops_map/hooks/use_coords.dart";
 import "data/routes_repository.dart";
-import "view/route_detail_view.dart";
+import "view/routes_map_view.dart";
 
 @RoutePage()
-class RouteDetailsPage extends HookConsumerWidget {
-  const RouteDetailsPage({super.key, required this.fromAddress, required this.toAddress});
+class RoutesMapPage extends HookConsumerWidget {
+  const RoutesMapPage({super.key, required this.fromAddress, required this.toAddress});
 
   final String fromAddress;
   final String toAddress;
@@ -39,7 +39,7 @@ class RouteDetailsPage extends HookConsumerWidget {
 
     final activeViewType = ref.watch(viewTypeControllerProvider);
     return switch (activeViewType) {
-      ViewType.map => RouteSearchDetailsView(
+      ViewType.map => RoutesMapView(
         routes: routesAsync.value,
         fromAddress: fromAddressState,
         toAddress: toAddressState,
