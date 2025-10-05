@@ -89,7 +89,11 @@ class TripView extends HookConsumerWidget {
             ),
           ),
 
-          const Positioned(top: 180, right: 20, child: ReportIncidentsBtn()),
+          Positioned(
+            top: 180,
+            right: 20,
+            child: ReportIncidentsBtn(routeId: route.routes[0].id.toString(), runId: route.routes[0].run),
+          ),
           TripBottomSheet(
             route: route,
             draggableController: draggableController,

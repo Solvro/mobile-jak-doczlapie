@@ -1,9 +1,9 @@
 import "package:dio/dio.dart" hide Headers;
 import "package:flutter/widgets.dart";
-import "package:retrofit/error_logger.dart";
 import "package:retrofit/http.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+import "../../report_incidents/data/report_dto.dart";
 import "../../routes_map/data/route_response.dart";
 import "../../trip/data/track_response.dart";
 import "line.dart";
@@ -40,6 +40,10 @@ abstract class RestClient {
     @Query("toLatitude") String toLatitude,
     @Query("radius") String? radius,
   );
+
+  @Headers(<String, dynamic>{"Content-Type": "application/json"})
+  @POST("/api/v1/routes/{id}/reports")
+  Future<void> sendReport(@Path("id") String routeId, @Body() ReportDto reportData);
 }
 
 @riverpod

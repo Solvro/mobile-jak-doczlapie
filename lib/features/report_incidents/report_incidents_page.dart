@@ -1,27 +1,32 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
-import "package:freezed_annotation/freezed_annotation.dart";
+import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:toastification/toastification.dart";
 
 import "../../app/theme.dart";
 import "../../app/tokens.dart";
+import "../../common/services/location_service.dart";
 import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
 import "../../common/widgets/gradient_scaffold.dart";
 import "../stops/view/animated_double_circle.dart";
-
-@JsonEnum(fieldRename: FieldRename.snake)
-enum IncidentType { delay, accident, press, failure, didNotArrive, change, other, differentStopLocation, requestStop }
+import "../stops_map/data/rest_client.dart";
+import "data/report_dto.dart";
 
 @RoutePage()
-class ReportIncidentsPage extends HookWidget {
-  const ReportIncidentsPage({super.key});
-
+class ReportIncidentsPage extends HookConsumerWidget {
+  const ReportIncidentsPage({super.key, required this.routeId, required this.runId});
+  final String routeId;
+  final int runId;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final selectedIncidentType = useState<IncidentType?>(null);
-    void onFormSubmit() {
+    Future<void> onFormSubmit() async {
       if (selectedIncidentType.value != null) {
+        final location = await LocationService.getCurrentLocation();
+        final restClient = ref.read(restClientProvider);
+        final dto = ReportDto(type: selectedIncidentType.value!, coordinates: location, run: runId);
+        await restClient.sendReport(routeId, dto);
         toastification.show(
           type: ToastificationType.success,
           style: ToastificationStyle.flat,
@@ -29,7 +34,9 @@ class ReportIncidentsPage extends HookWidget {
           autoCloseDuration: const Duration(seconds: 3),
           alignment: Alignment.topCenter,
         );
-        context.router.pop();
+        if (context.mounted) {
+          context.router.pop();
+        }
       }
     }
 
@@ -125,7 +132,7 @@ class ReportIncidentsPage extends HookWidget {
         // ignore: deprecated_member_use
         groupValue: selectedType,
         // ignore: deprecated_member_use
-        onChanged: (value) => onChanged(value!),
+        onChanged: (value) => value != null ? onChanged(value) : null,
         activeColor: Colors.blue,
         title: Text(
           _getIncidentTypeDisplayName(type),

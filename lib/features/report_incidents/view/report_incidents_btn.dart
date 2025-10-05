@@ -6,7 +6,9 @@ import "../../../app/tokens.dart";
 import "../../../gen/assets.gen.dart";
 
 class ReportIncidentsBtn extends StatelessWidget {
-  const ReportIncidentsBtn({super.key});
+  const ReportIncidentsBtn({super.key, required this.routeId, required this.runId});
+  final String routeId;
+  final int runId;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class ReportIncidentsBtn extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-          await context.router.push(const ReportIncidentsRoute());
+          await context.router.push(ReportIncidentsRoute(routeId: routeId, runId: runId));
         },
         borderRadius: BorderRadius.circular(71),
         child: SizedBox(width: p56, height: p56, child: Assets.yellowButton.image()),
