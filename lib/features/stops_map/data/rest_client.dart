@@ -1,6 +1,6 @@
 import "package:dio/dio.dart" hide Headers;
 import "package:flutter/widgets.dart";
-import "package:retrofit/http.dart";
+import "package:retrofit/retrofit.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../report_incidents/data/report_dto.dart";
