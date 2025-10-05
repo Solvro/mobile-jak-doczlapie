@@ -58,7 +58,9 @@ class CommuteSection extends StatelessWidget {
                 ),
               ),
             const SizedBox(width: p8),
-            RouteChip(text: segment.name.split(" ")[0], color: isTrain ? RouteChipColor.orange : RouteChipColor.red),
+            Flexible(
+              child: RouteChip(text: segment.name, color: isTrain ? RouteChipColor.orange : RouteChipColor.red),
+            ),
             const SizedBox(width: p4),
             const Icon(Icons.east, color: Colors.white, size: 18),
             const SizedBox(width: p4),

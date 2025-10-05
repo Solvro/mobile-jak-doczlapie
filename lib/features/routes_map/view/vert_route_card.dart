@@ -91,7 +91,10 @@ class VertRouteCard extends StatelessWidget {
                               children: route.routes.map((segment) {
                                 final isTrain = segment.type == TransportType.train;
                                 return RouteChip(
-                                  text: segment.operator,
+                                  text: segment.operator.substring(
+                                    0,
+                                    segment.operator.length > 16 ? 16 : segment.operator.length,
+                                  ),
                                   color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
                                 );
                               }).toList(),
