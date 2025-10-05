@@ -29,20 +29,20 @@ class VertCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: isActive ? 0 : heightActive - height),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
+      child: Container(
+        width: 167,
+        height: isActive ? heightActive : height,
+        decoration: BoxDecoration(
+          color: isActive ? blueColorNew : const Color(0xFF252328),
           borderRadius: BorderRadius.circular(r31),
-          splashColor: Colors.white.withValues(alpha: 0.2),
-          highlightColor: Colors.white.withValues(alpha: 0.1),
-          child: Container(
-            width: 167,
-            height: isActive ? heightActive : height,
-            decoration: BoxDecoration(
-              color: isActive ? blueColorNew : const Color(0xFF252328),
-              borderRadius: BorderRadius.circular(r31),
-            ),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(r31),
+            splashColor: Colors.white.withValues(alpha: 0.2),
+            highlightColor: Colors.white.withValues(alpha: 0.1),
             child: SizedBox(
               width: 167,
               child: Padding(

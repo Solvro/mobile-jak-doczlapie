@@ -21,20 +21,20 @@ class VertRouteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: isActive ? 0 : VertCard.heightActive - VertCard.height),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
+      child: Container(
+        width: 167,
+        height: isActive ? VertCard.heightActive : VertCard.height,
+        decoration: BoxDecoration(
+          color: isActive ? blueColorNew : const Color(0xFF252328),
           borderRadius: BorderRadius.circular(r31),
-          splashColor: Colors.white.withValues(alpha: 0.2),
-          highlightColor: Colors.white.withValues(alpha: 0.1),
-          child: Container(
-            width: 167,
-            height: isActive ? VertCard.heightActive : VertCard.height,
-            decoration: BoxDecoration(
-              color: isActive ? blueColorNew : const Color(0xFF252328),
-              borderRadius: BorderRadius.circular(r31),
-            ),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(r31),
+            splashColor: Colors.white.withValues(alpha: 0.2),
+            highlightColor: Colors.white.withValues(alpha: 0.1),
             child: Padding(
               padding: const EdgeInsets.all(p8),
               child: Column(
