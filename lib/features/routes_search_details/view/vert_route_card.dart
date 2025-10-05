@@ -49,7 +49,7 @@ class VertRouteCard extends StatelessWidget {
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 10,
+                        spacing: 6,
                         children: [
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,6 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../bottom_nav/domain/bottom_nav_controller.dart";
@@ -18,8 +19,10 @@ class RouteDetailsPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final coordsFrom = useCoords(fromAddress);
-    final coordsTo = useCoords(toAddress);
+    final fromAddressState = useState(fromAddress);
+    final toAddressState = useState(toAddress);
+    final coordsFrom = useCoords(fromAddressState.value);
+    final coordsTo = useCoords(toAddressState.value);
 
     final routesAsync = ref.watch(
       routesRepositoryProvider(
@@ -36,7 +39,11 @@ class RouteDetailsPage extends HookConsumerWidget {
 
     final activeViewType = ref.watch(viewTypeControllerProvider);
     return switch (activeViewType) {
-      ViewType.map => RouteDetailsView(routes: routesAsync.value),
+      ViewType.map => RouteSearchDetailsView(
+        routes: routesAsync.value,
+        fromAddress: fromAddressState,
+        toAddress: toAddressState,
+      ),
       ViewType.list => RouteListView(routes: routesAsync.value),
     };
   }

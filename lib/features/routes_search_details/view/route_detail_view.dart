@@ -3,6 +3,7 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 
+import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
@@ -16,16 +17,19 @@ import "../data/route_response.dart";
 import "../hooks/use_route_cycling.dart";
 import "vert_route_card.dart";
 
-class RouteDetailsView extends HookWidget {
-  const RouteDetailsView({super.key, this.routes});
+class RouteSearchDetailsView extends HookWidget {
+  const RouteSearchDetailsView({super.key, this.routes, required this.fromAddress, required this.toAddress});
 
   final List<RouteResponse>? routes;
-
+  final ValueNotifier<String> fromAddress;
+  final ValueNotifier<String> toAddress;
   @override
   Widget build(BuildContext context) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
-    final activeRoute = useState<RouteResponse?>(routes?.first);
+    final activeRoute = useState<RouteResponse?>(routes == null || routes!.isEmpty ? null : routes!.first);
+    final fromAddressController = useTextEditingController(text: fromAddress.value);
+    final toAddressController = useTextEditingController(text: toAddress.value);
 
     useEffect(() {
       if (routes != null && routes!.isNotEmpty) {
@@ -44,7 +48,9 @@ class RouteDetailsView extends HookWidget {
 
     useEffect(() {
       if (routes != null) {
-        mapController.move(initialCenter, 15);
+        Future.delayed(Duration.zero, () {
+          mapController.move(initialCenter, 15);
+        });
       }
       return null;
     }, [initialCenter]);
@@ -70,7 +76,7 @@ class RouteDetailsView extends HookWidget {
               // LinePolylineLayer(line: activeLine.value),
             ],
           ),
-          const Positioned(
+          Positioned(
             top: 80,
             left: 20,
             right: 20,
@@ -78,19 +84,36 @@ class RouteDetailsView extends HookWidget {
               spacing: p8,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GlassReadonlyInput(initialText: "Route start"),
-                GlassReadonlyInput(initialText: "Route end", dotIndicatorVariant: DotIndicatorVariant.green),
-                BlurCard(borderRadius: r18, child: PopButton()),
+                GlassInput(controller: fromAddressController, onSubmitted: (value) => fromAddress.value = value),
+                GlassInput(
+                  controller: toAddressController,
+                  onSubmitted: (value) => toAddress.value = value,
+                  dotIndicatorVariant: DotIndicatorVariant.green,
+                ),
+                const BlurCard(borderRadius: r18, child: PopButton()),
               ],
             ),
           ),
 
           if (routes == null) const Center(child: CircularProgressIndicator()),
+          if (routes != null && routes!.isEmpty)
+            Center(
+              child: BlurCard(
+                borderRadius: r18,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text("Nie znaleziono trasy", style: context.textTheme.headlineSmall?.white),
+                ),
+              ),
+            ),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
+              variant: routes != null && routes!.isEmpty
+                  ? ClippedBottomNavBarVariant.verySmall
+                  : ClippedBottomNavBarVariant.normal,
               extraBeanButton: BeanButton(
                 icon: const Icon(Icons.arrow_forward_outlined, color: Colors.white),
                 onTap: cycleToNextRoute,
