@@ -3,16 +3,18 @@ import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 
 import "../../../app/tokens.dart";
-import "../data/trip_repository.dart";
+import "../../routes_map/data/route_response.dart";
 
 class RoutePolylineLayer extends HookWidget {
-  const RoutePolylineLayer({super.key, required this.trip});
+  const RoutePolylineLayer({super.key, required this.route});
 
-  final Trip trip;
+  final RouteResponse route;
 
   @override
   Widget build(BuildContext context) {
-    final routePoints = useMemoized(() => trip.stops.map((stop) => stop.coordinates).toList(), [trip.stops]);
+    final routePoints = useMemoized(() => route.routes.map((stop) => stop.departure.coordinates).toList(), [
+      route.routes,
+    ]);
 
     return PolylineLayer(
       polylines: [Polyline(points: routePoints, strokeWidth: p4, color: blueColorNew)],

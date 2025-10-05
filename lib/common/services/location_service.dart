@@ -60,6 +60,33 @@ class LocationService {
     }
   }
 
+  static Future<String?> getPlacemarkFromCoords(LatLng coords) async {
+    try {
+      final placemarks = await placemarkFromCoordinates(
+        coords.latitude,
+        coords.longitude,
+      ).timeout(const Duration(seconds: 3));
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks[0];
+
+        final parts = <String>[];
+
+        if (place.street?.isNotEmpty ?? false) parts.add(place.street!);
+        if (place.locality?.isNotEmpty ?? false) parts.add(place.locality!);
+        if (place.administrativeArea?.isNotEmpty ?? false) parts.add(place.administrativeArea!);
+
+        final result = parts.isNotEmpty ? parts.join(", ") : null;
+        return result;
+      }
+
+      return null;
+    } on Exception {
+      final coordsStr = "${coords.latitude.toStringAsFixed(4)}, ${coords.longitude.toStringAsFixed(4)}";
+      return coordsStr;
+    }
+  }
+
   static Stream<LatLng> getLocationStream() {
     const locationSettings = LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 10);
 

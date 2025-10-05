@@ -8,17 +8,17 @@ import "../../../app/tokens.dart";
 import "../../../common/services/location_service.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../config/sheet_config.dart";
+import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/rest_client.dart";
 import "../data/track_response.dart";
-import "../data/trip_repository.dart";
 import "route_polyline_layer.dart";
 import "stop_markers_layer.dart";
 import "trip_bottom_sheet.dart";
 
 class TripView extends HookConsumerWidget {
-  const TripView({super.key, required this.trip});
+  const TripView({super.key, required this.route});
 
-  final Trip trip;
+  final RouteResponse route;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +30,10 @@ class TripView extends HookConsumerWidget {
       final subscription = LocationService.getLocationStream().listen(
         (location) async {
           try {
-            await restClient.sendUserTrack(trip.lineId, TrackResponse(run: trip.run, coordinates: location));
+            await restClient.sendUserTrack(
+              route.routes[0].id.toString(),
+              TrackResponse(run: route.routes[0].run, coordinates: location),
+            );
           } on Exception catch (e) {
             debugPrint(e.toString());
           }
@@ -41,16 +44,13 @@ class TripView extends HookConsumerWidget {
       );
 
       return subscription.cancel;
-    }, [isEnabled.value, trip.lineId, trip.run]);
+    }, [isEnabled.value, route.routes[0].id, route.routes[0].run]);
     final mapController = useMemoized(MapController.new, []);
     final draggableController = useMemoized(DraggableScrollableController.new, []);
     final initialCenter = useMemoized(() {
-      if (trip.stops.isEmpty) {
-        return const LatLng(50.0645, 19.9830); // tauron arena
-      }
-      final firstStop = trip.stops.first;
+      final firstStop = route.departure;
       return LatLng(firstStop.coordinates.latitude, firstStop.coordinates.longitude);
-    }, [trip.stops]);
+    }, [route.departure]);
 
     return Scaffold(
       body: Stack(
@@ -63,12 +63,12 @@ class TripView extends HookConsumerWidget {
                 urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 userAgentPackageName: "pl.solvro.jak_doczlapie",
               ),
-              RoutePolylineLayer(trip: trip),
+              RoutePolylineLayer(route: route),
               StopMarkersLayer(
-                trip: trip,
+                route: route,
                 onMarkerTap: (index) async {
-                  final stop = trip.stops[index];
-                  mapController.move(stop.coordinates, 20);
+                  final stop = route.routes[index];
+                  mapController.move(stop.departure.coordinates, 20);
                   await draggableController.animateTo(
                     defaultSheetConfig.baseSize,
                     duration: const Duration(milliseconds: 300),
@@ -80,11 +80,11 @@ class TripView extends HookConsumerWidget {
             ],
           ),
           TripBottomSheet(
-            trip: trip,
+            route: route,
             draggableController: draggableController,
             onStopTap: (index) async {
-              final stop = trip.stops[index];
-              mapController.move(stop.coordinates, 20);
+              final stop = route.routes[index];
+              mapController.move(stop.departure.coordinates, 20);
               await draggableController.animateTo(
                 defaultSheetConfig.minSize,
                 duration: const Duration(milliseconds: 300),

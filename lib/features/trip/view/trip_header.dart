@@ -6,27 +6,33 @@ import "../../../app/tokens.dart";
 
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../gen/assets.gen.dart";
-import "../data/trip_repository.dart";
+import "../../routes_map/data/route_response.dart";
 
 class TripHeader extends StatelessWidget {
-  const TripHeader({super.key, required this.trip});
+  const TripHeader({super.key, required this.route});
 
-  final Trip trip;
+  final RouteResponse route;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const BlurCard(
+        BlurCard(
           borderRadius: r31,
           child: Padding(
-            padding: EdgeInsets.all(p16),
+            padding: const EdgeInsets.all(p16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                HourTitle(hour: "10:10", text: "Wrocław"),
-                SizedBox(width: 2, height: 70, child: VerticalDivider(color: greyBorder)),
-                HourTitle(hour: "11:11", text: "Warszawa"),
+                HourTitle(
+                  hour: "${route.departure.time.split(":").first}:${route.departure.time.split(":")[1]}",
+                  text: route.departure.name,
+                ),
+                const SizedBox(width: 2, height: 70, child: VerticalDivider(color: greyBorder)),
+                HourTitle(
+                  hour: "${route.arrival.time.split(":").first}:${route.arrival.time.split(":")[1]}",
+                  text: route.arrival.name,
+                ),
               ],
             ),
           ),

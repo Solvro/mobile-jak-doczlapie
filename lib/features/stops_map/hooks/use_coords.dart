@@ -11,3 +11,9 @@ AsyncSnapshot<LatLng?> useCoords(String? address) {
     ),
   );
 }
+
+AsyncSnapshot<String?> useAddress(LatLng? coords) {
+  return useFuture(
+    useMemoized(() => coords != null ? LocationService.getPlacemarkFromCoords(coords) : Future.value(), [coords]),
+  );
+}

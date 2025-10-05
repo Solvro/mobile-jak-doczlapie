@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../config/sheet_config.dart";
-import "../data/trip_repository.dart";
+import "../../routes_map/data/route_response.dart";
 import "commute_section.dart";
 import "final_section.dart";
 import "handle.dart";
@@ -11,14 +11,19 @@ import "trip_header.dart";
 import "walk_section.dart";
 
 class TripBottomSheet extends StatelessWidget {
-  const TripBottomSheet({super.key, required this.trip, required this.onStopTap, this.draggableController});
+  const TripBottomSheet({super.key, required this.route, required this.onStopTap, this.draggableController});
 
-  final Trip trip;
+  final RouteResponse route;
   final void Function(int index) onStopTap;
   final DraggableScrollableController? draggableController;
 
   @override
   Widget build(BuildContext context) {
+
+    final children = [
+      if(route.departure.distance != 0) const WalkSection(address: "Wschowa, ul Walna", time: "10:10", distance: 420, duration: 5),
+    ]
+
     return DraggableScrollableSheet(
       initialChildSize: defaultSheetConfig.baseSize,
       minChildSize: defaultSheetConfig.minSize,
@@ -40,7 +45,7 @@ class TripBottomSheet extends StatelessWidget {
                     child: Column(
                       children: [
                         const Handle(),
-                        TripHeader(trip: trip),
+                        TripHeader(route: route),
                       ],
                     ),
                   ),
