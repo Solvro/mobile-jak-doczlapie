@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_dynamic_calls, inference_failure_on_function_invocation
+
 import "package:dio/dio.dart";
+import "package:flutter/material.dart";
 import "package:latlong2/latlong.dart";
 
 class MapboxGeocoding {
@@ -29,32 +32,32 @@ class MapboxGeocoding {
       if (response.statusCode == 200) {
         final data = response.data;
 
-        if (data['features'] != null && (data['features'] as List).isNotEmpty) {
-          final feature = data['features'][0];
-          final properties = feature['properties'];
-          final context = properties['context'];
+        if (data["features"] != null && (data["features"] as List).isNotEmpty) {
+          final feature = data["features"][0];
+          final properties = feature["properties"];
+          final context = properties["context"];
 
           String? street;
           String? houseNumber;
           String? city;
 
           // Wyciągnij ulicę i numer domu z context.address
-          if (context != null && context['address'] != null) {
-            final addressContext = context['address'];
-            street = addressContext['street_name'] as String?;
-            houseNumber = addressContext['address_number'] as String?;
+          if (context != null && context["address"] != null) {
+            final addressContext = context["address"];
+            street = addressContext["street_name"] as String?;
+            houseNumber = addressContext["address_number"] as String?;
           }
 
           // Wyciągnij miasto z context.place
-          if (context != null && context['place'] != null) {
-            city = context['place']['name'] as String?;
+          if (context != null && context["place"] != null) {
+            city = context["place"]["name"] as String?;
           }
 
           // Zbuduj adres
-          final streetPart = street != null && houseNumber != null ? '$street $houseNumber' : street ?? '';
+          final streetPart = street != null && houseNumber != null ? "$street $houseNumber" : street ?? "";
 
           if (streetPart.isNotEmpty && city != null) {
-            return '$streetPart, $city';
+            return "$streetPart, $city";
           } else if (streetPart.isNotEmpty) {
             return streetPart;
           } else if (city != null) {
@@ -62,14 +65,14 @@ class MapboxGeocoding {
           }
 
           // Fallback do pełnego adresu
-          return properties['full_address'] as String?;
+          return properties["full_address"] as String?;
         }
       }
     } on DioException catch (e) {
-      print("Dio error in reverse geocoding: ${e.message}");
+      debugPrint("Dio error in reverse geocoding: ${e.message}");
       return null;
-    } catch (e) {
-      print("Error in reverse geocoding: $e");
+    } on Exception catch (e) {
+      debugPrint("Error in reverse geocoding: $e");
       return null;
     }
 
@@ -102,10 +105,10 @@ class MapboxGeocoding {
 
       return null;
     } on DioException catch (e) {
-      print("Dio error in forward geocoding: ${e.message}");
+      debugPrint("Dio error in forward geocoding: ${e.message}");
       return null;
-    } catch (e) {
-      print("Error in forward geocoding: $e");
+    } on Exception catch (e) {
+      debugPrint("Error in forward geocoding: $e");
       return null;
     }
   }

@@ -11,11 +11,11 @@ void main() async {
 
   final service = MapboxGeocoding();
   final searchResult = await service.getCoordsFromAddress("Kraków, Polska");
-  print("Mapbox $searchResult");
+  debugPrint("Mapbox $searchResult");
 
   final address = await service.getAddressFromCoords(searchResult!);
 
-  print("Mapbox $address");
+  debugPrint("Mapbox $address");
 
   runApp(ProviderScope(child: App()));
 }
