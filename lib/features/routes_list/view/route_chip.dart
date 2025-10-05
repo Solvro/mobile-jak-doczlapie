@@ -22,7 +22,10 @@ class RouteChip extends StatelessWidget {
         color: color == RouteChipColor.red ? red2 : orange,
       ),
       child: Text(
-        text,
+        switch (text) {
+          "POLREGIO" => "POLREG",
+          final value => value,
+        },
         overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center, // środek wewnątrz maxWidth
         softWrap: false,

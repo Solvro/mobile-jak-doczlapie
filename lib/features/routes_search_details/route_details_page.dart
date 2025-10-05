@@ -44,7 +44,11 @@ class RouteDetailsPage extends HookConsumerWidget {
         fromAddress: fromAddressState,
         toAddress: toAddressState,
       ),
-      ViewType.list => RouteListView(routes: routesAsync.value),
+      ViewType.list => RouteListView(
+        routes: routesAsync.value,
+        fromAddress: fromAddressState,
+        toAddress: toAddressState,
+      ),
     };
   }
 }

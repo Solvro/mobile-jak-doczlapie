@@ -1,16 +1,20 @@
 import "package:flutter/material.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
+import "../../../utils/format_time.dart";
+import "../../routes_details/view/vert_route_card.dart";
+import "../../routes_search_details/data/route_response.dart";
 import "route_chip.dart";
 
 class RouteListTile extends StatelessWidget {
-  const RouteListTile({super.key, this.isPunctual = false});
+  const RouteListTile({super.key, this.isPunctual = false, required this.route});
   final bool isPunctual;
+  final RouteResponse route;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(p16),
 
       decoration: BoxDecoration(
         border: Border.all(color: isPunctual ? green : const Color(0xFF777777), width: 2),
@@ -25,7 +29,7 @@ class RouteListTile extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    "11:42",
+                    "${route.departure.time.split(":").first}:${route.departure.time.split(":")[1]}",
                     style: context.textTheme.headlineMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
@@ -39,16 +43,12 @@ class RouteListTile extends StatelessWidget {
                 spacing: p4,
                 children: [
                   Text(
-                    "1 przesiadka",
+                    route.transfers == 0 ? "Bez przesiadek" : "${route.transfers} przesiadki",
                     style: context.textTheme.bodySmall?.copyWith(color: Colors.white, fontWeight: FontWeight.w700),
                   ),
-                  const SizedBox(
-                    height: 2,
-                    width: 100,
-                    child: LinearProgressIndicator(color: red2, value: 0.5, backgroundColor: orange),
-                  ),
+                  SizedBox(height: 2, width: 100, child: SegmentsDivider(route: route)),
                   Text(
-                    "1h 12 min",
+                    formatDuration(route.travelTime),
                     style: context.textTheme.bodySmall?.copyWith(color: Colors.white, letterSpacing: -1),
                   ),
                 ],
@@ -56,7 +56,7 @@ class RouteListTile extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    "11:42",
+                    "${route.arrival.time.split(":").first}:${route.arrival.time.split(":")[1]}",
                     style: context.textTheme.headlineMedium?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
@@ -68,7 +68,7 @@ class RouteListTile extends StatelessWidget {
             ],
           ),
           const Divider(color: Color(0xFF777777)),
-          const Row(children: [RouteChip(text: "ICC")]),
+          Row(children: [RouteChip(text: route.routes.first.operator)]),
         ],
       ),
     );
