@@ -54,7 +54,6 @@ class StopsView extends StatelessWidget {
             ),
           ),
         ),
-
         Positioned(
           bottom: 110,
           left: 0,

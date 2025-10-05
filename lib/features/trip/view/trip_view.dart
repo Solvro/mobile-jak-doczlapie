@@ -12,6 +12,7 @@ import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/glass_input.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../config/sheet_config.dart";
+import "../../report_incidents/view/report_incidents_btn.dart";
 import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/rest_client.dart";
 import "../data/track_response.dart";
@@ -88,6 +89,11 @@ class TripView extends HookConsumerWidget {
             ),
           ),
 
+          Positioned(
+            top: 180,
+            right: 20,
+            child: ReportIncidentsBtn(routeId: route.routes[0].id.toString(), runId: route.routes[0].run),
+          ),
           TripBottomSheet(
             route: route,
             draggableController: draggableController,
