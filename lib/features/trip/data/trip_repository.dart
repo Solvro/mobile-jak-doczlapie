@@ -9,6 +9,7 @@ part "trip_repository.g.dart";
 typedef TripStop = ({LatLng coordinates, String name, String time, int sequence});
 
 typedef Trip = ({
+  String id,
   List<TripStop> stops,
   String name,
   String direction,
@@ -37,6 +38,7 @@ Future<Trip> tripRepository(Ref ref, String lineId, int runId, String direction)
       }).toList() ??
       [];
   return (
+    id: line.id.toString(),
     stops: stops,
     name: line.name,
     direction: direction,
