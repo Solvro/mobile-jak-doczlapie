@@ -20,17 +20,18 @@ import "../../stops_map/data/stop.dart";
 import "../../trip/data/trip_repository.dart";
 import "../hooks/use_first_departure_time.dart";
 import "../hooks/use_line_cycling.dart";
+import "../hooks/use_line_map_focus.dart";
 import "line_polyline_layer.dart";
 
 typedef LineWithDestination = ({Line line, String destination});
 
-class StopDetailsView extends HookWidget {
+class StopDetailsView extends HookConsumerWidget {
   const StopDetailsView({super.key, required this.stop});
 
   final Stop? stop;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
     final activeLine = useState<LineWithDestination?>(
@@ -58,12 +59,15 @@ class StopDetailsView extends HookWidget {
 
     useEffect(() {
       if (stop != null) {
-        mapController.move(initialCenter, 15);
+        mapController.move(initialCenter, 12);
       }
       return null;
     }, [initialCenter]);
 
     final cycleToNextLine = useLineCycling(activeLine: activeLine, routes: stop?.routes);
+
+    // Focus map on active line when it changes
+    useLineMapFocus(activeLine: activeLine, mapController: mapController, ref: ref);
 
     return Scaffold(
       body: Stack(
