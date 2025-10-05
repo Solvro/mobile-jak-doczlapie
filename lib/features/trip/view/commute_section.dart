@@ -88,14 +88,22 @@ class CommuteSection extends StatelessWidget {
                   shape: const Border(),
                   iconColor: Colors.white,
                   collapsedIconColor: Colors.white,
-                  title: Text("3 przystanki", style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
-                  children: const [
-                    StopRoute(hour: "10:10", text: "Wrocław"),
-                    SizedBox(height: p8),
-                    StopRoute(hour: "10:11", text: "Kraków"),
-                    SizedBox(height: p8),
-                    StopRoute(hour: "10:12", text: "Warszawa"),
-                  ],
+                  title: Text(
+                    "${segment.stops.length - 2} przystanki",
+                    style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
+                  ),
+                  children: segment.stops
+                      .skip(1)
+                      .take(segment.stops.length - 2)
+                      .map(
+                        (stop) => StopRoute(
+                          color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
+                          hour: "${stop.time.split(":").first}:${stop.time.split(":")[1]}",
+                          text: stop.name,
+                        ),
+                      )
+                      .expand((stop) => [stop, const SizedBox(height: p8)])
+                      .toList(),
                 ),
               ),
             ],
@@ -123,17 +131,17 @@ class CommuteSection extends StatelessWidget {
 }
 
 class StopRoute extends StatelessWidget {
-  const StopRoute({super.key, required this.hour, required this.text});
+  const StopRoute({super.key, required this.hour, required this.text, required this.color});
 
   final String hour;
   final String text;
-
+  final RouteChipColor color;
   @override
   Widget build(BuildContext context) {
     return Row(
       spacing: p8,
       children: [
-        RouteChip(text: hour),
+        RouteChip(text: hour, color: color),
         Text(text, style: context.textTheme.titleSmall?.copyWith(color: Colors.white)),
       ],
     );
