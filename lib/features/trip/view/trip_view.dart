@@ -94,12 +94,6 @@ class TripView extends HookConsumerWidget {
               );
             },
           ),
-          const Positioned(bottom: p64, right: p16, child: ReportButton()),
-          Positioned(
-            bottom: p128,
-            right: p16,
-            child: TrackButton(isEnabled: isEnabled.value, onToggle: () => isEnabled.value = !isEnabled.value),
-          ),
         ],
       ),
     );

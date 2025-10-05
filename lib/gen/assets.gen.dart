@@ -23,15 +23,31 @@ class $AssetsIconsGen {
   /// File path: assets/icons/map_list_switch.svg
   String get mapListSwitch => 'assets/icons/map_list_switch.svg';
 
+  /// File path: assets/icons/point.svg
+  String get point => 'assets/icons/point.svg';
+
   /// File path: assets/icons/road_icon.svg
   String get roadIcon => 'assets/icons/road_icon.svg';
+
+  /// File path: assets/icons/time.svg
+  String get time => 'assets/icons/time.svg';
+
+  /// File path: assets/icons/train.svg
+  String get train => 'assets/icons/train.svg';
+
+  /// File path: assets/icons/walk.svg
+  String get walk => 'assets/icons/walk.svg';
 
   /// List of all assets
   List<String> get values => [
     busStopIcon,
     busVechicleIcon,
     mapListSwitch,
+    point,
     roadIcon,
+    time,
+    train,
+    walk,
   ];
 }
 
