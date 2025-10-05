@@ -1,10 +1,8 @@
 import "package:flutter/material.dart";
-import "package:flutter_hooks/flutter_hooks.dart";
 import "package:flutter_map/flutter_map.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:latlong2/latlong.dart";
 
-import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../data/route_response.dart";
 import "route_stops_layer.dart";
@@ -16,13 +14,10 @@ class RouteMapPolylineLayer extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final routePoints = useMemoized(
-      () => [
-        ...(route?.routes.map((segment) => segment.departure.coordinates).toList() ?? []),
-        route?.arrival.coordinates ?? const LatLng(0, 0),
-      ],
-      [route],
-    );
+    final routePoints = [
+      ...(route?.routes.map((segment) => segment.departure.coordinates).toList() ?? []),
+      route?.arrival.coordinates ?? const LatLng(0, 0),
+    ];
     return Stack(
       children: [
         PolylineLayer(
@@ -30,7 +25,7 @@ class RouteMapPolylineLayer extends HookConsumerWidget {
             Polyline(
               points: routePoints.map((stop) => LatLng(stop.latitude, stop.longitude)).toList(),
               strokeWidth: p4,
-              color: context.colorScheme.primary,
+              color: blueColorNew,
             ),
           ],
         ),

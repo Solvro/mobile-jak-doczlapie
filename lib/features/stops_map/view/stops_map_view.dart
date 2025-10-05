@@ -84,6 +84,7 @@ class StopsMapView extends HookWidget {
               if (stops != null)
                 StopMarkersLayer(
                   stops: stops!,
+                  activeStop: activeStop.value,
                   onMarkerTap: (index) {
                     final stop = stops![index];
                     mapController.move(stop.coordinates, 16);

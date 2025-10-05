@@ -14,40 +14,37 @@ class RouteStopsLayer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final markers = useMemoized(
-      () => [
-        Marker(
-          point: route.departure.coordinates,
-          width: p12,
-          height: p12,
-          child: const DotIndicator(variant: DotIndicatorVariant.green),
-        ),
-        ...route.routes.asMap().entries.map((entry) {
-          final index = entry.key;
-          final segment = entry.value;
+    final markers = [
+      Marker(
+        point: route.departure.coordinates,
+        width: p12,
+        height: p12,
+        child: const DotIndicator(variant: DotIndicatorVariant.green),
+      ),
+      ...route.routes.asMap().entries.map((entry) {
+        final index = entry.key;
+        final segment = entry.value;
 
-          return Marker(
-            point: segment.departure.coordinates,
-            width: p12,
-            height: p12,
-            child: GestureDetector(
-              onTap: switch (onMarkerTap) {
-                null => null,
-                final fn => () => fn(index),
-              },
-              child: const DotIndicator(variant: DotIndicatorVariant.red),
-            ),
-          );
-        }),
-        Marker(
-          point: route.arrival.coordinates,
+        return Marker(
+          point: segment.departure.coordinates,
           width: p12,
           height: p12,
-          child: const DotIndicator(variant: DotIndicatorVariant.green),
-        ),
-      ],
-      [route.routes],
-    );
+          child: GestureDetector(
+            onTap: switch (onMarkerTap) {
+              null => null,
+              final fn => () => fn(index),
+            },
+            child: const DotIndicator(variant: DotIndicatorVariant.red),
+          ),
+        );
+      }),
+      Marker(
+        point: route.arrival.coordinates,
+        width: p12,
+        height: p12,
+        child: const DotIndicator(variant: DotIndicatorVariant.green),
+      ),
+    ];
 
     return MarkerLayer(markers: markers);
   }

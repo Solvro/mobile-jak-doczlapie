@@ -8,5 +8,5 @@ String useFirstDepartureTime(List<Schedule> schedules, String direction) {
     final filteredSchedules = schedules.where((schedule) => schedule.destination == direction).toList();
     filteredSchedules.sort((a, b) => a.time.compareTo(b.time));
     return filteredSchedules.first.time;
-  }, [schedules]);
+  }, [schedules, direction]);
 }
