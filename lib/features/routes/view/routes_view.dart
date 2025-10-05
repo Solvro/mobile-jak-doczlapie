@@ -11,6 +11,7 @@ import "../../../common/widgets/gradient_scaffold.dart";
 import "../../../common/widgets/inputs/my_input.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../report_schedule/view/report_schedule_button.dart";
 import "../../stops/view/animated_double_circle.dart";
 import "../../stops/view/location_picker_input.dart";
 
@@ -135,6 +136,7 @@ class RoutesViewContent extends StatelessWidget {
           right: 0,
           child: ClippedBottomNavBar(
             variant: isBigger ? ClippedBottomNavBarVariant.small : ClippedBottomNavBarVariant.verySmall,
+            extraBeanButtonLeft: const ReportScheduleButton(),
           ),
         ),
         if (isBigger)
