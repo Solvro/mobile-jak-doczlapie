@@ -8,5 +8,6 @@ class SimpleLogoAppBar extends AppBar {
     : super(
         title: Assets.logoVerticalWhite.image(width: s153),
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
       );
 }
