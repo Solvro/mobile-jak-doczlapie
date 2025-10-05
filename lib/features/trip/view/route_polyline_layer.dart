@@ -12,9 +12,7 @@ class RoutePolylineLayer extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routePoints = useMemoized(() => route.routes.map((stop) => stop.departure.coordinates).toList(), [
-      route.routes,
-    ]);
+    final routePoints = route.routes.map((segment) => segment.departure.coordinates).toList();
 
     return PolylineLayer(
       polylines: [Polyline(points: routePoints, strokeWidth: p4, color: blueColorNew)],
