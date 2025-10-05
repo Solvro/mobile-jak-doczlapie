@@ -95,7 +95,6 @@ class RoutesMapView extends HookWidget {
             ),
           ),
 
-          if (routes == null) const Center(child: CircularProgressIndicator()),
           if (routes != null && routes!.isEmpty)
             Center(
               child: BlurCard(
