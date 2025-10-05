@@ -26,16 +26,24 @@ class ReportIncidentsPage extends HookConsumerWidget {
         final location = await LocationService.getCurrentLocation();
         final restClient = ref.read(restClientProvider);
         final dto = ReportDto(type: selectedIncidentType.value!, coordinates: location, run: runId);
-        await restClient.sendReport(routeId, dto);
-        toastification.show(
-          type: ToastificationType.success,
-          style: ToastificationStyle.flat,
-          title: const Text("Zgłoszenie wysłane pomyślnie"),
-          autoCloseDuration: const Duration(seconds: 3),
-          alignment: Alignment.topCenter,
-        );
-        if (context.mounted) {
-          context.router.pop();
+        try {
+          await restClient.sendReport(routeId, dto);
+          toastification.show(
+            type: ToastificationType.success,
+            style: ToastificationStyle.flat,
+            title: const Text("Zgłoszenie wysłane pomyślnie"),
+            autoCloseDuration: const Duration(seconds: 3),
+            alignment: Alignment.topCenter,
+          );
+          if (context.mounted) {
+            context.router.pop();
+          }
+        } on Exception {
+          toastification.show(
+            type: ToastificationType.error,
+            style: ToastificationStyle.flat,
+            title: const Text("Błąd podczas wysyłania zgłoszenia"),
+          );
         }
       }
     }
