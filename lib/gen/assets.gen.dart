@@ -51,6 +51,9 @@ class Assets {
   static const AssetGenImage logoVerticalWhite = AssetGenImage(
     'assets/logo_vertical_white.png',
   );
+  static const AssetGenImage punctualBadge = AssetGenImage(
+    'assets/punctual_badge.png',
+  );
 
   /// List of all assets
   static List<AssetGenImage> get values => [
@@ -58,6 +61,7 @@ class Assets {
     footsteps4xlogo,
     logoVertical,
     logoVerticalWhite,
+    punctualBadge,
   ];
 }
 

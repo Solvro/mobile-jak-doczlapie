@@ -15,6 +15,7 @@ import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/glass_input.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../common/widgets/tile_layer.dart";
+import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../data/route_response.dart";
@@ -179,13 +180,22 @@ class RoutesBottomList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget>? children = routes?.map((route) {
       final isActive = activeRoute.value == route;
-      return VertRouteCard(isActive: isActive, route: route, onTap: () => onRouteTap(route));
+      return Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: VertRouteCard(isActive: isActive, route: route, onTap: () => onRouteTap(route)),
+          ),
+          if (isActive && route.routes.first.delay == null)
+            Positioned(top: 0, left: (167 - 80) / 2, child: Assets.punctualBadge.image(width: 80)),
+        ],
+      );
     }).toList();
 
     children ??= List.generate(10, (index) => const VertCardShimmer());
 
     return SizedBox(
-      height: VertCard.heightActive,
+      height: VertCard.heightActive + 30,
       child: ListView.separated(
         controller: scrollController,
         padding: const EdgeInsets.symmetric(horizontal: p8),
