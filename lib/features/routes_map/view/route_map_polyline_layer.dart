@@ -29,7 +29,7 @@ class RouteMapPolylineLayer extends HookConsumerWidget {
             ),
           ],
         ),
-        RouteStopsLayer(route: route!),
+        if (route != null) RouteStopsLayer(route: route!),
       ],
     );
   }
