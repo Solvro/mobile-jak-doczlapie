@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../utils/format_time.dart";
-import "../../routes_details/view/vert_route_card.dart";
 import "../../routes_search_details/data/route_response.dart";
+import "../../routes_search_details/view/segments_divider.dart";
 import "route_chip.dart";
 
 class RouteListTile extends StatelessWidget {

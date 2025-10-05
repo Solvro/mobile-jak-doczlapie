@@ -6,9 +6,9 @@ import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../gen/assets.gen.dart";
 import "../../../utils/format_time.dart";
-import "../../routes_details/view/vert_route_card.dart";
 import "../../routes_list/view/route_chip.dart";
 import "../data/route_response.dart";
+import "segments_divider.dart";
 
 class VertRouteCard extends StatelessWidget {
   const VertRouteCard({super.key, required this.route, this.isActive = false, this.onTap});
