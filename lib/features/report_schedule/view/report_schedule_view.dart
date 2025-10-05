@@ -1,6 +1,7 @@
-import "dart:io";
+import "dart:convert";
 
 import "package:auto_route/auto_route.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_form_builder/flutter_form_builder.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
@@ -85,6 +86,38 @@ class ReportScheduleViewContent extends StatelessWidget {
   final ImagePickerController imagePicker;
   final VoidCallback onFormSubmit;
 
+  Widget _buildImageWidget() {
+    if (image == null) return const SizedBox.shrink();
+
+    // Use base64 data for cross-platform compatibility
+    return FutureBuilder<String?>(
+      future: _getBase64Data(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data != null) {
+          final bytes = base64Decode(snapshot.data!);
+          return Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(r18),
+              image: DecorationImage(image: MemoryImage(bytes), fit: BoxFit.cover),
+            ),
+          );
+        }
+        return Container(
+          height: 200,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(r18), color: Colors.grey[300]),
+          child: const Center(child: CircularProgressIndicator()),
+        );
+      },
+    );
+  }
+
+  Future<String?> _getBase64Data() async {
+    if (image == null) return null;
+    final bytes = await image!.readAsBytes();
+    return base64Encode(bytes);
+  }
+
   @override
   Widget build(BuildContext context) {
     final isBigger = image != null;
@@ -113,19 +146,7 @@ class ReportScheduleViewContent extends StatelessWidget {
             ),
           ),
 
-        if (image != null)
-          Positioned(
-            left: 25,
-            right: 25,
-            top: 30,
-            child: Container(
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(r18),
-                image: DecorationImage(image: FileImage(File(image!.path)), fit: BoxFit.cover),
-              ),
-            ),
-          ),
+        if (image != null) Positioned(left: 25, right: 25, top: 30, child: _buildImageWidget()),
 
         // Image picker buttons
         if (image == null)
@@ -136,26 +157,28 @@ class ReportScheduleViewContent extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                FilledButton.icon(
-                  onPressed: () => imagePicker.pickImage(ImageSource.camera),
-                  icon: const Icon(Icons.camera_alt),
-                  label: const Text("Zrób zdjęcie"),
-                  style: FilledButton.styleFrom(
-                    padding: const EdgeInsets.all(p16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
+                // Camera button - only show on mobile platforms
+                if (!kIsWeb)
+                  FilledButton.icon(
+                    onPressed: () => imagePicker.pickImage(ImageSource.camera),
+                    icon: const Icon(Icons.camera_alt),
+                    label: const Text("Zrób zdjęcie"),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.all(p16),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(r18)),
 
-                    textStyle: GoogleFonts.bricolageGrotesque(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -0.64,
-                      color: const Color(0xFFF8F7F7),
+                      textStyle: GoogleFonts.bricolageGrotesque(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: -0.64,
+                        color: const Color(0xFFF8F7F7),
+                      ),
+                      backgroundColor: Colors.white.withValues(alpha: 0.9),
+                      foregroundColor: const Color(0xFF3156EE),
+                      minimumSize: const Size(double.infinity, 48),
                     ),
-                    backgroundColor: Colors.white.withValues(alpha: 0.9),
-                    foregroundColor: const Color(0xFF3156EE),
-                    minimumSize: const Size(double.infinity, 48),
                   ),
-                ),
-                const SizedBox(height: p12),
+                if (!kIsWeb) const SizedBox(height: p12),
                 FilledButton.icon(
                   onPressed: () => imagePicker.pickImage(ImageSource.gallery),
                   icon: const Icon(Icons.photo_library),
