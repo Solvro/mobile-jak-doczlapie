@@ -70,6 +70,9 @@ class Assets {
   static const AssetGenImage punctualBadge = AssetGenImage(
     'assets/punctual_badge.png',
   );
+  static const AssetGenImage yellowButton = AssetGenImage(
+    'assets/yellow_button.png',
+  );
 
   /// List of all assets
   static List<AssetGenImage> get values => [
@@ -78,6 +81,7 @@ class Assets {
     logoVertical,
     logoVerticalWhite,
     punctualBadge,
+    yellowButton,
   ];
 }
 

@@ -5,7 +5,6 @@ import "../../../app/router.dart";
 import "../../../app/theme.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
-import "../../report_incidents/view/report_incidents_btn.dart";
 import "../../report_schedule/view/report_schedule_button.dart";
 
 class StopsView extends StatelessWidget {
@@ -55,8 +54,6 @@ class StopsView extends StatelessWidget {
             ),
           ),
         ),
-
-        // const Positioned(bottom: 110, child: ReportIncidentsBtn()),
         Positioned(
           bottom: 110,
           left: 0,
