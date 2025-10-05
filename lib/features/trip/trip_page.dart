@@ -54,8 +54,51 @@ class TripAdapter extends StatelessWidget {
   final Trip trip;
   final String firstDepartureTime;
 
+  /// Calculates travel time in minutes between departure and arrival times
+  int _calculateTravelTime(String departureTime, String arrivalTime) {
+    try {
+      // Parse time strings (assuming format like "HH:MM" or "HH:MM:SS")
+      final departure = _parseTimeString(departureTime);
+      final arrival = _parseTimeString(arrivalTime);
+
+      if (departure == null || arrival == null) {
+        return 60; // fallback to 60 minutes if parsing fails
+      }
+
+      // Calculate difference in minutes
+      final difference = arrival.difference(departure);
+      return difference.inMinutes;
+    } catch (e) {
+      return 60; // fallback to 60 minutes if any error occurs
+    }
+  }
+
+  /// Parses time string to DateTime object
+  DateTime? _parseTimeString(String timeString) {
+    try {
+      // Handle different time formats
+      if (timeString.contains(":")) {
+        final parts = timeString.split(":");
+        if (parts.length >= 2) {
+          final hours = int.parse(parts[0]);
+          final minutes = int.parse(parts[1]);
+
+          // Create DateTime for today with the given time
+          final now = DateTime.now();
+          return DateTime(now.year, now.month, now.day, hours, minutes);
+        }
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Calculate travel time in minutes
+    final travelTime = _calculateTravelTime(firstDepartureTime, trip.stops.last.time);
+
     final route = RouteResponse(
       departure: RouteStop(
         name: trip.stops.first.name,
@@ -71,7 +114,7 @@ class TripAdapter extends StatelessWidget {
         id: 0,
         distance: 0,
       ),
-      travelTime: 60,
+      travelTime: travelTime,
       transfers: 0,
       routes: [
         Segment(
@@ -91,7 +134,7 @@ class TripAdapter extends StatelessWidget {
               distance: null,
             );
           }).toList(),
-          travelTime: 60,
+          travelTime: travelTime,
           destination: trip.direction,
           reports: [],
         ),
