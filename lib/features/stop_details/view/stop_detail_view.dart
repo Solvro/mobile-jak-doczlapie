@@ -15,6 +15,7 @@ import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../routes_map/data/route_response.dart";
 import "../../stops_map/data/line.dart";
 import "../../stops_map/data/stop.dart";
 import "../../trip/data/trip_repository.dart";
@@ -212,13 +213,15 @@ class SingleDestinationVertTile extends HookConsumerWidget {
           ],
         ),
       ),
-      bottomIcon: SvgPicture.asset(
-        Assets.icons.busVechicleIcon,
-        height: p20,
-        colorFilter: isActive
-            ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-            : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-      ),
+      bottomIcon: line.type == TransportType.bus
+          ? SvgPicture.asset(
+              Assets.icons.busVechicleIcon,
+              height: p20,
+              colorFilter: isActive
+                  ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+                  : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            )
+          : Icon(Icons.train, size: p20, color: isActive ? Colors.black : Colors.white),
       bottomText: switch (ref.watch(
         tripRepositoryProvider(line.id.toString(), line.schedules?.first.run ?? 0, direction),
       )) {

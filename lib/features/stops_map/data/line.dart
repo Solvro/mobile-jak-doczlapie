@@ -1,5 +1,6 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 
+import "../../routes_map/data/route_response.dart";
 import "schedule.dart";
 import "stop.dart";
 
@@ -11,6 +12,7 @@ abstract class Line with _$Line {
   factory Line({
     required int id,
     required String name,
+    required TransportType type,
     required String operator,
     List<String>? destinations,
     List<Stop>? stops,
