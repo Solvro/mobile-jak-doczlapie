@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
@@ -134,7 +136,16 @@ class RoutesMapView extends HookWidget {
               activeRoute: activeRoute,
               onRouteTap: (route) async {
                 activeRoute.value = route;
-                await context.router.push(RouteTripRoute(route: route));
+                final router = context.router;
+                // Find the index of the selected route and scroll to it
+                if (routes != null) {
+                  final routeIndex = routes!.indexOf(route);
+                  if (routeIndex != -1) {
+                    unawaited(useScrollToRoute(scrollController: scrollController, routeIndex: routeIndex));
+                  }
+                }
+
+                await router.push(RouteTripRoute(route: route));
               },
             ),
           ),
