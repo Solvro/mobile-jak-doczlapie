@@ -21,7 +21,9 @@ void useRouteMapFocus({required ValueNotifier<RouteResponse?> activeRoute, requi
 
       if (coordinates.isNotEmpty) {
         final bounds = _calculateBounds(coordinates);
-        mapController.fitCamera(CameraFit.bounds(bounds: bounds));
+        Future.delayed(Duration.zero, () {
+          mapController.fitCamera(CameraFit.bounds(bounds: bounds));
+        });
       }
     }
     return null;
