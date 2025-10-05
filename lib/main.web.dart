@@ -7,6 +7,7 @@ import "app/app.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting("PL_pl");
+
   runApp(
     ProviderScope(
       child: MaterialApp(

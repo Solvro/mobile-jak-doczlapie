@@ -4,6 +4,7 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 import "../../../common/services/location_service.dart";
 import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/my_input.dart";
+import "../../stops_map/hooks/use_coords.dart";
 
 class LocationPickerInput extends HookConsumerWidget {
   const LocationPickerInput({
@@ -32,7 +33,7 @@ class LocationPickerInput extends HookConsumerWidget {
       customSuffixIcon: IconButton(
         onPressed: () async {
           await LocationService.requestPermission();
-          final placemark = await LocationService.getPlacemark();
+          final placemark = await mapboxService.getAddressFromCoords(await LocationService.getCurrentLocation());
           controller.text = placemark ?? "";
           onChanged?.call(placemark ?? "");
         },
