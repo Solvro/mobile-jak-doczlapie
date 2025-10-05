@@ -13,10 +13,16 @@ import "map_list_switch.dart";
 enum ClippedBottomNavBarVariant { normal, small, verySmall }
 
 class ClippedBottomNavBar extends HookConsumerWidget {
-  const ClippedBottomNavBar({super.key, this.variant = ClippedBottomNavBarVariant.normal, this.extraBeanButton});
+  const ClippedBottomNavBar({
+    super.key,
+    this.variant = ClippedBottomNavBarVariant.normal,
+    this.extraBeanButton,
+    this.showListSwitch = false,
+  });
 
   final ClippedBottomNavBarVariant variant;
   final Widget? extraBeanButton;
+  final bool showListSwitch;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
@@ -47,7 +53,8 @@ class ClippedBottomNavBar extends HookConsumerWidget {
                 child: Row(
                   spacing: p8,
                   children: [
-                    const MapListSwitchButton(),
+                    if (showListSwitch) const MapListSwitchButton(),
+                    if (!showListSwitch) const SizedBox(width: 56),
                     const Spacer(),
                     BeanButton(
                       icon: SvgPicture.asset(
@@ -91,6 +98,13 @@ class FadeBottomNavBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavControllerProvider);
     final bottomNavController = ref.read(bottomNavControllerProvider.notifier);
+
+    final router = AutoTabsRouter.of(context);
+    void setCurrentIndex(int index) {
+      bottomNavController.setCurrentIndex(index);
+      router.setActiveIndex(index);
+    }
+
     return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -120,7 +134,7 @@ class FadeBottomNavBar extends ConsumerWidget {
                   ),
                   label: "Trasy",
                   isActive: currentIndex == 0,
-                  onTap: () => bottomNavController.setCurrentIndex(0),
+                  onTap: () => setCurrentIndex(0),
                 ),
                 BeanButton(
                   icon: SvgPicture.asset(
@@ -131,9 +145,10 @@ class FadeBottomNavBar extends ConsumerWidget {
                   ),
                   label: "Przystanki",
                   isActive: currentIndex == 1,
-                  onTap: () => bottomNavController.setCurrentIndex(1),
+                  onTap: () => setCurrentIndex(1),
                 ),
                 const Spacer(),
+                const SizedBox(width: p56),
               ],
             ),
           ),

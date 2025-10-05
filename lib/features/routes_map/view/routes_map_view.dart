@@ -111,6 +111,7 @@ class RoutesMapView extends HookWidget {
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
+              showListSwitch: true,
               variant: routes != null && routes!.isEmpty
                   ? ClippedBottomNavBarVariant.verySmall
                   : ClippedBottomNavBarVariant.normal,
