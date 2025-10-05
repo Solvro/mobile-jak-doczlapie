@@ -14,15 +14,28 @@ Future<List<RouteResponse>?> routesRepository(
     return null;
   }
 
-  final response = await ref
-      .read(restClientProvider)
-      .getRoutes(
-        searchParams.fromLongitude.toString(),
-        searchParams.fromLatitude.toString(),
-        searchParams.toLongitude.toString(),
-        searchParams.toLatitude.toString(),
-        "5000",
-      );
+  // Start with radius 1000 and increase step by step
+  const initialRadius = 1000;
+  const radiusStep = 1000;
+  const maxRadius = 10000; // Maximum radius to prevent infinite loops
 
-  return response;
+  for (var radius = initialRadius; radius <= maxRadius; radius += radiusStep) {
+    final response = await ref
+        .read(restClientProvider)
+        .getRoutes(
+          searchParams.fromLongitude.toString(),
+          searchParams.fromLatitude.toString(),
+          searchParams.toLongitude.toString(),
+          searchParams.toLatitude.toString(),
+          radius.toString(),
+        );
+
+    // If we found routes, return them
+    if (response.isNotEmpty) {
+      return response;
+    }
+  }
+
+  // If no routes found with any radius, return null
+  return null;
 }
