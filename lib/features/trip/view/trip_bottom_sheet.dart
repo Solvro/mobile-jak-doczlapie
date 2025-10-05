@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../config/sheet_config.dart";
-import "../data/trip_repository.dart";
+import "../../routes_map/data/route_response.dart";
 import "commute_section.dart";
 import "final_section.dart";
 import "handle.dart";
@@ -11,14 +11,22 @@ import "trip_header.dart";
 import "walk_section.dart";
 
 class TripBottomSheet extends StatelessWidget {
-  const TripBottomSheet({super.key, required this.trip, required this.onStopTap, this.draggableController});
+  const TripBottomSheet({super.key, required this.route, required this.onStopTap, this.draggableController});
 
-  final Trip trip;
+  final RouteResponse route;
   final void Function(int index) onStopTap;
   final DraggableScrollableController? draggableController;
 
   @override
   Widget build(BuildContext context) {
+    final children = [
+      if (route.departure.distance != 0) WalkSection(routeStop: route.departure),
+      const SizedBox(height: p12),
+      ...route.routes.map((segment) => CommuteSection(segment: segment, isTrain: segment.type == TransportType.train)),
+      const SizedBox(height: p8),
+      if (route.arrival.distance != 0) WalkSection(routeStop: route.arrival, name: route.routes.last.arrival.name),
+      FinalSection(routePoint: route.arrival),
+    ];
     return DraggableScrollableSheet(
       initialChildSize: defaultSheetConfig.baseSize,
       minChildSize: defaultSheetConfig.minSize,
@@ -34,13 +42,13 @@ class TripBottomSheet extends StatelessWidget {
               SliverPersistentHeader(
                 pinned: true,
                 delegate: PersistentHeaderDelegate(
-                  size: 150,
+                  size: 165,
                   child: Padding(
                     padding: const EdgeInsets.all(p12),
                     child: Column(
                       children: [
                         const Handle(),
-                        TripHeader(trip: trip),
+                        TripHeader(route: route, isPunctual: route.routes.first.delay == null),
                       ],
                     ),
                   ),
@@ -50,14 +58,8 @@ class TripBottomSheet extends StatelessWidget {
                 padding: const EdgeInsets.all(p16),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
-                    return [
-                      const WalkSection(address: "Wschowa, ul Walna", time: "10:10", distance: 420, duration: 5),
-                      const SizedBox(height: p12),
-                      const CommuteSection(),
-                      const SizedBox(height: p8),
-                      const FinalSection(),
-                    ][index];
-                  }, childCount: 5),
+                    return children[index];
+                  }, childCount: children.length),
                 ),
               ),
             ],

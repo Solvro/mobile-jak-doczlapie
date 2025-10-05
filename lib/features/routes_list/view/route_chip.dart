@@ -34,15 +34,18 @@ class RouteChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ?leading,
-          Text(
-            switch (text) {
-              "POLREGIO" => "POLREG",
-              final value => value,
-            },
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            softWrap: false,
-            style: style ?? context.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+          Flexible(
+            child: Text(
+              switch (text) {
+                "POLREGIO" => "POLREG",
+                final value => value,
+              },
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              softWrap: false,
+              maxLines: 3,
+              style: style ?? context.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),

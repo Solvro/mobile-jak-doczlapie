@@ -4,23 +4,23 @@ import "package:flutter_map/flutter_map.dart";
 
 import "../../../app/tokens.dart";
 import "../../../common/widgets/dot_indicator.dart";
-import "../data/trip_repository.dart";
+import "../../routes_map/data/route_response.dart";
 
 class StopMarkersLayer extends HookWidget {
-  const StopMarkersLayer({super.key, required this.trip, this.onMarkerTap});
+  const StopMarkersLayer({super.key, required this.route, this.onMarkerTap});
 
-  final Trip trip;
+  final RouteResponse route;
   final void Function(int index)? onMarkerTap;
 
   @override
   Widget build(BuildContext context) {
     final markers = [
-      ...trip.stops.asMap().entries.map((entry) {
+      ...route.routes.asMap().entries.map((entry) {
         final index = entry.key;
         final stop = entry.value;
 
         return Marker(
-          point: stop.coordinates,
+          point: stop.departure.coordinates,
           width: p12,
           height: p12,
           child: GestureDetector(

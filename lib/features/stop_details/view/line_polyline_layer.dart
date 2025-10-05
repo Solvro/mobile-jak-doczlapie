@@ -4,7 +4,6 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 
 import "../../../app/tokens.dart";
 import "../../trip/data/trip_repository.dart";
-import "../../trip/view/stop_markers_layer.dart";
 import "stop_detail_view.dart";
 
 class LinePolylineLayer extends HookConsumerWidget {
@@ -36,7 +35,8 @@ class LinePolylineLayer extends HookConsumerWidget {
               ),
             ],
           ),
-          StopMarkersLayer(trip: value),
+          // TODO add back
+          // StopMarkersLayer(route: value),
         ],
       ),
       _ => const SizedBox.shrink(),

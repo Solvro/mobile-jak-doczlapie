@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 import "../../common/widgets/app_loading_screen.dart";
 import "data/trip_repository.dart";
-import "view/trip_view.dart";
 
 @RoutePage()
 class TripPage extends ConsumerWidget {
@@ -17,7 +16,7 @@ class TripPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final line = ref.watch(tripRepositoryProvider(lineId, runId, direction));
     return switch (line) {
-      AsyncData(:final value) => TripView(trip: value),
+      AsyncData(:final value) => /* TripView(route: value)*/ const Scaffold(body: Center(child: Text("placehosdler"))),
       AsyncLoading() => const AppLoadingScreen(),
       AsyncError(:final error, :final stackTrace) => Scaffold(
         body: Center(

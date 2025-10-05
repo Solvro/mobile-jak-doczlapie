@@ -52,12 +52,16 @@ abstract class Segment with _$Segment {
     required int run,
     @LatLngConverterNullable() LatLng? currentLocation,
     @LatLngConverterNullable() LatLng? delay,
-    required RouteStop departure,
-    required RouteStop arrival,
+    required List<RouteStop> stops,
     required int travelTime,
     required String destination,
     required List<dynamic> reports,
   }) = _Segment;
+
+  const Segment._();
+
+  RouteStop get departure => stops.first;
+  RouteStop get arrival => stops.last;
 
   factory Segment.fromJson(Map<String, dynamic> json) => _$SegmentFromJson(json);
 }
