@@ -19,6 +19,7 @@ import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 import "../data/route_response.dart";
 import "../hooks/use_route_cycling.dart";
+import "../hooks/use_route_map_focus.dart";
 import "route_map_polyline_layer.dart";
 import "vert_route_card.dart";
 
@@ -65,6 +66,9 @@ class RoutesMapView extends HookWidget {
       routes: routes,
       scrollController: scrollController,
     );
+
+    // Focus map on active route when it changes
+    useRouteMapFocus(activeRoute: activeRoute, mapController: mapController);
 
     return Scaffold(
       body: Stack(
