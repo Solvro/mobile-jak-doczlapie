@@ -27,4 +27,11 @@ Oprócz części mobilnej napisanej we Flutterze, w skład projektu wchodził Ba
 
 Jesteśmy dumnymi członkami koła naukowego zrzeszającego 120 pasjonatów informatyki tworzących software. Daj [na follow](https://github.com/Solvro) i [gwiazdki na naszych repo](https://github.com/Solvro/mobile-topwr)
 
+Zapraszamy do followania nas na socialach albo do dołączenia do naszego koła!
+
+- [https://www.facebook.com/knsolvro](https://www.facebook.com/knsolvro)
+- [https://www.linkedin.com/company/knsolvro](https://www.linkedin.com/company/knsolvro)
+- [https://github.com/Solvro](https://github.com/Solvro)
+
+
 
