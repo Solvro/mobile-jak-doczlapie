@@ -3,9 +3,10 @@ import "package:flutter/material.dart";
 import "../../../app/tokens.dart";
 
 class BlurCard extends StatelessWidget {
-  const BlurCard({super.key, required this.borderRadius, required this.child});
+  const BlurCard({super.key, required this.borderRadius, required this.child, this.borderRadius2});
 
   final double borderRadius;
+  final BorderRadius? borderRadius2;
   final Widget child;
 
   @override
@@ -16,7 +17,7 @@ class BlurCard extends StatelessWidget {
         filter: blurFilter,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: borderRadius2 ?? BorderRadius.circular(borderRadius),
             border: Border.all(color: greyBorder),
             color: const Color(0x6D3E3E3E), // rgba(62, 62, 62, 0.30)
           ),

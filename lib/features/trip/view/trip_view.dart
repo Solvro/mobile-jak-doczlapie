@@ -11,10 +11,8 @@ import "../../../config/sheet_config.dart";
 import "../../stops_map/data/rest_client.dart";
 import "../data/track_response.dart";
 import "../data/trip_repository.dart";
-import "report_button.dart";
 import "route_polyline_layer.dart";
 import "stop_markers_layer.dart";
-import "track_button.dart";
 import "trip_bottom_sheet.dart";
 
 class TripView extends HookConsumerWidget {
@@ -93,12 +91,6 @@ class TripView extends HookConsumerWidget {
                 curve: Curves.easeIn,
               );
             },
-          ),
-          const Positioned(bottom: p64, right: p16, child: ReportButton()),
-          Positioned(
-            bottom: p128,
-            right: p16,
-            child: TrackButton(isEnabled: isEnabled.value, onToggle: () => isEnabled.value = !isEnabled.value),
           ),
         ],
       ),
