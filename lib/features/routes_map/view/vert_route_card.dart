@@ -27,6 +27,7 @@ class VertRouteCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isActive ? blueColorNew : const Color(0xFF252328),
           borderRadius: BorderRadius.circular(r31),
+          border: Border.all(color: isActive ? green : Colors.transparent, width: 2),
         ),
         child: Material(
           color: Colors.transparent,
