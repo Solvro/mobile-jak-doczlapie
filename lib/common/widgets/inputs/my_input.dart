@@ -92,7 +92,7 @@ class MyInput extends HookWidget {
                         hasText.value = false;
                         onChanged?.call("");
                       },
-                      icon: const Icon(Icons.close, color: blueAccent, size: 18),
+                      icon: Icon(Icons.close, color: transparent ? Colors.white : blueAccent, size: 18),
                     )
                   : null),
         ),

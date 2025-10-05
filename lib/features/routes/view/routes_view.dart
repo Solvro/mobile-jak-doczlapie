@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
+import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
 
 class RoutesView extends StatelessWidget {
@@ -15,7 +16,20 @@ class RoutesView extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(isSmall: !isBigger)),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: ClippedBottomNavBar(
+            variant: isBigger ? ClippedBottomNavBarVariant.small : ClippedBottomNavBarVariant.verySmall,
+          ),
+        ),
+        if (isBigger)
+          Positioned(
+            bottom: 145 + MediaQuery.paddingOf(context).bottom,
+            left: MediaQuery.sizeOf(context).width * 0.5 - 85,
+            child: Assets.fakeGreenBadge.image(width: 170),
+          ),
         Positioned(
           left: 25,
           top: 55,

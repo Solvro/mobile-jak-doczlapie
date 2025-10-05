@@ -10,10 +10,12 @@ import "../domain/bottom_nav_controller.dart";
 import "bean_button.dart";
 import "map_list_switch.dart";
 
-class ClippedBottomNavBar extends HookConsumerWidget {
-  const ClippedBottomNavBar({super.key, this.isSmall = false, this.extraBeanButton});
+enum ClippedBottomNavBarVariant { normal, small, verySmall }
 
-  final bool isSmall;
+class ClippedBottomNavBar extends HookConsumerWidget {
+  const ClippedBottomNavBar({super.key, this.variant = ClippedBottomNavBarVariant.normal, this.extraBeanButton});
+
+  final ClippedBottomNavBarVariant variant;
   final Widget? extraBeanButton;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +37,11 @@ class ClippedBottomNavBar extends HookConsumerWidget {
             padding: const EdgeInsets.only(bottom: p24, left: p8, right: p8),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
-              height: isSmall ? 145 : 200,
+              height: variant == ClippedBottomNavBarVariant.small
+                  ? 180 + MediaQuery.paddingOf(context).bottom
+                  : variant == ClippedBottomNavBarVariant.verySmall
+                  ? 85 + MediaQuery.paddingOf(context).bottom
+                  : 240 + MediaQuery.paddingOf(context).bottom,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(

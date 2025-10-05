@@ -94,7 +94,7 @@ class StopDetailsView extends HookWidget {
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
-              isSmall: stop == null,
+              variant: stop == null ? ClippedBottomNavBarVariant.small : ClippedBottomNavBarVariant.normal,
               extraBeanButton: stop == null
                   ? null
                   : BeanButton(

@@ -3,8 +3,8 @@ import "package:flutter/material.dart";
 
 import "../../../app/router.dart";
 import "../../../app/theme.dart";
+import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
-import "animated_showup_logo.dart";
 
 class StopsView extends StatelessWidget {
   const StopsView({super.key, required this.isBigger, required this.locationAddress});
@@ -17,8 +17,21 @@ class StopsView extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        if (isBigger) AnimatedShowupLogo(isBigger: isBigger),
-        Positioned(bottom: 0, left: 0, right: 0, child: ClippedBottomNavBar(isSmall: !isBigger)),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: ClippedBottomNavBar(
+            variant: !isBigger ? ClippedBottomNavBarVariant.verySmall : ClippedBottomNavBarVariant.small,
+          ),
+        ),
+        if (isBigger)
+          Positioned(
+            // TODO: this is fake
+            bottom: 145 + MediaQuery.paddingOf(context).bottom,
+            left: MediaQuery.sizeOf(context).width * 0.5 - 85,
+            child: Assets.fakeGreenBadge.image(width: 170),
+          ),
         if (!isBigger)
           Positioned(
             left: 25,

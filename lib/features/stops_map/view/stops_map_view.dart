@@ -116,7 +116,11 @@ class StopsMapView extends HookWidget {
             left: 0,
             right: 0,
             child: ClippedBottomNavBar(
-              isSmall: stops == null || stops!.isEmpty,
+              variant: stops != null && stops!.isEmpty
+                  ? ClippedBottomNavBarVariant.verySmall
+                  : stops == null
+                  ? ClippedBottomNavBarVariant.small
+                  : ClippedBottomNavBarVariant.normal,
               extraBeanButton: stops == null || stops!.isEmpty
                   ? null
                   : BeanButton(

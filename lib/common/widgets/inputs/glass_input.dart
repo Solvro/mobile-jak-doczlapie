@@ -38,3 +38,34 @@ class GlassReadonlyInput extends HookWidget {
     );
   }
 }
+
+class GlassInput extends HookWidget {
+  const GlassInput({
+    super.key,
+    required this.controller,
+    this.variant = MyInputVariant.dense,
+    this.dotIndicatorVariant = DotIndicatorVariant.red,
+    this.onChanged,
+    this.onSubmitted,
+  });
+
+  final TextEditingController controller;
+  final MyInputVariant variant;
+  final DotIndicatorVariant dotIndicatorVariant;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
+  @override
+  Widget build(BuildContext context) {
+    return BlurCard(
+      borderRadius: r18,
+      child: MyInput(
+        controller: controller,
+        variant: variant,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
+        dotIndicatorVariant: dotIndicatorVariant,
+        transparent: true,
+      ),
+    );
+  }
+}

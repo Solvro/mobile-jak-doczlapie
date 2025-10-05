@@ -32,7 +32,7 @@ class StopsPage extends HookConsumerWidget {
               SimpleLogoAppBar(),
               Expanded(
                 child: Column(
-                  spacing: 12,
+                  spacing: p12,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(

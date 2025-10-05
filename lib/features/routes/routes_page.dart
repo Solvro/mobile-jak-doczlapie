@@ -44,7 +44,7 @@ class RoutesPage extends HookConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: p16),
                       child: Column(
-                        spacing: 8,
+                        spacing: p12,
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
