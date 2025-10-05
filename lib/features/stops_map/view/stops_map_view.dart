@@ -17,6 +17,7 @@ import "../../../common/widgets/tile_layer.dart";
 import "../../../gen/assets.gen.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../routes_map/data/route_response.dart";
 import "../data/stop.dart";
 import "../hooks/use_next_stop_navigation.dart";
 import "stops_layer.dart";
@@ -183,14 +184,16 @@ class StopsBottomList extends StatelessWidget {
             ],
           ),
         ),
-        bottomIcon: SvgPicture.asset(
-          Assets.icons.busStopIcon,
-          height: p20,
-          colorFilter: isActive
-              ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-              : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
-        bottomText: "120 m",
+        bottomIcon: stop.type == TransportType.bus
+            ? SvgPicture.asset(
+                Assets.icons.busStopIcon,
+                height: p20,
+                colorFilter: isActive
+                    ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+                    : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              )
+            : Icon(Icons.train, size: p20, color: isActive ? Colors.black : Colors.white),
+        bottomText: "${stop.distance} m",
 
         onTap: () async {
           activeStop.value = stop;

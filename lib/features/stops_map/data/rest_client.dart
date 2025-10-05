@@ -22,7 +22,7 @@ abstract class RestClient {
   Future<List<Stop>> getNearbyStops(
     @Query("latitude") String latitude,
     @Query("longitude") String longitiude,
-    @Query("radium") String? radium,
+    @Query("radius") String? radius,
   );
 
   @GET("/api/v1/stops/{id}")
