@@ -11,9 +11,10 @@ import "../../routes_map/data/route_response.dart";
 import "../../stops_map/hooks/use_coords.dart";
 
 class WalkSection extends StatelessWidget {
-  const WalkSection({super.key, required this.routeStop});
+  const WalkSection({super.key, required this.routeStop, this.name});
 
   final RouteStop routeStop;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,11 @@ class WalkSection extends StatelessWidget {
               style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
               leading: SvgPicture.asset(Assets.icons.point),
             ),
-            AddresLabel(coordinates: routeStop.coordinates),
+            Flexible(
+              child: (name != null)
+                  ? Text(name!, style: context.textTheme.titleLarge?.copyWith(color: Colors.white))
+                  : AddresLabel(coordinates: routeStop.coordinates),
+            ),
           ],
         ),
         Row(
@@ -61,7 +66,11 @@ class AddresLabel extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final address = useAddress(coordinates);
-    return Text(address.data.toString(), style: context.textTheme.titleLarge?.copyWith(color: Colors.white));
+    return Text(
+      address.data.toString(),
+      style: context.textTheme.titleLarge?.copyWith(color: Colors.white),
+      overflow: TextOverflow.ellipsis,
+    );
   }
 }
 

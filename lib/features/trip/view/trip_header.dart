@@ -17,30 +17,38 @@ class TripHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BlurCard(
-          borderRadius: r31,
-          child: Padding(
-            padding: const EdgeInsets.all(p16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                HourTitle(
-                  hour: "${route.departure.time.split(":").first}:${route.departure.time.split(":")[1]}",
-                  text: route.departure.name,
-                ),
-                const SizedBox(width: 2, height: 70, child: VerticalDivider(color: greyBorder)),
-                HourTitle(
-                  hour: "${route.arrival.time.split(":").first}:${route.arrival.time.split(":")[1]}",
-                  text: route.arrival.name,
-                ),
-              ],
+        SizedBox(
+          height: 120,
+          child: BlurCard(
+            borderRadius: r31,
+            child: Padding(
+              padding: const EdgeInsets.all(p16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Flexible(
+                    child: HourTitle(
+                      hour: "${route.departure.time.split(":").first}:${route.departure.time.split(":")[1]}",
+                      text: route.departure.name,
+                    ),
+                  ),
+                  const SizedBox(width: 2, height: 70, child: VerticalDivider(color: greyBorder)),
+                  Flexible(
+                    child: HourTitle(
+                      hour: "${route.arrival.time.split(":").first}:${route.arrival.time.split(":")[1]}",
+                      text: route.arrival.name,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Transform.translate(
-            offset: const Offset(0, 90),
+            offset: const Offset(0, 107),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: p8, vertical: p4),
               decoration: BoxDecoration(
@@ -73,10 +81,14 @@ class HourTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(hour, style: context.textTheme.headlineLarge?.copyWith(color: Colors.white)),
         Text(
           text,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: context.textTheme.titleMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w500),
         ),
       ],

@@ -9,8 +9,9 @@ import "../../routes_list/view/route_chip.dart";
 import "../../routes_map/data/route_response.dart";
 
 class CommuteSection extends StatelessWidget {
-  const CommuteSection({super.key, required this.segment});
+  const CommuteSection({super.key, required this.segment, required this.isTrain});
   final Segment segment;
+  final bool isTrain;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -21,23 +22,43 @@ class CommuteSection extends StatelessWidget {
           children: [
             const SizedBox(width: p4),
             RouteChip(
+              color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
               text: "${segment.departure.time.split(":").first}:${segment.departure.time.split(":")[1]}",
               style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
             ),
-            Text(segment.departure.name, style: context.textTheme.titleLarge?.copyWith(color: Colors.white)),
+            Flexible(
+              child: Text(
+                segment.departure.name,
+                style: context.textTheme.titleLarge?.copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: p4),
         Row(
           children: [
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              padding: const EdgeInsets.all(p8),
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: red2),
-              child: SvgPicture.asset(Assets.icons.train),
-            ),
+            if (isTrain)
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                padding: const EdgeInsets.all(p8),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: orange),
+                child: SvgPicture.asset(Assets.icons.train),
+              )
+            else
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                padding: const EdgeInsets.all(p4),
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: red2),
+                child: SvgPicture.asset(
+                  Assets.icons.busVechicleIcon,
+                  width: p20,
+                  height: p20,
+                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
+              ),
             const SizedBox(width: p8),
-            RouteChip(text: segment.name.split(" ")[0]),
+            RouteChip(text: segment.name.split(" ")[0], color: isTrain ? RouteChipColor.orange : RouteChipColor.red),
             const SizedBox(width: p4),
             const Icon(Icons.east, color: Colors.white, size: 18),
             const SizedBox(width: p4),
@@ -57,7 +78,7 @@ class CommuteSection extends StatelessWidget {
               const SizedBox(width: 32),
               Transform.translate(
                 offset: const Offset(0, -6),
-                child: const VerticalDivider(color: red2, thickness: 3, width: 3),
+                child: VerticalDivider(color: !isTrain ? red2 : orange, thickness: 3, width: 3),
               ),
               const SizedBox(width: 32),
               Expanded(
@@ -87,7 +108,7 @@ class CommuteSection extends StatelessWidget {
                 padding: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEB6559),
-                  border: Border.all(color: red2, width: 4),
+                  border: Border.all(color: !isTrain ? red2 : orange, width: 4),
                   shape: BoxShape.circle,
                 ),
               ),

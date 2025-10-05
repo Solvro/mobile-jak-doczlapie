@@ -5,7 +5,11 @@ import "package:hooks_riverpod/hooks_riverpod.dart";
 import "package:latlong2/latlong.dart";
 
 import "../../../app/tokens.dart";
+
 import "../../../common/services/location_service.dart";
+import "../../../common/widgets/cards/blur_card.dart";
+import "../../../common/widgets/dot_indicator.dart";
+import "../../../common/widgets/inputs/glass_input.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../config/sheet_config.dart";
 import "../../routes_map/data/route_response.dart";
@@ -57,7 +61,10 @@ class TripView extends HookConsumerWidget {
         children: [
           FlutterMap(
             mapController: mapController,
-            options: MapOptions(initialCenter: initialCenter),
+            options: MapOptions(
+              initialCenter: initialCenter,
+              interactionOptions: const InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
+            ),
             children: [
               TileLayer(
                 urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -79,6 +86,21 @@ class TripView extends HookConsumerWidget {
               const Positioned(top: p64, left: p16, child: PopButton()),
             ],
           ),
+          Positioned(
+            top: 80,
+            left: 20,
+            right: 20,
+            child: Column(
+              spacing: p8,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GlassReadonlyInput(initialText: route.departure.name),
+                GlassReadonlyInput(initialText: route.arrival.name, dotIndicatorVariant: DotIndicatorVariant.green),
+                const BlurCard(borderRadius: r18, child: PopButton()),
+              ],
+            ),
+          ),
+
           TripBottomSheet(
             route: route,
             draggableController: draggableController,

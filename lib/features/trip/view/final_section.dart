@@ -20,7 +20,7 @@ class FinalSection extends StatelessWidget {
           style: context.textTheme.titleSmall?.copyWith(color: Colors.white),
           color: RouteChipColor.green,
         ),
-        AddresLabel(coordinates: routePoint.coordinates),
+        Flexible(child: AddresLabel(coordinates: routePoint.coordinates)),
       ],
     );
   }

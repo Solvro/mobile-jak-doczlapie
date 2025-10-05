@@ -22,8 +22,9 @@ class TripBottomSheet extends StatelessWidget {
     final children = [
       if (route.departure.distance != 0) WalkSection(routeStop: route.departure),
       const SizedBox(height: p12),
-      ...route.routes.map((segment) => CommuteSection(segment: segment)),
+      ...route.routes.map((segment) => CommuteSection(segment: segment, isTrain: segment.type == TransportType.train)),
       const SizedBox(height: p8),
+      if (route.arrival.distance != 0) WalkSection(routeStop: route.arrival, name: route.routes.last.arrival.name),
       FinalSection(routePoint: route.arrival),
     ];
     return DraggableScrollableSheet(
@@ -41,7 +42,7 @@ class TripBottomSheet extends StatelessWidget {
               SliverPersistentHeader(
                 pinned: true,
                 delegate: PersistentHeaderDelegate(
-                  size: 150,
+                  size: 165,
                   child: Padding(
                     padding: const EdgeInsets.all(p12),
                     child: Column(
