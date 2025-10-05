@@ -32,26 +32,26 @@ class StopsView extends StatelessWidget {
             left: MediaQuery.sizeOf(context).width * 0.5 - 85,
             child: Assets.fakeGreenBadge.image(width: 170),
           ),
-        if (!isBigger)
-          Positioned(
-            left: 25,
-            top: 150,
-            right: 27,
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Sprawdź jakie linie odjeżdżają z tego przystanku\n",
-                    style: context.textTheme.headlineSmall?.white.bold,
-                  ),
+        Positioned(
+          left: 25,
+          top: 140,
+          right: 27,
+          child: Text.rich(
+            TextSpan(
+              children: [
+                TextSpan(
+                  text: "Sprawdź jakie linie odjeżdżają z tego przystanku\n",
+                  style: context.textTheme.headlineSmall?.white.bold,
+                ),
+                if (!isBigger)
                   TextSpan(
                     text: "Wpisz nazwę lub lokalizację, w której się znajdujesz, aby wyszukać najbliższe przystanki.",
                     style: context.textTheme.titleMedium?.w400.withColor(const Color(0xFFD4D2CC)),
                   ),
-                ],
-              ),
+              ],
             ),
           ),
+        ),
 
         Positioned(
           bottom: 110,
