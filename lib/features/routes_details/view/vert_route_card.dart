@@ -6,12 +6,12 @@ import "../../../app/tokens.dart";
 import "../../../common/widgets/cards/vert_card.dart";
 import "../../../gen/assets.gen.dart";
 import "../../routes_list/view/route_chip.dart";
-import "route_detail_view.dart" show Route;
+import "../data/route_response.dart";
 
 class VertRouteCard extends StatelessWidget {
   const VertRouteCard({super.key, required this.route, this.isActive = false, this.onTap});
 
-  final Route route;
+  final RouteResponse route;
   final bool isActive;
   final VoidCallback? onTap;
 
@@ -54,7 +54,10 @@ class VertRouteCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Odjazd", style: context.textTheme.bodySmall?.bold.withColor(Colors.white)),
-                              Text(route.startTime, style: context.textTheme.titleLarge?.bold.withColor(Colors.white)),
+                              Text(
+                                "${route.departure.time.split(":").first}:${route.departure.time.split(":")[1]}",
+                                style: context.textTheme.titleLarge?.bold.withColor(Colors.white),
+                              ),
                             ],
                           ),
                           Container(width: 1, height: 38, color: const Color(0xFF777777)),
@@ -62,7 +65,10 @@ class VertRouteCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Przyjazd", style: context.textTheme.bodySmall?.bold.withColor(Colors.white)),
-                              Text(route.endTime, style: context.textTheme.titleLarge?.bold.withColor(Colors.white)),
+                              Text(
+                                "${route.arrival.time.split(":").first}:${route.arrival.time.split(":")[1]}",
+                                style: context.textTheme.titleLarge?.bold.withColor(Colors.white),
+                              ),
                             ],
                           ),
                         ],
@@ -78,10 +84,10 @@ class VertRouteCard extends StatelessWidget {
                           Wrap(
                             runSpacing: p4,
                             spacing: p8,
-                            children: route.segments.map((segment) {
-                              final isTrain = segment.lineNumber.contains("IC");
+                            children: route.routes.map((segment) {
+                              final isTrain = segment.type == TransportType.train;
                               return RouteChip(
-                                text: segment.lineNumber,
+                                text: segment.operator,
                                 color: isTrain ? RouteChipColor.orange : RouteChipColor.red,
                               );
                             }).toList(),
@@ -102,25 +108,33 @@ class VertRouteCard extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(p8),
-                          child: SvgPicture.asset(
-                            Assets.icons.busVechicleIcon,
-                            height: p20,
-                            colorFilter: isActive
-                                ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
-                                : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
+                          child: switch (route.routes.first.type) {
+                            TransportType.train => Icon(
+                              Icons.train,
+                              size: p20,
+                              color: isActive ? Colors.black : Colors.white,
+                            ),
+                            TransportType.bus => SvgPicture.asset(
+                              Assets.icons.busVechicleIcon,
+                              height: p20,
+                              colorFilter: isActive
+                                  ? const ColorFilter.mode(Colors.black, BlendMode.srcIn)
+                                  : const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                            ),
+                          },
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            route.segments.length - 1 == 0
-                                ? "Bez przesiadek"
-                                : "${route.segments.length - 1} przesiadki",
+                            route.transfers == 0 ? "Bez przesiadek" : "${route.transfers} przesiadki",
                             style: context.textTheme.bodySmall?.bold.withColor(Colors.white),
                           ),
-                          Text(route.totalTime, style: context.textTheme.bodySmall?.withColor(Colors.white)),
+                          Text(
+                            Duration(minutes: route.travelTime.abs()).toString(), // todo: format
+                            style: context.textTheme.bodySmall?.withColor(Colors.white),
+                          ),
                         ],
                       ),
                     ],
@@ -138,28 +152,23 @@ class VertRouteCard extends StatelessWidget {
 class SegmentsDivider extends StatelessWidget {
   const SegmentsDivider({super.key, required this.route});
 
-  final Route route;
+  final RouteResponse route;
 
   @override
   Widget build(BuildContext context) {
-    if (route.segments.isEmpty) {
+    if (route.routes.isEmpty) {
       return const SizedBox.shrink();
     }
-
-    // Calculate total duration to determine segment proportions
-    final totalDuration = route.segments.fold<Duration>(Duration.zero, (total, segment) => total + segment.duration);
 
     return SizedBox(
       height: 2,
       width: double.infinity,
       child: Row(
         spacing: 1,
-        children: route.segments.map((segment) {
-          final isTrain = segment.lineNumber.contains("IC");
-          final segmentDuration = segment.duration;
-          final proportion = totalDuration.inMilliseconds > 0
-              ? segmentDuration.inMilliseconds / totalDuration.inMilliseconds
-              : 1.0 / route.segments.length;
+        children: route.routes.map((segment) {
+          final isTrain = segment.type == TransportType.train;
+          final segmentDuration = segment.travelTime;
+          final proportion = route.travelTime > 0 ? segmentDuration / route.travelTime : 1.0 / route.routes.length;
 
           return Expanded(
             flex: (proportion * 100).round(),

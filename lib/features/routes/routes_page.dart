@@ -3,16 +3,6 @@ import "package:flutter/material.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 import "package:hooks_riverpod/hooks_riverpod.dart";
 
-import "../../app/router.dart";
-import "../../app/tokens.dart";
-
-import "../../common/widgets/app_bars/simple_logo_app_bar.dart";
-import "../../common/widgets/calendar_button.dart";
-import "../../common/widgets/dot_indicator.dart";
-import "../../common/widgets/gradient_scaffold.dart";
-import "../../common/widgets/inputs/my_input.dart";
-import "../stops/view/animated_double_circle.dart";
-import "../stops/view/location_picker_input.dart";
 import "view/routes_view.dart";
 
 @RoutePage()
@@ -28,72 +18,12 @@ class RoutesPage extends HookConsumerWidget {
     final searchControllerStart = useTextEditingController();
     final searchControllerEnd = useTextEditingController();
 
-    return GradientScaffold(
-      safeArea: false,
-      body: Stack(
-        children: [
-          AnimatedDoubleCircle(isBigger: isBigger),
-          Column(
-            children: [
-              SimpleLogoAppBar(),
-              Expanded(
-                child: Column(
-                  spacing: 12,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: p16),
-                      child: Column(
-                        spacing: p12,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const SizedBox(height: p4),
-                          LocationPickerInput(
-                            controller: searchControllerStart,
-                            onChanged: (text) {
-                              locationAddressStart.value = text;
-                            },
-                            onSubmitted: (text) async {
-                              locationAddressStart.value = text;
-                              if (isBigger) {
-                                await context.router.push(const RouteDetailsRoute());
-                              }
-                            },
-                            hintText: "Skąd jedziemy?",
-                            variant: MyInputVariant.dense,
-                          ),
-                          MyInput(
-                            controller: searchControllerEnd,
-                            onChanged: (text) {
-                              locationAddressEnd.value = text;
-                            },
-                            onSubmitted: (text) async {
-                              locationAddressEnd.value = text;
-                              if (isBigger) {
-                                await context.router.push(const RouteDetailsRoute());
-                              }
-                            },
-                            hintText: "Dokąd jedziemy?",
-                            variant: MyInputVariant.dense,
-                            dotIndicatorVariant: DotIndicatorVariant.green,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [CalendarButton(readonly: false)],
-                          ),
-                          const SizedBox(height: p4),
-                        ],
-                      ),
-                    ),
-                    Expanded(child: RoutesView(isBigger: isBigger)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+    return RoutesView(
+      isBigger: isBigger,
+      searchControllerStart: searchControllerStart,
+      locationAddressStart: locationAddressStart,
+      searchControllerEnd: searchControllerEnd,
+      locationAddressEnd: locationAddressEnd,
     );
   }
 }

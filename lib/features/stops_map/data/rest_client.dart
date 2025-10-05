@@ -5,6 +5,7 @@ import "package:retrofit/http.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 import "../../trip/data/track_response.dart";
+import "../../routes_details/data/route_response.dart";
 import "line.dart";
 import "stop.dart";
 
@@ -30,6 +31,15 @@ abstract class RestClient {
   @Headers(<String, dynamic>{"Content-Type": "application/json"})
   @POST("/api/v1/routes/{id}/tracks")
   Future<void> sendUserTrack(@Path("id") String id, @Body() TrackResponse trackResponse);
+
+  @GET("/api/v1/routes")
+  Future<List<RouteResponse>> getRoutes(
+    @Query("fromLongitude") String fromLongitude,
+    @Query("fromLatitude") String fromLatitude,
+    @Query("toLongitude") String toLongitude,
+    @Query("toLatitude") String toLatitude,
+    @Query("radius") String? radius,
+  );
 }
 
 @riverpod

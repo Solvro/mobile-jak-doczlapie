@@ -1,13 +1,16 @@
 import "package:flutter/foundation.dart";
 import "package:flutter_hooks/flutter_hooks.dart";
 
-import "../view/route_detail_view.dart";
+import "../data/route_response.dart";
 
 /// Hook for managing route cycling functionality
 ///
 /// Returns a function that cycles through available routes,
 /// moving to the next route when reaching the end.
-VoidCallback useRouteCycling({required ValueNotifier<Route?> activeRoute, required List<Route>? routes}) {
+VoidCallback useRouteCycling({
+  required ValueNotifier<RouteResponse?> activeRoute,
+  required List<RouteResponse>? routes,
+}) {
   return useCallback(() {
     final currentActive = activeRoute.value;
     final routesList = routes ?? [];

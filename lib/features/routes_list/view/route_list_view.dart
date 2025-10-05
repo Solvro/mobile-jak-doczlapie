@@ -4,11 +4,12 @@ import "../../../app/theme.dart";
 import "../../../app/tokens.dart";
 import "../../../common/widgets/app_bars/route_list_app_bar.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../../routes_details/data/route_response.dart";
 import "route_list_tile.dart";
 
 class RouteListView extends StatelessWidget {
-  const RouteListView({super.key});
-
+  const RouteListView({super.key, this.routes});
+  final List<RouteResponse>? routes;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

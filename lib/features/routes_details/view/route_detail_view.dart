@@ -4,71 +4,61 @@ import "package:flutter_map/flutter_map.dart";
 import "package:latlong2/latlong.dart";
 
 import "../../../app/tokens.dart";
-
 import "../../../common/widgets/cards/blur_card.dart";
 import "../../../common/widgets/cards/vert_card.dart";
-import "vert_route_card.dart";
 import "../../../common/widgets/dot_indicator.dart";
 import "../../../common/widgets/inputs/glass_input.dart";
 import "../../../common/widgets/pop_button.dart";
 import "../../../common/widgets/tile_layer.dart";
 import "../../bottom_nav/view/bean_button.dart";
 import "../../bottom_nav/view/bottom_nav_bar.dart";
+import "../data/route_response.dart";
 import "../hooks/use_route_cycling.dart";
-
-const mockRoutes = [
-  (
-    startTime: "10:00",
-    endTime: "11:00",
-    segments: [(lineNumber: "1", duration: Duration(hours: 3)), (lineNumber: "IC", duration: Duration(hours: 1))],
-    totalTime: "1h",
-  ),
-  (startTime: "11:00", endTime: "12:00", segments: [(lineNumber: "IC", duration: Duration(hours: 1))], totalTime: "1h"),
-];
+import "vert_route_card.dart";
 
 class RouteDetailsView extends HookWidget {
-  const RouteDetailsView({super.key});
+  const RouteDetailsView({super.key, this.routes});
+
+  final List<RouteResponse>? routes;
 
   @override
   Widget build(BuildContext context) {
     final mapController = useMemoized(MapController.new, []);
     final scrollController = useMemoized(ScrollController.new, []);
-    final activeRoute = useState<Route?>(mockRoutes.first);
+    final activeRoute = useState<RouteResponse?>(routes?.first);
 
-    // useEffect(() {
-    //   if (stop != null) {
-    //     activeLine.value = stop?.routes?.first != null
-    //         ? (line: stop!.routes!.first, destination: stop?.routes?.first.destinations?.first ?? "")
-    //         : null;
-    //   }
-    //   return null;
-    // }, [stop]);
+    useEffect(() {
+      if (routes != null && routes!.isNotEmpty) {
+        activeRoute.value = routes?.first;
+      }
+      return null;
+    }, [routes]);
 
-    // final initialCenter = useMemoized(() {
-    //   final stopLocal = stop;
-    //   if (stopLocal == null) {
-    //     return const LatLng(50.0645, 19.9830); // tauron arena
-    //   }
-    //   return stopLocal.coordinates;
-    // }, [stop]);
+    final initialCenter = useMemoized(() {
+      final stopLocal = routes;
+      if (stopLocal == null || stopLocal.isEmpty) {
+        return const LatLng(50.0645, 19.9830); // tauron arena
+      }
+      return stopLocal.first.departure.coordinates;
+    }, [routes]);
 
-    // useEffect(() {
-    //   if (stop != null) {
-    //     mapController.move(initialCenter, 15);
-    //   }
-    //   return null;
-    // }, [initialCenter]);
+    useEffect(() {
+      if (routes != null) {
+        mapController.move(initialCenter, 15);
+      }
+      return null;
+    }, [initialCenter]);
 
-    final cycleToNextRoute = useRouteCycling(activeRoute: activeRoute, routes: mockRoutes);
+    final cycleToNextRoute = useRouteCycling(activeRoute: activeRoute, routes: routes);
 
     return Scaffold(
       body: Stack(
         children: [
           FlutterMap(
             mapController: mapController,
-            options: const MapOptions(
-              initialCenter: LatLng(50.0645, 19.9830),
-              interactionOptions: InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
+            options: MapOptions(
+              initialCenter: initialCenter,
+              interactionOptions: const InteractionOptions(flags: InteractiveFlag.all & ~InteractiveFlag.rotate),
             ),
 
             children: const [
@@ -76,7 +66,6 @@ class RouteDetailsView extends HookWidget {
               // LinePolylineLayer(line: activeLine.value),
             ],
           ),
-          // if (stop != null)
           const Positioned(
             top: 80,
             left: 20,
@@ -92,7 +81,7 @@ class RouteDetailsView extends HookWidget {
             ),
           ),
 
-          // if (stop == null) const Center(child: CircularProgressIndicator()),
+          if (routes == null) const Center(child: CircularProgressIndicator()),
           Positioned(
             bottom: 0,
             left: 0,
@@ -112,7 +101,7 @@ class RouteDetailsView extends HookWidget {
             child: RoutesBottomList(
               mapController: mapController,
               scrollController: scrollController,
-              routes: mockRoutes,
+              routes: routes,
               activeRoute: activeRoute,
               onRouteTap: (route) => activeRoute.value = route,
             ),
@@ -122,10 +111,6 @@ class RouteDetailsView extends HookWidget {
     );
   }
 }
-
-typedef Segment = ({String lineNumber, Duration duration});
-
-typedef Route = ({String startTime, String endTime, List<Segment> segments, String totalTime});
 
 class RoutesBottomList extends StatelessWidget {
   const RoutesBottomList({
@@ -139,24 +124,25 @@ class RoutesBottomList extends StatelessWidget {
 
   final MapController mapController;
   final ScrollController scrollController;
-  final List<Route> routes;
-  final ValueNotifier<Route?> activeRoute;
-  final void Function(Route) onRouteTap;
+  final List<RouteResponse>? routes;
+  final ValueNotifier<RouteResponse?> activeRoute;
+  final void Function(RouteResponse) onRouteTap;
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = routes.map((route) {
+    List<Widget>? children = routes?.map((route) {
       final isActive = activeRoute.value == route;
       return VertRouteCard(isActive: isActive, route: route, onTap: () => onRouteTap(route));
     }).toList();
 
-    // children ??= List.generate(10, (index) => const VertCardShimmer());
+    children ??= List.generate(10, (index) => const VertCardShimmer());
+
     return SizedBox(
       height: VertCard.heightActive,
       child: ListView.separated(
         controller: scrollController,
         padding: const EdgeInsets.symmetric(horizontal: p8),
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => children[index],
+        itemBuilder: (context, index) => children![index],
         itemCount: children.length,
         separatorBuilder: (context, index) => const SizedBox(width: p8),
       ),

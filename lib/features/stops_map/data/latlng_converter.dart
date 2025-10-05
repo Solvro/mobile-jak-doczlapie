@@ -14,3 +14,23 @@ class LatLngConverter implements JsonConverter<LatLng, Map<String, dynamic>> {
     return {"latitude": object.latitude, "longitude": object.longitude};
   }
 }
+
+class LatLngConverterNullable implements JsonConverter<LatLng?, Map<String, dynamic>?> {
+  const LatLngConverterNullable();
+
+  @override
+  LatLng? fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return null;
+    }
+    return LatLng(json["latitude"] as double, json["longitude"] as double);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(LatLng? object) {
+    if (object == null) {
+      return null;
+    }
+    return {"latitude": object.latitude, "longitude": object.longitude};
+  }
+}
