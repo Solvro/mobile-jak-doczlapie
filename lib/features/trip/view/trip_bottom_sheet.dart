@@ -48,7 +48,7 @@ class TripBottomSheet extends StatelessWidget {
                     child: Column(
                       children: [
                         const Handle(),
-                        TripHeader(route: route),
+                        TripHeader(route: route, isPunctual: route.routes.first.delay == null),
                       ],
                     ),
                   ),

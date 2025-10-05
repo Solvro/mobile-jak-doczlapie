@@ -9,10 +9,10 @@ import "../../../gen/assets.gen.dart";
 import "../../routes_map/data/route_response.dart";
 
 class TripHeader extends StatelessWidget {
-  const TripHeader({super.key, required this.route});
+  const TripHeader({super.key, required this.route, this.isPunctual = false});
 
   final RouteResponse route;
-
+  final bool isPunctual;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -45,28 +45,29 @@ class TripHeader extends StatelessWidget {
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Transform.translate(
-            offset: const Offset(0, 107),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: p8, vertical: p4),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 84, 143, 63),
-                border: Border.all(color: const Color(0xFF7ECA63)),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(Assets.icons.time),
-                  const SizedBox(width: p4),
-                  Text("Punktualnie", style: context.textTheme.titleSmall?.copyWith(color: const Color(0xFF7ECA63))),
-                ],
+        if (isPunctual)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Transform.translate(
+              offset: const Offset(0, 107),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: p8, vertical: p4),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 84, 143, 63),
+                  border: Border.all(color: const Color(0xFF7ECA63)),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(Assets.icons.time),
+                    const SizedBox(width: p4),
+                    Text("Punktualnie", style: context.textTheme.titleSmall?.copyWith(color: const Color(0xFF7ECA63))),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
       ],
     );
   }
