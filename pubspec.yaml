@@ -43,7 +43,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.7.1
   riverpod_generator: ^3.0.0
-  auto_route_generator: ^10.2.4
+  auto_route_generator: ^10.2.5
   solvro_config: ^1.1.1
   flutter_gen_runner: ^5.12.0
   retrofit_generator: ^10.0.0

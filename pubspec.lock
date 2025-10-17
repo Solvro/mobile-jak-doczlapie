@@ -101,10 +101,10 @@ packages:
     dependency: "direct dev"
     description:
       name: auto_route_generator
-      sha256: ed4b65e85b4b2b00b06ef1e44c8623985c52c32d05d72147e3201257aa70a115
+      sha256: "3411b3ad9fda50e8bce5a3494a9e0d7385082438e22721febc9e3af08a35bc11"
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.4"
+    version: "10.2.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -1748,4 +1748,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: "3.9.2"
-  flutter: "3.35.5"
+  flutter: ">=3.35.5"
